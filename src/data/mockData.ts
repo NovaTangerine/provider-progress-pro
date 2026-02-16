@@ -1,4 +1,4 @@
-import { Role, Provider, Credential, CredentialStatus, CredentialCategory } from "@/types/recruiting";
+import { Role, Provider, Credential, CredentialStatus, CredentialCategory, ProviderHighlight } from "@/types/recruiting";
 
 const cred = (
   id: string,
@@ -20,9 +20,12 @@ export const mockProviders: Provider[] = [
     phone: "(555) 123-4567",
     availability: {
       startDate: "2026-04-01",
+      endDate: "2026-09-30",
       type: "full-time",
       willingToRelocate: true,
       preferredLocations: ["Boston, MA", "New York, NY"],
+      recurringDays: "Mon–Fri",
+      scheduleNotes: [{ label: "No overnight call" }],
     },
     education: [
       { institution: "Johns Hopkins University", degree: "MD", field: "Medicine", graduationYear: 2016 },
@@ -39,6 +42,13 @@ export const mockProviders: Provider[] = [
       cred("c4", "BLS Certification", "certification", "completed", "other", { issuingBody: "AHA", expirationDate: "2027-03-15" }),
       cred("c5", "ACLS Certification", "certification", "in_progress", "other", { issuingBody: "AHA", notes: "Renewal scheduled for March" }),
       cred("c6", "Malpractice Insurance", "license", "completed", "other"),
+    ],
+    highlights: [
+      { text: "800+ cardiac catheterizations performed", icon: "procedure" },
+      { text: "Previously staffed at Boston Medical Center (2019)", icon: "site" },
+      { text: "TAVR-certified interventionalist", icon: "credential" },
+      { text: "Published 12 peer-reviewed cardiology papers", icon: "research" },
+      { text: "Fluent in Mandarin and English", icon: "language" },
     ],
     stage: "credentialing",
     overallStatus: "in_progress",
@@ -57,6 +67,8 @@ export const mockProviders: Provider[] = [
       type: "full-time",
       willingToRelocate: false,
       preferredLocations: ["Boston, MA"],
+      recurringDays: "Mon–Thu",
+      scheduleNotes: [{ label: "No weekends" }, { label: "Available for on-call rotation" }],
     },
     education: [
       { institution: "Stanford University", degree: "MD", field: "Medicine", graduationYear: 2014 },
@@ -74,6 +86,11 @@ export const mockProviders: Provider[] = [
       cred("c12", "ACLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
       cred("c13", "Malpractice Insurance", "license", "incomplete", "other", { notes: "Awaiting documentation" }),
     ],
+    highlights: [
+      { text: "Dual board certified: Cardiology & Electrophysiology", icon: "credential" },
+      { text: "1,200+ EP ablation procedures", icon: "procedure" },
+      { text: "Former chief fellow at UCSF", icon: "award" },
+    ],
     stage: "confirmed",
     overallStatus: "red_flag",
     submittedDate: "2026-01-20",
@@ -90,6 +107,8 @@ export const mockProviders: Provider[] = [
       startDate: "2026-05-01",
       type: "part-time",
       willingToRelocate: true,
+      recurringDays: "Tue, Wed, Thu",
+      scheduleNotes: [{ label: "3 days/week max" }],
     },
     education: [
       { institution: "Harvard Medical School", degree: "MD", field: "Medicine", graduationYear: 2017 },
@@ -107,6 +126,12 @@ export const mockProviders: Provider[] = [
       cred("c18", "ACLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
       cred("c19", "Malpractice Insurance", "license", "incomplete", "other"),
     ],
+    highlights: [
+      { text: "Heart failure subspecialty — high-acuity experience", icon: "credential" },
+      { text: "Trained under Dr. Packer at Mayo Clinic", icon: "award" },
+      { text: "200+ LVAD implantations assisted", icon: "procedure" },
+      { text: "Bilingual: English & Hindi", icon: "language" },
+    ],
     stage: "presented",
     overallStatus: "in_progress",
     submittedDate: "2026-02-01",
@@ -121,9 +146,11 @@ export const mockProviders: Provider[] = [
     phone: "(555) 456-7890",
     availability: {
       startDate: "2026-03-01",
+      endDate: "2026-06-30",
       type: "locum",
       willingToRelocate: true,
       preferredLocations: ["Northeast US"],
+      scheduleNotes: [{ label: "Flexible hours" }, { label: "Weekends available" }],
     },
     education: [
       { institution: "University of Pennsylvania", degree: "MD", field: "Medicine", graduationYear: 2015 },
@@ -139,6 +166,11 @@ export const mockProviders: Provider[] = [
       cred("c23", "BLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
       cred("c24", "ACLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
       cred("c25", "Malpractice Insurance", "license", "completed", "other"),
+    ],
+    highlights: [
+      { text: "600+ PCI procedures across 3 institutions", icon: "procedure" },
+      { text: "Locum experience at 5+ major NE hospitals", icon: "site" },
+      { text: "ECMO-certified", icon: "credential" },
     ],
     stage: "on_assignment",
     overallStatus: "exception",
