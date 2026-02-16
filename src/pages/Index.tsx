@@ -34,7 +34,8 @@ const Index = () => {
     const measure = () => {
       if (providerThRef.current) {
         const rect = providerThRef.current.getBoundingClientRect();
-        setHeaderPadding(rect.left + window.scrollX);
+        const paddingLeft = parseFloat(getComputedStyle(providerThRef.current).paddingLeft) || 0;
+        setHeaderPadding(rect.left + paddingLeft + window.scrollX);
       }
     };
     measure();
