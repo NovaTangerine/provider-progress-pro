@@ -95,13 +95,13 @@ const Index = () => {
             <thead>
               <tr className="bg-muted text-muted-foreground">
                 <th className="px-4 py-2.5 w-[40px]" />
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[18%]">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[20%]">
                   Provider
                 </th>
                 <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[12%]">
                   Status
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[18%]">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[14%]">
                   Credentials
                 </th>
                 <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[12%]">
