@@ -7,6 +7,13 @@ import { StageToggle } from "@/components/StageToggle";
 import { LayoutList, LayoutGrid } from "lucide-react";
 import { ProviderStage } from "@/types/recruiting";
 
+const STAGE_LABELS: Record<ProviderStage, string> = {
+  presented: "Presented",
+  confirmed: "Confirmed",
+  credentialing: "Credentialing",
+  on_assignment: "On Assignment",
+};
+
 type ViewMode = "list" | "presentation";
 
 const Index = () => {
@@ -67,11 +74,19 @@ const Index = () => {
         </div>
       </div>
 
+      {viewMode === "list" && (
+        <div className="px-6 pt-4 pb-2">
+          <h2 className="text-sm font-semibold text-foreground">
+            {activeStage ? STAGE_LABELS[activeStage] : "All Providers"}
+          </h2>
+        </div>
+      )}
+
       {viewMode === "list" ? (
         <div className="overflow-x-auto">
           <table className="w-full table-fixed">
             <thead>
-              <tr className="bg-grid-header text-grid-header-foreground">
+              <tr className="bg-muted text-muted-foreground">
                 <th className="px-4 py-2.5 w-[40px]" />
                 <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[18%]">
                   Provider
