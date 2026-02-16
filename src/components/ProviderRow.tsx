@@ -77,7 +77,7 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
             </div>
             <div className="min-w-0">
               <p className={`text-sm truncate transition-colors duration-150 ${
-                isExpanded ? "font-semibold text-foreground" : "font-normal text-foreground/70 group-hover:font-semibold group-hover:text-foreground"
+                isExpanded ? "font-semibold text-foreground" : "font-normal text-foreground/80 group-hover:font-semibold group-hover:text-foreground"
               }`}>
                 {provider.lastName}, {provider.firstName}
               </p>
