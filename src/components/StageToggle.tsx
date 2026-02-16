@@ -1,4 +1,5 @@
 import { ProviderStage, Provider } from "@/types/recruiting";
+import { X } from "lucide-react";
 
 interface StageToggleProps {
   providers: Provider[];
@@ -31,9 +32,9 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
           <button
             key={s.value}
             onClick={() => onStageChange(isActive ? null : s.value)}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 border ${
+            className={`group/pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 border ${
               isActive
-                ? "bg-primary text-primary-foreground border-primary"
+                ? "bg-primary text-primary-foreground border-primary hover:bg-destructive hover:border-destructive"
                 : "bg-card text-muted-foreground border-border hover:text-foreground hover:border-foreground/30 hover:bg-[#EAEAEA]"
             }`}
           >
@@ -45,7 +46,14 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
                   : "bg-muted text-muted-foreground"
               }`}
             >
-              {count}
+              {isActive ? (
+                <>
+                  <span className="group-hover/pill:hidden">{count}</span>
+                  <X className="w-3 h-3 hidden group-hover/pill:block" />
+                </>
+              ) : (
+                count
+              )}
             </span>
           </button>
         );
