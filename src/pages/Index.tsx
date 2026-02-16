@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { mockRole } from "@/data/mockData";
 import { RoleHeader } from "@/components/RoleHeader";
 import { ProviderRow } from "@/components/ProviderRow";
@@ -27,6 +27,20 @@ const Index = () => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [activeStage, setActiveStage] = useState<ProviderStage | null>(null);
+  const providerThRef = useRef<HTMLTableCellElement>(null);
+  const [headerPadding, setHeaderPadding] = useState(0);
+
+  useEffect(() => {
+    const measure = () => {
+      if (providerThRef.current) {
+        const rect = providerThRef.current.getBoundingClientRect();
+        setHeaderPadding(rect.left + window.scrollX);
+      }
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [viewMode]);
 
 
   const toggleProvider = (id: string) => {
@@ -79,7 +93,7 @@ const Index = () => {
       </div>
 
       {viewMode === "list" &&
-      <div className="pr-6 pt-4 pb-3 flex items-center gap-2 px-[56px]" style={{ paddingLeft: 'calc(40px + 2rem)' }}>
+      <div className="pr-6 pt-4 pb-3 flex items-center gap-2" style={{ paddingLeft: headerPadding > 0 ? `${headerPadding}px` : 'calc(40px + 2rem)' }}>
           <h2 className="text-sm font-semibold text-foreground">
             {activeStage ? STAGE_HEADER_LABELS[activeStage] : "All Providers"}
           </h2>
@@ -95,7 +109,7 @@ const Index = () => {
             <thead>
               <tr className="bg-muted text-muted-foreground">
                 <th className="px-4 py-2.5 w-[40px]" />
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[20%]">
+                <th ref={providerThRef} className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[20%]">
                   Provider
                 </th>
                 <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[12%]">
