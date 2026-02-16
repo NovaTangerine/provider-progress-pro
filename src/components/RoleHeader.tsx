@@ -1,0 +1,48 @@
+import { Role } from "@/types/recruiting";
+import { Badge } from "@/components/ui/badge";
+import { MapPin, Building2, Calendar, Users } from "lucide-react";
+
+interface RoleHeaderProps {
+  role: Role;
+}
+
+const urgencyStyles = {
+  routine: "bg-muted text-muted-foreground",
+  urgent: "bg-status-in-progress-bg text-status-in-progress",
+  critical: "bg-status-red-flag-bg text-status-red-flag",
+};
+
+export function RoleHeader({ role }: RoleHeaderProps) {
+  return (
+    <div className="border-b border-border bg-card px-6 py-5">
+      <div className="flex items-start justify-between">
+        <div>
+          <div className="flex items-center gap-3 mb-1">
+            <h1 className="text-xl font-bold text-foreground">{role.title}</h1>
+            <Badge className={`text-xs font-medium capitalize ${urgencyStyles[role.urgency]}`}>
+              {role.urgency}
+            </Badge>
+          </div>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <Building2 className="w-3.5 h-3.5" />
+              {role.facility} · {role.department}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5" />
+              {role.location}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5" />
+              Target: {role.targetStartDate}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5" />
+              {role.providers.length} candidates
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
