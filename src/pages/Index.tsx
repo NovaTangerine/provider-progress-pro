@@ -108,7 +108,7 @@ const Index = () => {
       <div className="overflow-x-auto">
           <table className="w-full table-fixed">
             <thead>
-              <tr className="bg-muted text-muted-foreground">
+              <tr className="bg-muted text-muted-foreground [&>th]:bg-muted">
                 <th className="px-4 py-2.5 w-[40px]" />
                 <th ref={providerThRef} className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[20%]">
                   Provider
