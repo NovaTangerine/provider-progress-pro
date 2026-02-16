@@ -39,14 +39,19 @@
     /* Status colors */
     --status-incomplete: 215 12% 65%;
     --status-incomplete-bg: 210 14% 95%;
+    --status-incomplete-border: 210 14% 85%;
     --status-in-progress: 210 60% 50%;
     --status-in-progress-bg: 210 70% 95%;
+    --status-in-progress-border: 210 60% 82%;
     --status-completed: 152 60% 40%;
     --status-completed-bg: 152 60% 95%;
+    --status-completed-border: 152 50% 82%;
     --status-red-flag: 0 72% 51%;
     --status-red-flag-bg: 0 80% 96%;
+    --status-red-flag-border: 0 65% 85%;
     --status-exception: 262 52% 50%;
     --status-exception-bg: 262 60% 96%;
+    --status-exception-border: 262 45% 85%;
 
     /* Grid tokens */
     --grid-header: 215 25% 15%;
@@ -96,14 +101,19 @@
 
     --status-incomplete: 215 12% 50%;
     --status-incomplete-bg: 220 14% 18%;
+    --status-incomplete-border: 215 12% 30%;
     --status-in-progress: 210 55% 55%;
     --status-in-progress-bg: 210 40% 15%;
+    --status-in-progress-border: 210 45% 28%;
     --status-completed: 152 50% 35%;
     --status-completed-bg: 152 30% 15%;
+    --status-completed-border: 152 40% 25%;
     --status-red-flag: 0 60% 45%;
     --status-red-flag-bg: 0 40% 15%;
+    --status-red-flag-border: 0 50% 28%;
     --status-exception: 262 45% 45%;
     --status-exception-bg: 262 30% 15%;
+    --status-exception-border: 262 35% 28%;
 
     --grid-header: 220 18% 16%;
     --grid-header-foreground: 210 20% 92%;

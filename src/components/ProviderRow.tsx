@@ -36,7 +36,7 @@ function CredentialSummary({ credentials }: { credentials: Credential[] }) {
         return (
           <span
             key={status}
-            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium ${config.bgClassName} ${config.className}`}
+            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium border ${config.bgClassName} ${config.borderClassName} ${config.className}`}
             title={`${count} ${config.label}`}
           >
             <span className={`w-1.5 h-1.5 rounded-full ${config.dotClassName}`} />
