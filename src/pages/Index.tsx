@@ -14,6 +14,13 @@ const STAGE_LABELS: Record<ProviderStage, string> = {
   on_assignment: "On Assignment",
 };
 
+const STAGE_HEADER_LABELS: Record<ProviderStage, string> = {
+  presented: "Providers Presented",
+  confirmed: "Providers Confirmed",
+  credentialing: "Providers in Credentialing",
+  on_assignment: "Providers On Assignment",
+};
+
 type ViewMode = "list" | "presentation";
 
 const Index = () => {
@@ -37,9 +44,6 @@ const Index = () => {
       {/* View toggle bar */}
       <div className="border-b border-border bg-card px-6 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <p className="text-xs text-muted-foreground font-medium">
-            {filteredProviders.length} provider{filteredProviders.length !== 1 ? "s" : ""}
-          </p>
           {viewMode === "list" && (
             <StageToggle
               providers={mockRole.providers}
@@ -75,10 +79,13 @@ const Index = () => {
       </div>
 
       {viewMode === "list" && (
-        <div className="pl-[calc(40px+2rem)] pr-6 pt-4 pb-3">
+        <div className="pl-4 pr-6 pt-4 pb-3 flex items-center gap-2">
           <h2 className="text-sm font-semibold text-foreground">
-            {activeStage ? STAGE_LABELS[activeStage] : "All Providers"}
+            {activeStage ? STAGE_HEADER_LABELS[activeStage] : "All Providers"}
           </h2>
+          <span className="text-xs text-muted-foreground font-medium">
+            {filteredProviders.length}
+          </span>
         </div>
       )}
 
