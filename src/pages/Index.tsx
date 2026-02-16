@@ -53,7 +53,7 @@ const Index = () => {
   mockRole.providers;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background max-w-[1440px] mx-auto">
       <RoleHeader role={mockRole} />
 
       {/* View toggle bar */}
