@@ -73,7 +73,7 @@ const Index = () => {
             <thead>
               <tr className="bg-grid-header text-grid-header-foreground">
                 <th className="px-4 py-2.5 w-[40px]" />
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[25%]">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[18%]">
                   Provider
                 </th>
                 <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[12%]">
