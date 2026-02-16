@@ -4,13 +4,18 @@ import { StatusBadge, STATUS_CONFIG } from "./StatusBadge";
 import { CredentialModal } from "./CredentialModal";
 import {
   Calendar,
-  MapPin,
-  GraduationCap,
-  Briefcase,
   Clock,
   Mail,
   Phone,
-  ArrowRight,
+  ChevronDown,
+  ChevronUp,
+  Syringe,
+  Building2,
+  ShieldCheck,
+  Award,
+  Languages,
+  FlaskConical,
+  Sparkles,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -78,10 +83,41 @@ function StatusLegendBar({ credentials }: { credentials: Credential[] }) {
   );
 }
 
+const HIGHLIGHT_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  procedure: Syringe,
+  site: Building2,
+  credential: ShieldCheck,
+  award: Award,
+  language: Languages,
+  research: FlaskConical,
+};
+
+function HighlightItem({ text, icon }: { text: string; icon?: string }) {
+  const Icon = icon ? HIGHLIGHT_ICONS[icon] ?? Sparkles : Sparkles;
+  return (
+    <div className="flex items-start gap-2 text-sm">
+      <Icon className="w-3.5 h-3.5 text-primary/70 shrink-0 mt-0.5" />
+      <span className="text-muted-foreground">{text}</span>
+    </div>
+  );
+}
+
+function formatDateRange(startDate: string, endDate?: string) {
+  const fmt = (d: string) => {
+    const date = new Date(d + "T00:00:00");
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  };
+  if (endDate) return `${fmt(startDate)} – ${fmt(endDate)}`;
+  return `Starting ${fmt(startDate)}`;
+}
+
 export function ProviderCard({ provider }: ProviderCardProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
-  const currentExp = provider.experience.find((e) => !e.endYear);
-  const latestEdu = provider.education[0];
+  const [highlightsExpanded, setHighlightsExpanded] = useState(false);
+
+  const highlights = provider.highlights ?? [];
+  const visibleHighlights = highlightsExpanded ? highlights : highlights.slice(0, 3);
+  const hasMore = highlights.length > 3;
 
   return (
     <>
@@ -109,65 +145,72 @@ export function ProviderCard({ provider }: ProviderCardProps) {
             <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
               Availability
             </h4>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                <span>{provider.availability.startDate}</span>
+                <span>{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Badge variant="outline" className="text-[10px] font-normal capitalize">
                   {provider.availability.type.replace("-", " ")}
                 </Badge>
               </div>
-              {provider.availability.preferredLocations && (
-                <div className="flex items-start gap-2 text-sm col-span-2">
-                  <MapPin className="w-3.5 h-3.5 text-muted-foreground shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">
-                    {provider.availability.preferredLocations.join(", ")}
-                  </span>
+              {provider.availability.recurringDays && (
+                <div className="flex items-center gap-2 text-sm">
+                  <Clock className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                  <span className="text-muted-foreground">{provider.availability.recurringDays}</span>
                 </div>
               )}
-              <div className="flex items-center gap-2 text-sm col-span-2">
-                <Clock className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                <span className="text-muted-foreground">
+              {provider.availability.scheduleNotes?.map((note, i) => (
+                <div key={i} className="flex items-center gap-2 text-sm">
+                  <span className="w-3.5 h-3.5 shrink-0" />
+                  <span className="text-xs text-muted-foreground italic">{note.label}</span>
+                </div>
+              ))}
+              <div className="flex items-center gap-2 text-sm">
+                <span className="w-3.5 h-3.5 shrink-0" />
+                <span className="text-muted-foreground text-xs">
                   {provider.availability.willingToRelocate ? "Willing to relocate" : "Won't relocate"}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Education & Experience Highlights */}
-          <div className="space-y-2.5">
-            <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-              Highlights
-            </h4>
-            <div className="space-y-2">
-              {latestEdu && (
-                <div className="flex items-start gap-2 text-sm">
-                  <GraduationCap className="w-3.5 h-3.5 text-muted-foreground shrink-0 mt-0.5" />
-                  <span>
-                    {latestEdu.degree}, {latestEdu.field}
-                    <span className="text-muted-foreground"> · {latestEdu.institution}</span>
-                  </span>
-                </div>
-              )}
-              {currentExp && (
-                <div className="flex items-start gap-2 text-sm">
-                  <Briefcase className="w-3.5 h-3.5 text-muted-foreground shrink-0 mt-0.5" />
-                  <span>
-                    {currentExp.title}
-                    <span className="text-muted-foreground"> · {currentExp.organization}</span>
-                  </span>
-                </div>
-              )}
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Mail className="w-3 h-3 shrink-0" />
-                {provider.email}
+          {/* Provider Highlights */}
+          {highlights.length > 0 && (
+            <div className="space-y-2.5">
+              <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Provider Highlights
+              </h4>
+              <div className="space-y-2">
+                {visibleHighlights.map((h, i) => (
+                  <HighlightItem key={i} text={h.text} icon={h.icon} />
+                ))}
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Phone className="w-3 h-3 shrink-0" />
-                {provider.phone}
-              </div>
+              {hasMore && (
+                <button
+                  onClick={() => setHighlightsExpanded(!highlightsExpanded)}
+                  className="flex items-center gap-1 text-xs text-primary/80 hover:text-primary font-medium transition-colors"
+                >
+                  {highlightsExpanded ? (
+                    <>Show less <ChevronUp className="w-3 h-3" /></>
+                  ) : (
+                    <>+{highlights.length - 3} more <ChevronDown className="w-3 h-3" /></>
+                  )}
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Contact */}
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Mail className="w-3 h-3 shrink-0" />
+              {provider.email}
+            </div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Phone className="w-3 h-3 shrink-0" />
+              {provider.phone}
             </div>
           </div>
 

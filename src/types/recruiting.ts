@@ -55,11 +55,24 @@ export interface Experience {
 }
 
 // ── Availability ──
+export interface ScheduleNote {
+  label: string; // e.g. "No weekends", "Evenings only", "Available Mon–Thu"
+}
+
 export interface Availability {
   startDate: string;
+  endDate?: string; // if assignment is date-bounded
   type: "full-time" | "part-time" | "locum" | "contract";
   willingToRelocate: boolean;
   preferredLocations?: string[];
+  recurringDays?: string; // e.g. "Mon–Fri", "Weekdays only"
+  scheduleNotes?: ScheduleNote[];
+}
+
+// ── Provider Highlight ──
+export interface ProviderHighlight {
+  text: string; // e.g. "500+ cardiac catheterizations performed"
+  icon?: "procedure" | "site" | "credential" | "award" | "language" | "research";
 }
 
 // ── Provider ──
@@ -76,6 +89,7 @@ export interface Provider {
   education: Education[];
   experience: Experience[];
   credentials: Credential[];
+  highlights?: ProviderHighlight[];
   stage: ProviderStage;
   overallStatus: CredentialStatus; // derived from worst credential
   submittedDate: string;
