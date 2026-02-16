@@ -59,7 +59,7 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
       <tr
         onClick={onToggle}
         className={`group cursor-pointer border-b border-grid-border transition-colors duration-100 ${
-          isExpanded ? "bg-grid-row-expanded" : "hover:bg-grid-row-hover"
+          isExpanded ? "bg-card" : "hover:bg-grid-row-hover"
         }`}
       >
         <td className="px-4 py-3 w-8">
