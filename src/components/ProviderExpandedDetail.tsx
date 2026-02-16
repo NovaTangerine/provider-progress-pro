@@ -93,50 +93,48 @@ export function ProviderExpandedDetail({ provider, onSelectCredential }: Provide
 
         {/* Secondary info — softer */}
         <div className="space-y-5 border-l border-border/50 pl-6">
-          {/* Contact */}
-          <div className="space-y-2">
+          <div className="group/section space-y-2 cursor-default">
             <h5 className="text-[11px] font-medium text-muted-foreground/70 tracking-wide">
               Contact & Availability
             </h5>
             <div className="space-y-1.5">
-              <p className="group/item text-xs text-muted-foreground flex items-center gap-2 transition-colors duration-150 hover:text-[#666666] cursor-default">
-                <Mail className="w-3 h-3 text-muted-foreground/60 transition-colors duration-150 group-hover/item:text-muted-foreground" />
+              <p className="text-xs text-muted-foreground flex items-center gap-2 transition-colors duration-150 group-hover/section:text-[#444444]">
+                <Mail className="w-3 h-3 text-muted-foreground/60 transition-colors duration-150 group-hover/section:text-muted-foreground" />
                 {provider.email}
               </p>
-              <p className="group/item text-xs text-muted-foreground flex items-center gap-2 transition-colors duration-150 hover:text-[#666666] cursor-default">
-                <Phone className="w-3 h-3 text-muted-foreground/60 transition-colors duration-150 group-hover/item:text-muted-foreground" />
+              <p className="text-xs text-muted-foreground flex items-center gap-2 transition-colors duration-150 group-hover/section:text-[#444444]">
+                <Phone className="w-3 h-3 text-muted-foreground/60 transition-colors duration-150 group-hover/section:text-muted-foreground" />
                 {provider.phone}
               </p>
-              <p className="text-xs text-muted-foreground font-mono transition-colors duration-150 hover:text-[#666666] cursor-default">
+              <p className="text-xs text-muted-foreground font-mono transition-colors duration-150 group-hover/section:text-[#444444]">
                 NPI: {provider.npiNumber}
               </p>
               {provider.availability.preferredLocations && (
-                <p className="group/item text-xs text-muted-foreground flex items-start gap-2 transition-colors duration-150 hover:text-[#666666] cursor-default">
-                  <MapPin className="w-3 h-3 text-muted-foreground/60 mt-0.5 transition-colors duration-150 group-hover/item:text-muted-foreground" />
+                <p className="text-xs text-muted-foreground flex items-start gap-2 transition-colors duration-150 group-hover/section:text-[#444444]">
+                  <MapPin className="w-3 h-3 text-muted-foreground/60 mt-0.5 transition-colors duration-150 group-hover/section:text-muted-foreground" />
                   <span>{provider.availability.preferredLocations.join(", ")}</span>
                 </p>
               )}
-              <p className="group/item text-xs text-muted-foreground flex items-center gap-2 transition-colors duration-150 hover:text-[#666666] cursor-default">
-                <Clock className="w-3 h-3 text-muted-foreground/60 transition-colors duration-150 group-hover/item:text-muted-foreground" />
+              <p className="text-xs text-muted-foreground flex items-center gap-2 transition-colors duration-150 group-hover/section:text-[#444444]">
+                <Clock className="w-3 h-3 text-muted-foreground/60 transition-colors duration-150 group-hover/section:text-muted-foreground" />
                 {provider.availability.willingToRelocate ? "Will relocate" : "Won't relocate"}
               </p>
             </div>
           </div>
 
-          {/* Education */}
-          <div className="space-y-2">
+          <div className="group/section space-y-2 cursor-default">
             <h5 className="text-[11px] font-medium text-muted-foreground/70 tracking-wide">
               Education
             </h5>
             <div className="space-y-1.5">
               {provider.education.map((edu, i) => (
-                <div key={i} className="group/item flex items-start gap-2 transition-colors duration-150 cursor-default">
-                  <GraduationCap className="w-3 h-3 text-muted-foreground/60 mt-0.5 transition-colors duration-150 group-hover/item:text-muted-foreground" />
+                <div key={i} className="flex items-start gap-2">
+                  <GraduationCap className="w-3 h-3 text-muted-foreground/60 mt-0.5 transition-colors duration-150 group-hover/section:text-muted-foreground" />
                   <div>
-                    <p className="text-xs text-muted-foreground font-medium transition-colors duration-150 group-hover/item:text-[#666666]">
+                    <p className="text-xs text-muted-foreground font-medium transition-colors duration-150 group-hover/section:text-[#444444]">
                       {edu.degree}, {edu.field}
                     </p>
-                    <p className="text-[11px] text-muted-foreground/70 transition-colors duration-150 group-hover/item:text-[#666666]">
+                    <p className="text-[11px] text-muted-foreground/70 transition-colors duration-150 group-hover/section:text-[#444444]">
                       {edu.institution} · {edu.graduationYear}
                     </p>
                   </div>
@@ -145,18 +143,17 @@ export function ProviderExpandedDetail({ provider, onSelectCredential }: Provide
             </div>
           </div>
 
-          {/* Experience */}
-          <div className="space-y-2">
+          <div className="group/section space-y-2 cursor-default">
             <h5 className="text-[11px] font-medium text-muted-foreground/70 tracking-wide">
               Experience
             </h5>
             <div className="space-y-1.5">
               {provider.experience.map((exp, i) => (
-                <div key={i} className="group/item flex items-start gap-2 transition-colors duration-150 cursor-default">
-                  <Briefcase className="w-3 h-3 text-muted-foreground/60 mt-0.5 transition-colors duration-150 group-hover/item:text-muted-foreground" />
+                <div key={i} className="flex items-start gap-2">
+                  <Briefcase className="w-3 h-3 text-muted-foreground/60 mt-0.5 transition-colors duration-150 group-hover/section:text-muted-foreground" />
                   <div>
-                    <p className="text-xs text-muted-foreground font-medium transition-colors duration-150 group-hover/item:text-[#666666]">{exp.title}</p>
-                    <p className="text-[11px] text-muted-foreground/70 transition-colors duration-150 group-hover/item:text-[#666666]">
+                    <p className="text-xs text-muted-foreground font-medium transition-colors duration-150 group-hover/section:text-[#444444]">{exp.title}</p>
+                    <p className="text-[11px] text-muted-foreground/70 transition-colors duration-150 group-hover/section:text-[#444444]">
                       {exp.organization} · {exp.startYear}–{exp.endYear ?? "Present"}
                     </p>
                   </div>
