@@ -8,7 +8,7 @@ interface RoleHeaderProps {
 
 const urgencyStyles = {
   routine: "bg-muted text-muted-foreground",
-  urgent: "bg-status-in-progress-bg text-status-in-progress",
+  urgent: "bg-[hsl(38_100%_95%)] text-[hsl(38_92%_50%)] dark:bg-[hsl(38_40%_15%)] dark:text-[hsl(38_80%_45%)]",
   critical: "bg-status-red-flag-bg text-status-red-flag",
 };
 

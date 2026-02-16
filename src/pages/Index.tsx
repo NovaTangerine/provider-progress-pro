@@ -3,13 +3,16 @@ import { mockRole } from "@/data/mockData";
 import { RoleHeader } from "@/components/RoleHeader";
 import { ProviderRow } from "@/components/ProviderRow";
 import { ProviderCard } from "@/components/ProviderCard";
+import { StageToggle } from "@/components/StageToggle";
 import { LayoutList, LayoutGrid } from "lucide-react";
+import { ProviderStage } from "@/types/recruiting";
 
 type ViewMode = "list" | "presentation";
 
 const Index = () => {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const [viewMode, setViewMode] = useState<ViewMode>("list");
+  const [activeStage, setActiveStage] = useState<ProviderStage | null>(null);
 
   const toggleProvider = (id: string) => {
     setExpandedIds((prev) => {
@@ -20,6 +23,10 @@ const Index = () => {
     });
   };
 
+  const filteredProviders = activeStage
+    ? mockRole.providers.filter((p) => p.stage === activeStage)
+    : mockRole.providers;
+
   return (
     <div className="min-h-screen bg-background">
       <RoleHeader role={mockRole} />
@@ -27,7 +34,7 @@ const Index = () => {
       {/* View toggle bar */}
       <div className="border-b border-border bg-card px-6 py-2.5 flex items-center justify-between">
         <p className="text-xs text-muted-foreground font-medium">
-          {mockRole.providers.length} providers
+          {filteredProviders.length} provider{filteredProviders.length !== 1 ? "s" : ""}
         </p>
         <div className="inline-flex items-center rounded-md border border-border bg-muted p-0.5">
           <button
@@ -54,6 +61,16 @@ const Index = () => {
           </button>
         </div>
       </div>
+
+      {viewMode === "list" && (
+        <div className="border-b border-border bg-card px-6 py-2.5">
+          <StageToggle
+            providers={mockRole.providers}
+            activeStage={activeStage}
+            onStageChange={setActiveStage}
+          />
+        </div>
+      )}
 
       {viewMode === "list" ? (
         <div className="overflow-x-auto">
@@ -82,7 +99,7 @@ const Index = () => {
               </tr>
             </thead>
             <tbody>
-              {mockRole.providers.map((provider) => (
+              {filteredProviders.map((provider) => (
                 <ProviderRow
                   key={provider.id}
                   provider={provider}
@@ -95,7 +112,7 @@ const Index = () => {
         </div>
       ) : (
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-5 animate-fade-in">
-          {mockRole.providers.map((provider) => (
+          {filteredProviders.map((provider) => (
             <ProviderCard key={provider.id} provider={provider} />
           ))}
         </div>

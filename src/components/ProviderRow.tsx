@@ -1,18 +1,12 @@
 import { useState } from "react";
 import { Provider, Credential, CredentialStatus } from "@/types/recruiting";
 import { StatusBadge, STATUS_CONFIG } from "./StatusBadge";
-import { CredentialCard } from "./CredentialCard";
 import { CredentialModal } from "./CredentialModal";
+import { ProviderExpandedDetail } from "./ProviderExpandedDetail";
 import {
   ChevronDown,
   ChevronRight,
-  Mail,
-  Phone,
-  MapPin,
   Calendar,
-  GraduationCap,
-  Briefcase,
-  Clock,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -121,93 +115,10 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
       {isExpanded && (
         <tr className="bg-grid-row-expanded border-b border-grid-border">
           <td colSpan={7} className="p-0">
-            <div className="px-8 py-6 animate-fade-in">
-              <div className="grid grid-cols-3 gap-8">
-                {/* Contact & Availability */}
-                <div className="space-y-4">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Contact & Availability
-                  </h4>
-                  <div className="space-y-2.5">
-                    <p className="text-sm flex items-center gap-2">
-                      <Mail className="w-3.5 h-3.5 text-muted-foreground" />
-                      {provider.email}
-                    </p>
-                    <p className="text-sm flex items-center gap-2">
-                      <Phone className="w-3.5 h-3.5 text-muted-foreground" />
-                      {provider.phone}
-                    </p>
-                    <p className="text-sm flex items-center gap-2 font-mono text-xs">
-                      NPI: {provider.npiNumber}
-                    </p>
-                    {provider.availability.preferredLocations && (
-                      <p className="text-sm flex items-start gap-2">
-                        <MapPin className="w-3.5 h-3.5 text-muted-foreground mt-0.5" />
-                        <span>{provider.availability.preferredLocations.join(", ")}</span>
-                      </p>
-                    )}
-                    <p className="text-sm flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-muted-foreground" />
-                      {provider.availability.willingToRelocate ? "Will relocate" : "Won't relocate"}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Education & Experience */}
-                <div className="space-y-4">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Education
-                  </h4>
-                  <div className="space-y-2">
-                    {provider.education.map((edu, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <GraduationCap className="w-3.5 h-3.5 text-muted-foreground mt-0.5" />
-                        <div>
-                          <p className="text-sm font-medium">
-                            {edu.degree}, {edu.field}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {edu.institution} · {edu.graduationYear}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground pt-2">
-                    Experience
-                  </h4>
-                  <div className="space-y-2">
-                    {provider.experience.map((exp, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <Briefcase className="w-3.5 h-3.5 text-muted-foreground mt-0.5" />
-                        <div>
-                          <p className="text-sm font-medium">{exp.title}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {exp.organization} · {exp.startYear}–{exp.endYear ?? "Present"}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Credentials */}
-                <div className="space-y-4">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Licenses & Certifications
-                  </h4>
-                  <div className="space-y-2">
-                    {provider.credentials.map((cred) => (
-                      <CredentialCard
-                        key={cred.id}
-                        credential={cred}
-                        onClick={setSelectedCredential}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ProviderExpandedDetail
+              provider={provider}
+              onSelectCredential={setSelectedCredential}
+            />
           </td>
         </tr>
       )}
