@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Provider, Credential, CredentialStatus } from "@/types/recruiting";
+import { ShiftPreferenceIcons } from "./ShiftPreferenceIcons";
 import { StatusBadge, STATUS_CONFIG } from "./StatusBadge";
 import { CredentialModal } from "./CredentialModal";
 import {
@@ -173,6 +174,9 @@ export function ProviderCard({ provider }: ProviderCardProps) {
                   {provider.availability.willingToRelocate ? "Willing to relocate" : "Won't relocate"}
                 </span>
               </div>
+              {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 && (
+                <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
+              )}
             </div>
           </div>
 

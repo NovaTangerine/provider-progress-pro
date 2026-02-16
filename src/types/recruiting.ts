@@ -59,6 +59,14 @@ export interface ScheduleNote {
   label: string; // e.g. "No weekends", "Evenings only", "Available Mon–Thu"
 }
 
+export type ShiftType = "weekends" | "nights" | "overnights" | "back_to_back";
+export type ShiftStance = "works" | "does_not_work" | "prefers" | "higher_rate";
+
+export interface ShiftPreference {
+  shift: ShiftType;
+  stance: ShiftStance;
+}
+
 export interface Availability {
   startDate: string;
   endDate?: string; // if assignment is date-bounded
@@ -67,6 +75,7 @@ export interface Availability {
   preferredLocations?: string[];
   recurringDays?: string; // e.g. "Mon–Fri", "Weekdays only"
   scheduleNotes?: ScheduleNote[];
+  shiftPreferences?: ShiftPreference[];
 }
 
 // ── Provider Highlight ──
