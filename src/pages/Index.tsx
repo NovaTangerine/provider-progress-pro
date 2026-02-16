@@ -79,7 +79,7 @@ const Index = () => {
       </div>
 
       {viewMode === "list" && (
-        <div className="pl-4 pr-6 pt-4 pb-3 flex items-center gap-2">
+        <div className="pr-6 pt-4 pb-3 flex items-center gap-2" style={{ paddingLeft: 'calc(40px + 2rem)' }}>
           <h2 className="text-sm font-semibold text-foreground">
             {activeStage ? STAGE_HEADER_LABELS[activeStage] : "All Providers"}
           </h2>
