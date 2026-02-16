@@ -6,6 +6,20 @@ export type CredentialStatus =
   | "red_flag"
   | "exception";
 
+// ── Provider journey stage ──
+export type ProviderStage =
+  | "presented"
+  | "confirmed"
+  | "credentialing"
+  | "on_assignment";
+
+// ── Credential category ──
+export type CredentialCategory =
+  | "identity_verification"
+  | "state_license"
+  | "board_certification"
+  | "other";
+
 export interface StatusMeta {
   label: string;
   description?: string;
@@ -17,6 +31,7 @@ export interface Credential {
   name: string;
   type: "license" | "certification";
   status: CredentialStatus;
+  category: CredentialCategory;
   issuingBody?: string;
   expirationDate?: string;
   notes?: string;
@@ -61,6 +76,7 @@ export interface Provider {
   education: Education[];
   experience: Experience[];
   credentials: Credential[];
+  stage: ProviderStage;
   overallStatus: CredentialStatus; // derived from worst credential
   submittedDate: string;
   notes?: string;
