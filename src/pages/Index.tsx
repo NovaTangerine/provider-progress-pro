@@ -75,7 +75,7 @@ const Index = () => {
       </div>
 
       {viewMode === "list" && (
-        <div className="px-6 pt-4 pb-2">
+        <div className="pl-[calc(40px+2rem)] pr-6 pt-4 pb-3">
           <h2 className="text-sm font-semibold text-foreground">
             {activeStage ? STAGE_LABELS[activeStage] : "All Providers"}
           </h2>
