@@ -24,17 +24,6 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
 
   return (
     <div className="flex items-center gap-1">
-      {activeStage !== null && (
-        <button
-          onClick={() => onStageChange(null)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 border bg-card text-muted-foreground border-border hover:text-foreground hover:border-foreground/30 hover:bg-[#EAEAEA]"
-        >
-          All Providers
-          <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">
-            {providers.length}
-          </span>
-        </button>
-      )}
       {STAGES.map((s) => {
         const isActive = activeStage === s.value;
         const count = counts[s.value] || 0;
@@ -61,6 +50,14 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
           </button>
         );
       })}
+      {activeStage !== null && (
+        <button
+          onClick={() => onStageChange(null)}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium transition-all duration-150 text-muted-foreground hover:text-foreground underline underline-offset-2 decoration-muted-foreground/40 hover:decoration-foreground/50"
+        >
+          Show all
+        </button>
+      )}
     </div>
   );
 }
