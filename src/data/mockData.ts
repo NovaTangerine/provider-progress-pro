@@ -1,4 +1,4 @@
-import { Role, Provider, Credential, CredentialStatus, CredentialCategory, ProviderHighlight } from "@/types/recruiting";
+import { Role, Provider, Credential, CredentialStatus, CredentialCategory, ProviderHighlight, ShiftPreference } from "@/types/recruiting";
 
 const cred = (
   id: string,
@@ -26,6 +26,11 @@ export const mockProviders: Provider[] = [
       preferredLocations: ["Boston, MA", "New York, NY"],
       recurringDays: "Mon–Fri",
       scheduleNotes: [{ label: "No overnight call" }],
+      shiftPreferences: [
+        { shift: "weekends", stance: "does_not_work" },
+        { shift: "nights", stance: "does_not_work" },
+        { shift: "overnights", stance: "does_not_work" },
+      ],
     },
     education: [
       { institution: "Johns Hopkins University", degree: "MD", field: "Medicine", graduationYear: 2016 },
@@ -69,6 +74,11 @@ export const mockProviders: Provider[] = [
       preferredLocations: ["Boston, MA"],
       recurringDays: "Mon–Thu",
       scheduleNotes: [{ label: "No weekends" }, { label: "Available for on-call rotation" }],
+      shiftPreferences: [
+        { shift: "weekends", stance: "does_not_work" },
+        { shift: "nights", stance: "higher_rate" },
+        { shift: "back_to_back", stance: "works" },
+      ],
     },
     education: [
       { institution: "Stanford University", degree: "MD", field: "Medicine", graduationYear: 2014 },
@@ -109,6 +119,10 @@ export const mockProviders: Provider[] = [
       willingToRelocate: true,
       recurringDays: "Tue, Wed, Thu",
       scheduleNotes: [{ label: "3 days/week max" }],
+      shiftPreferences: [
+        { shift: "nights", stance: "prefers" },
+        { shift: "overnights", stance: "works" },
+      ],
     },
     education: [
       { institution: "Harvard Medical School", degree: "MD", field: "Medicine", graduationYear: 2017 },
@@ -151,6 +165,12 @@ export const mockProviders: Provider[] = [
       willingToRelocate: true,
       preferredLocations: ["Northeast US"],
       scheduleNotes: [{ label: "Flexible hours" }, { label: "Weekends available" }],
+      shiftPreferences: [
+        { shift: "weekends", stance: "works" },
+        { shift: "nights", stance: "works" },
+        { shift: "overnights", stance: "higher_rate" },
+        { shift: "back_to_back", stance: "prefers" },
+      ],
     },
     education: [
       { institution: "University of Pennsylvania", degree: "MD", field: "Medicine", graduationYear: 2015 },
