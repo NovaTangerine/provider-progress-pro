@@ -10,17 +10,13 @@ import { ProviderStage } from "@/types/recruiting";
 type ViewMode = "list" | "presentation";
 
 const Index = () => {
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [activeStage, setActiveStage] = useState<ProviderStage | null>(null);
 
+
   const toggleProvider = (id: string) => {
-    setExpandedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
+    setExpandedId((prev) => (prev === id ? null : id));
   };
 
   const filteredProviders = activeStage
@@ -102,7 +98,7 @@ const Index = () => {
                 <ProviderRow
                   key={provider.id}
                   provider={provider}
-                  isExpanded={expandedIds.has(provider.id)}
+                  isExpanded={expandedId === provider.id}
                   onToggle={() => toggleProvider(provider.id)}
                 />
               ))}

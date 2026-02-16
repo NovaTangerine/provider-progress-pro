@@ -76,7 +76,9 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
               {provider.lastName[0]}
             </div>
             <div>
-              <p className="text-sm font-semibold text-foreground">
+              <p className={`text-sm transition-colors duration-150 ${
+                isExpanded ? "font-semibold text-foreground" : "font-normal text-muted-foreground group-hover:font-semibold group-hover:text-foreground"
+              }`}>
                 {provider.lastName}, {provider.firstName}
               </p>
               <p className="text-xs text-muted-foreground">{provider.specialty}</p>
