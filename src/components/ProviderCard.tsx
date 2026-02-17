@@ -141,7 +141,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
         </div>
 
         {/* Availability Section */}
-        <div className="px-7 pt-6 pb-4 space-y-3.5 border-b border-dashed border-border/50">
+        <div className="px-7 pt-4 pb-3 space-y-3 border-b border-dashed border-border/50">
           <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
             Availability
           </h4>
@@ -191,7 +191,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
         </div>
 
         {/* Provider Highlights */}
-        <div className="px-7 py-4 space-y-3.5 border-b border-dashed border-border/50">
+        <div className="px-7 py-3 space-y-3 border-b border-dashed border-border/50">
           {highlights.length > 0 ? (
             <>
               <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
@@ -221,7 +221,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
         </div>
 
         {/* Credentials */}
-        <div className="px-7 py-4 space-y-3.5">
+        <div className="px-7 py-3 space-y-3">
           <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
             Credentials
           </h4>
