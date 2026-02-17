@@ -153,7 +153,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm">
               <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-              <span className="font-medium text-[#575757]">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
+              <span className="font-medium text-[#575757] text-lg">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
               <span className="text-muted-foreground/40">·</span>
               <button
                 onClick={onAvailabilityToggle}
@@ -202,7 +202,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
                 Provider Highlights
               </h4>
-              <div className="space-y-2 bg-zinc-50 px-[20px] py-[20px]">
+              <div className="space-y-2">
                 {visibleHighlights.map((h, i) =>
               <HighlightItem key={i} text={h.text} icon={h.icon} />
               )}
