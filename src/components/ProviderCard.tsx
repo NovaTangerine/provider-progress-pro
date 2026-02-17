@@ -231,7 +231,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
             Credentials
           </h4>
           <StatusLegendBar credentials={provider.credentials} />
-          <div className="flex flex-wrap gap-1.5 pt-1">
+          <div className="flex flex-wrap gap-1.5 pt-2.5">
             {provider.credentials.map((cred) =>
             <CredentialPill key={cred.id} credential={cred} onClick={setSelectedCredential} />
             )}
