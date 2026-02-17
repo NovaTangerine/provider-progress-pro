@@ -202,11 +202,10 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
                 Provider Highlights
               </h4>
-              <div className="space-y-2">
+              <div className="rounded-md bg-[hsl(0,0%,97%)] p-3 space-y-2">
                 {visibleHighlights.map((h, i) =>
               <HighlightItem key={i} text={h.text} icon={h.icon} />
               )}
-              </div>
               {hasMore &&
             <button
               onClick={onHighlightsToggle}
@@ -219,6 +218,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               }
                 </button>
             }
+              </div>
             </> :
 
           <div className="h-0" />
