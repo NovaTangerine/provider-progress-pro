@@ -102,7 +102,7 @@ function HighlightItem({ text, icon }: {text: string;icon?: string;}) {
   return (
     <div className="flex items-start gap-2 text-sm">
       <Icon className="w-3.5 h-3.5 text-primary/70 shrink-0 mt-0.5" />
-      <span className="text-muted-foreground">{text}</span>
+      <span className="text-foreground/70">{text}</span>
     </div>);
 
 }
