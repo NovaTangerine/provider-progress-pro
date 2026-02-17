@@ -153,7 +153,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm">
               <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-              <span className="font-medium text-[#575757] text-lg">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
+              <span className="font-medium text-[#575757] text-lg tracking-tight">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
               <span className="text-muted-foreground/40">·</span>
               <button
                 onClick={onAvailabilityToggle}
@@ -202,15 +202,14 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
                 Provider Highlights
               </h4>
-              <div className="space-y-2">
+              <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-3 py-5 space-y-2">
                 {visibleHighlights.map((h, i) =>
               <HighlightItem key={i} text={h.text} icon={h.icon} />
               )}
-              </div>
               {hasMore &&
             <button
               onClick={onHighlightsToggle}
-              className="flex items-center gap-1 text-xs text-primary/80 hover:text-primary font-medium transition-colors">
+              className="flex items-center gap-1 text-xs text-primary/80 hover:text-primary font-medium transition-colors pt-1">
 
                   {highlightsExpanded ?
               <>Show less <ChevronUp className="w-3 h-3" /></> :
@@ -219,6 +218,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               }
                 </button>
             }
+              </div>
             </> :
 
           <div className="h-0" />
