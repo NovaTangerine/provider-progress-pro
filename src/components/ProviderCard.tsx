@@ -150,6 +150,13 @@ export function ProviderCard({ provider }: ProviderCardProps) {
               <div className="flex items-center gap-2 text-sm">
                 <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                 <span>{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
+                <span className="text-muted-foreground/40">·</span>
+                <button
+                  onClick={() => setAvailabilityExpanded(!availabilityExpanded)}
+                  className="text-xs text-primary/80 hover:text-primary underline underline-offset-2 transition-colors"
+                >
+                  {availabilityExpanded ? "Hide details" : "View details"}
+                </button>
               </div>
               {availabilityExpanded && (
                 <>
@@ -181,16 +188,6 @@ export function ProviderCard({ provider }: ProviderCardProps) {
                   )}
                 </>
               )}
-              <button
-                onClick={() => setAvailabilityExpanded(!availabilityExpanded)}
-                className="flex items-center gap-1 text-xs text-primary/80 hover:text-primary font-medium transition-colors"
-              >
-                {availabilityExpanded ? (
-                  <>Hide details <ChevronUp className="w-3 h-3" /></>
-                ) : (
-                  <>View detailed availability <ChevronDown className="w-3 h-3" /></>
-                )}
-              </button>
             </div>
           </div>
 
