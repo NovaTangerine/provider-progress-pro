@@ -217,17 +217,6 @@ export function ProviderCard({ provider }: ProviderCardProps) {
             </div>
           )}
 
-          {/* Contact */}
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Mail className="w-3 h-3 shrink-0" />
-              {provider.email}
-            </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Phone className="w-3 h-3 shrink-0" />
-              {provider.phone}
-            </div>
-          </div>
 
           {/* Credentials */}
           <div className="space-y-2.5">
