@@ -122,7 +122,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
 
   return (
     <>
-      <div className="rounded-lg border border-border bg-card shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden">
+      <div className="rounded-lg border border-border bg-card shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden grid grid-rows-subgrid row-span-4">
         {/* Header */}
         <div className="px-7 py-4 border-b border-border flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -140,60 +140,60 @@ export function ProviderCard({ provider }: ProviderCardProps) {
           <StatusBadge status={provider.overallStatus} />
         </div>
 
-        <div className="px-7 pt-6 pb-4 space-y-5 divide-y divide-dashed divide-border/50 [&>*]:pt-5 [&>*:first-child]:pt-0">
-          {/* Availability Section */}
-          <div className="space-y-3.5">
-            <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-              Availability
-            </h4>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm">
-                <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                <span>{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
-                <span className="text-muted-foreground/40">·</span>
-                <button
-                  onClick={() => setAvailabilityExpanded(!availabilityExpanded)}
-                  className="text-xs text-primary/80 hover:text-primary underline underline-offset-2 transition-colors"
-                >
-                  {availabilityExpanded ? "Hide details" : "View details"}
-                </button>
-              </div>
-              {availabilityExpanded && (
-                <>
-                  <div className="flex items-center gap-2 text-sm">
-                    <Badge variant="outline" className="text-[10px] font-normal capitalize">
-                      {provider.availability.type.replace("-", " ")}
-                    </Badge>
-                  </div>
-                  {provider.availability.recurringDays && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Clock className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                      <span className="text-muted-foreground">{provider.availability.recurringDays}</span>
-                    </div>
-                  )}
-                  {provider.availability.scheduleNotes?.map((note, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm">
-                      <span className="w-3.5 h-3.5 shrink-0" />
-                      <span className="text-xs text-muted-foreground italic">{note.label}</span>
-                    </div>
-                  ))}
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="w-3.5 h-3.5 shrink-0" />
-                    <span className="text-muted-foreground text-xs">
-                      {provider.availability.willingToRelocate ? "Willing to relocate" : "Won't relocate"}
-                    </span>
-                  </div>
-                  {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 && (
-                    <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
-                  )}
-                </>
-              )}
+        {/* Availability Section */}
+        <div className="px-7 pt-6 pb-4 space-y-3.5 border-b border-dashed border-border/50">
+          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+            Availability
+          </h4>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm">
+              <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+              <span>{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
+              <span className="text-muted-foreground/40">·</span>
+              <button
+                onClick={() => setAvailabilityExpanded(!availabilityExpanded)}
+                className="text-xs text-primary/80 hover:text-primary underline underline-offset-2 transition-colors"
+              >
+                {availabilityExpanded ? "Hide details" : "View details"}
+              </button>
             </div>
+            {availabilityExpanded && (
+              <>
+                <div className="flex items-center gap-2 text-sm">
+                  <Badge variant="outline" className="text-[10px] font-normal capitalize">
+                    {provider.availability.type.replace("-", " ")}
+                  </Badge>
+                </div>
+                {provider.availability.recurringDays && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <Clock className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                    <span className="text-muted-foreground">{provider.availability.recurringDays}</span>
+                  </div>
+                )}
+                {provider.availability.scheduleNotes?.map((note, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm">
+                    <span className="w-3.5 h-3.5 shrink-0" />
+                    <span className="text-xs text-muted-foreground italic">{note.label}</span>
+                  </div>
+                ))}
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="w-3.5 h-3.5 shrink-0" />
+                  <span className="text-muted-foreground text-xs">
+                    {provider.availability.willingToRelocate ? "Willing to relocate" : "Won't relocate"}
+                  </span>
+                </div>
+                {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 && (
+                  <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
+                )}
+              </>
+            )}
           </div>
+        </div>
 
-          {/* Provider Highlights */}
-          {highlights.length > 0 && (
-            <div className="space-y-3.5">
+        {/* Provider Highlights */}
+        <div className="px-7 py-4 space-y-3.5 border-b border-dashed border-border/50">
+          {highlights.length > 0 ? (
+            <>
               <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
                 Provider Highlights
               </h4>
@@ -214,21 +214,22 @@ export function ProviderCard({ provider }: ProviderCardProps) {
                   )}
                 </button>
               )}
-            </div>
+            </>
+          ) : (
+            <div className="h-0" />
           )}
+        </div>
 
-
-          {/* Credentials */}
-          <div className="space-y-3.5">
-            <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-              Credentials
-            </h4>
-            <StatusLegendBar credentials={provider.credentials} />
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              {provider.credentials.map((cred) => (
-                <CredentialPill key={cred.id} credential={cred} onClick={setSelectedCredential} />
-              ))}
-            </div>
+        {/* Credentials */}
+        <div className="px-7 py-4 space-y-3.5">
+          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+            Credentials
+          </h4>
+          <StatusLegendBar credentials={provider.credentials} />
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {provider.credentials.map((cred) => (
+              <CredentialPill key={cred.id} credential={cred} onClick={setSelectedCredential} />
+            ))}
           </div>
         </div>
       </div>
