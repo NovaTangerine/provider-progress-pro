@@ -63,9 +63,56 @@ export const mockProviders: Provider[] = [
           expirationDate: "2027-12-31",
         },
       }),
-      cred("c2", "DEA Registration", "license", "completed", "identity_verification", { issuingBody: "DEA", expirationDate: "2028-06-30" }),
-      cred("c3", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
-      cred("c4", "BLS Certification", "certification", "completed", "other", { issuingBody: "AHA", expirationDate: "2027-03-15" }),
+      cred("c2", "DEA Registration", "license", "completed", "identity_verification", {
+        issuingBody: "DEA", expirationDate: "2028-06-30",
+        workflow: {
+          issuingOrganization: "Drug Enforcement Administration",
+          organizationType: "other",
+          contacts: [{ name: "James Whitfield", role: "Registration Coordinator", organization: "DEA – Northeast Division", phone: "(202) 555-0142" }],
+          steps: [
+            { id: "c2-s1", label: "Provider requests renewal forms", status: "completed", completedDate: "2025-08-10", assignedTo: "Sarah Chen" },
+            { id: "c2-s2", label: "Recruiter sends renewal guidance", status: "completed", completedDate: "2025-08-11", assignedTo: "Amy Torres" },
+            { id: "c2-s3", label: "Provider completes renewal application", status: "completed", completedDate: "2025-08-18", assignedTo: "Sarah Chen" },
+            { id: "c2-s4", label: "Recruiter reviews application", status: "completed", completedDate: "2025-08-19", assignedTo: "Amy Torres" },
+            { id: "c2-s5", label: "Recruiter submits to DEA", status: "completed", completedDate: "2025-08-20", assignedTo: "Amy Torres" },
+            { id: "c2-s6", label: "DEA confirms receipt", status: "completed", completedDate: "2025-08-28", assignedTo: "James Whitfield" },
+            { id: "c2-s7", label: "DEA approves registration", status: "completed", completedDate: "2025-09-15", assignedTo: "James Whitfield" },
+          ],
+          estimatedApprovalDate: "2025-09-10",
+          actualApprovalDate: "2025-09-15",
+          expirationDate: "2028-06-30",
+        },
+      }),
+      cred("c3", "Board Certification – Cardiology", "certification", "completed", "board_certification", {
+        issuingBody: "ABIM",
+        workflow: {
+          issuingOrganization: "American Board of Internal Medicine",
+          organizationType: "certification_board",
+          contacts: [{ name: "Dr. Susan Park", role: "Certification Director", organization: "ABIM", email: "s.park@abim.org" }],
+          steps: [
+            { id: "c3-s1", label: "Provider requests exam eligibility", status: "completed", completedDate: "2020-03-15", assignedTo: "Sarah Chen" },
+            { id: "c3-s2", label: "ABIM confirms eligibility", status: "completed", completedDate: "2020-04-01", assignedTo: "Dr. Susan Park" },
+            { id: "c3-s3", label: "Provider completes board exam", status: "completed", completedDate: "2020-09-20", assignedTo: "Sarah Chen" },
+            { id: "c3-s4", label: "ABIM issues certification", status: "completed", completedDate: "2020-10-05", assignedTo: "Dr. Susan Park" },
+          ],
+          actualApprovalDate: "2020-10-05",
+        },
+      }),
+      cred("c4", "BLS Certification", "certification", "completed", "other", {
+        issuingBody: "AHA", expirationDate: "2027-03-15",
+        workflow: {
+          issuingOrganization: "American Heart Association",
+          organizationType: "certification_board",
+          contacts: [{ name: "Mark Jensen", role: "Training Center Coordinator", organization: "AHA – Boston Training Center", email: "m.jensen@aha.org" }],
+          steps: [
+            { id: "c4-s1", label: "Provider registers for renewal course", status: "completed", completedDate: "2025-02-20", assignedTo: "Sarah Chen" },
+            { id: "c4-s2", label: "Provider completes BLS course", status: "completed", completedDate: "2025-03-08", assignedTo: "Sarah Chen" },
+            { id: "c4-s3", label: "AHA issues renewed certification", status: "completed", completedDate: "2025-03-15", assignedTo: "Mark Jensen" },
+          ],
+          actualApprovalDate: "2025-03-15",
+          expirationDate: "2027-03-15",
+        },
+      }),
       cred("c5", "ACLS Certification", "certification", "in_progress", "other", {
         issuingBody: "AHA", notes: "Renewal scheduled for March",
         workflow: {
@@ -125,7 +172,25 @@ export const mockProviders: Provider[] = [
       { organization: "UCSF Medical Center", title: "Cardiology Fellow", startYear: 2016, endYear: 2019 },
     ],
     credentials: [
-      cred("c7", "State Medical License (MA)", "license", "completed", "state_license", { issuingBody: "MA Board of Medicine" }),
+      cred("c7", "State Medical License (MA)", "license", "completed", "state_license", {
+        issuingBody: "MA Board of Medicine",
+        workflow: {
+          issuingOrganization: "MA Board of Medicine",
+          organizationType: "state_license_board",
+          contacts: [{ name: "Linda Marsh", role: "Licensing Coordinator", organization: "MA Board of Medicine", email: "l.marsh@mass.gov", phone: "(617) 555-0100" }],
+          steps: [
+            { id: "c7-s1", label: "Provider requests documents from recruiter", status: "completed", completedDate: "2025-06-01", assignedTo: "James Rodriguez" },
+            { id: "c7-s2", label: "Recruiter sends documents to provider", status: "completed", completedDate: "2025-06-03", assignedTo: "Amy Torres" },
+            { id: "c7-s3", label: "Provider completes documents", status: "completed", completedDate: "2025-06-12", assignedTo: "James Rodriguez" },
+            { id: "c7-s4", label: "Recruiter reviews/approves documents", status: "completed", completedDate: "2025-06-14", assignedTo: "Amy Torres" },
+            { id: "c7-s5", label: "Recruiter forwards documents to board", status: "completed", completedDate: "2025-06-15", assignedTo: "Amy Torres" },
+            { id: "c7-s6", label: "Board confirms receipt", status: "completed", completedDate: "2025-06-22", assignedTo: "Linda Marsh" },
+            { id: "c7-s7", label: "Board approves license", status: "completed", completedDate: "2025-07-20", assignedTo: "Linda Marsh" },
+          ],
+          estimatedApprovalDate: "2025-07-15",
+          actualApprovalDate: "2025-07-20",
+        },
+      }),
       cred("c8", "DEA Registration", "license", "red_flag", "identity_verification", {
         issuingBody: "DEA", notes: "Expired — renewal pending review",
         workflow: {
@@ -150,7 +215,23 @@ export const mockProviders: Provider[] = [
       cred("c10", "Board Certification – Electrophysiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
       cred("c11", "BLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
       cred("c12", "ACLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
-      cred("c13", "Malpractice Insurance", "license", "incomplete", "other", { notes: "Awaiting documentation" }),
+      cred("c13", "Malpractice Insurance", "license", "incomplete", "other", {
+        notes: "Awaiting documentation",
+        workflow: {
+          issuingOrganization: "MedPro Group",
+          organizationType: "other",
+          contacts: [{ name: "Karen Sloane", role: "Underwriting Specialist", organization: "MedPro Group", email: "k.sloane@medpro.com", phone: "(800) 555-0177" }],
+          steps: [
+            { id: "c13-s1", label: "Provider requests coverage requirements", status: "completed", completedDate: "2026-01-25", assignedTo: "James Rodriguez" },
+            { id: "c13-s2", label: "Recruiter sends application forms", status: "completed", completedDate: "2026-01-26", assignedTo: "Amy Torres" },
+            { id: "c13-s3", label: "Provider completes application", status: "pending", estimatedDate: "2026-02-20", assignedTo: "James Rodriguez" },
+            { id: "c13-s4", label: "Recruiter reviews application", status: "pending", estimatedDate: "2026-02-25" },
+            { id: "c13-s5", label: "Recruiter submits to insurer", status: "pending", estimatedDate: "2026-03-01" },
+            { id: "c13-s6", label: "Insurer issues policy", status: "pending", estimatedDate: "2026-03-15" },
+          ],
+          estimatedApprovalDate: "2026-03-15",
+        },
+      }),
     ],
     highlights: [
       { text: "Dual board certified: Cardiology & Electrophysiology", icon: "credential" },
@@ -210,11 +291,80 @@ export const mockProviders: Provider[] = [
           estimatedApprovalDate: "2026-03-15",
         },
       }),
-      cred("c15", "DEA Registration", "license", "incomplete", "identity_verification"),
-      cred("c16", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
-      cred("c17", "BLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
-      cred("c18", "ACLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
-      cred("c19", "Malpractice Insurance", "license", "incomplete", "other"),
+      cred("c15", "DEA Registration", "license", "incomplete", "identity_verification", {
+        workflow: {
+          issuingOrganization: "Drug Enforcement Administration",
+          organizationType: "other",
+          contacts: [{ name: "Patricia Dunn", role: "Registration Specialist", organization: "DEA – Northeast Division", phone: "(202) 555-0180" }],
+          steps: [
+            { id: "c15-s1", label: "Provider requests application forms", status: "completed", completedDate: "2026-02-01", assignedTo: "Priya Patel" },
+            { id: "c15-s2", label: "Recruiter sends registration guidance", status: "in_progress", estimatedDate: "2026-02-18", assignedTo: "Amy Torres" },
+            { id: "c15-s3", label: "Provider completes DEA application", status: "pending", estimatedDate: "2026-02-28" },
+            { id: "c15-s4", label: "Recruiter reviews application", status: "pending" },
+            { id: "c15-s5", label: "Recruiter submits to DEA", status: "pending" },
+            { id: "c15-s6", label: "DEA confirms receipt", status: "pending" },
+            { id: "c15-s7", label: "DEA approves registration", status: "pending" },
+          ],
+          estimatedApprovalDate: "2026-04-15",
+        },
+      }),
+      cred("c16", "Board Certification – Cardiology", "certification", "completed", "board_certification", {
+        issuingBody: "ABIM",
+        workflow: {
+          issuingOrganization: "American Board of Internal Medicine",
+          organizationType: "certification_board",
+          contacts: [{ name: "Dr. Susan Park", role: "Certification Director", organization: "ABIM", email: "s.park@abim.org" }],
+          steps: [
+            { id: "c16-s1", label: "Provider requests exam eligibility", status: "completed", completedDate: "2021-04-10", assignedTo: "Priya Patel" },
+            { id: "c16-s2", label: "ABIM confirms eligibility", status: "completed", completedDate: "2021-05-01", assignedTo: "Dr. Susan Park" },
+            { id: "c16-s3", label: "Provider completes board exam", status: "completed", completedDate: "2021-10-18", assignedTo: "Priya Patel" },
+            { id: "c16-s4", label: "ABIM issues certification", status: "completed", completedDate: "2021-11-02", assignedTo: "Dr. Susan Park" },
+          ],
+          actualApprovalDate: "2021-11-02",
+        },
+      }),
+      cred("c17", "BLS Certification", "certification", "completed", "other", {
+        issuingBody: "AHA",
+        workflow: {
+          issuingOrganization: "American Heart Association",
+          organizationType: "certification_board",
+          contacts: [{ name: "Lisa Cho", role: "Training Coordinator", organization: "AHA – Midwest Training Center", email: "l.cho@aha.org" }],
+          steps: [
+            { id: "c17-s1", label: "Provider registers for course", status: "completed", completedDate: "2025-06-01", assignedTo: "Priya Patel" },
+            { id: "c17-s2", label: "Provider completes BLS course", status: "completed", completedDate: "2025-06-15", assignedTo: "Priya Patel" },
+            { id: "c17-s3", label: "AHA issues certification", status: "completed", completedDate: "2025-06-15", assignedTo: "Lisa Cho" },
+          ],
+          actualApprovalDate: "2025-06-15",
+        },
+      }),
+      cred("c18", "ACLS Certification", "certification", "completed", "other", {
+        issuingBody: "AHA",
+        workflow: {
+          issuingOrganization: "American Heart Association",
+          organizationType: "certification_board",
+          contacts: [{ name: "Lisa Cho", role: "Training Coordinator", organization: "AHA – Midwest Training Center", email: "l.cho@aha.org" }],
+          steps: [
+            { id: "c18-s1", label: "Provider registers for course", status: "completed", completedDate: "2025-06-16", assignedTo: "Priya Patel" },
+            { id: "c18-s2", label: "Provider completes ACLS course", status: "completed", completedDate: "2025-06-20", assignedTo: "Priya Patel" },
+            { id: "c18-s3", label: "AHA issues certification", status: "completed", completedDate: "2025-06-20", assignedTo: "Lisa Cho" },
+          ],
+          actualApprovalDate: "2025-06-20",
+        },
+      }),
+      cred("c19", "Malpractice Insurance", "license", "incomplete", "other", {
+        workflow: {
+          issuingOrganization: "The Doctors Company",
+          organizationType: "other",
+          contacts: [{ name: "Brian Holt", role: "Account Manager", organization: "The Doctors Company", email: "b.holt@thedoctors.com" }],
+          steps: [
+            { id: "c19-s1", label: "Provider requests coverage options", status: "completed", completedDate: "2026-02-05", assignedTo: "Priya Patel" },
+            { id: "c19-s2", label: "Recruiter sends policy requirements", status: "pending", estimatedDate: "2026-02-20", assignedTo: "Amy Torres" },
+            { id: "c19-s3", label: "Provider completes application", status: "pending" },
+            { id: "c19-s4", label: "Insurer reviews & issues policy", status: "pending" },
+          ],
+          estimatedApprovalDate: "2026-03-30",
+        },
+      }),
     ],
     highlights: [
       { text: "Heart failure subspecialty — high-acuity experience", icon: "credential" },
@@ -370,9 +520,58 @@ export const mockProviders: Provider[] = [
     education: [{ institution: "University of Michigan", degree: "MD", field: "Medicine", graduationYear: 2016 }],
     experience: [{ organization: "NYU Langone", title: "Interventional Cardiologist", startYear: 2021 }],
     credentials: [
-      cred("c30", "State Medical License (NY)", "license", "completed", "state_license", { issuingBody: "NY Board of Medicine" }),
-      cred("c31", "DEA Registration", "license", "in_progress", "identity_verification", { issuingBody: "DEA", notes: "Transfer in progress" }),
-      cred("c32", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
+      cred("c30", "State Medical License (NY)", "license", "completed", "state_license", {
+        issuingBody: "NY Board of Medicine",
+        workflow: {
+          issuingOrganization: "NY Board of Medicine",
+          organizationType: "state_license_board",
+          contacts: [{ name: "Thomas Greco", role: "Licensing Analyst", organization: "NY Board of Medicine", email: "t.greco@nysed.gov" }],
+          steps: [
+            { id: "c30-s1", label: "Provider requests documents from recruiter", status: "completed", completedDate: "2024-09-01", assignedTo: "David Kim" },
+            { id: "c30-s2", label: "Recruiter sends documents to provider", status: "completed", completedDate: "2024-09-03", assignedTo: "Amy Torres" },
+            { id: "c30-s3", label: "Provider completes documents", status: "completed", completedDate: "2024-09-15", assignedTo: "David Kim" },
+            { id: "c30-s4", label: "Recruiter reviews/approves documents", status: "completed", completedDate: "2024-09-17", assignedTo: "Amy Torres" },
+            { id: "c30-s5", label: "Recruiter forwards documents to board", status: "completed", completedDate: "2024-09-18", assignedTo: "Amy Torres" },
+            { id: "c30-s6", label: "Board confirms receipt", status: "completed", completedDate: "2024-09-25", assignedTo: "Thomas Greco" },
+            { id: "c30-s7", label: "Board approves license", status: "completed", completedDate: "2024-11-01", assignedTo: "Thomas Greco" },
+          ],
+          estimatedApprovalDate: "2024-10-30",
+          actualApprovalDate: "2024-11-01",
+        },
+      }),
+      cred("c31", "DEA Registration", "license", "in_progress", "identity_verification", {
+        issuingBody: "DEA", notes: "Transfer in progress",
+        workflow: {
+          issuingOrganization: "Drug Enforcement Administration",
+          organizationType: "other",
+          contacts: [{ name: "James Whitfield", role: "Registration Coordinator", organization: "DEA – Northeast Division", phone: "(202) 555-0142" }],
+          steps: [
+            { id: "c31-s1", label: "Provider requests transfer forms", status: "completed", completedDate: "2026-01-20", assignedTo: "David Kim" },
+            { id: "c31-s2", label: "Recruiter sends transfer guidance", status: "completed", completedDate: "2026-01-21", assignedTo: "Amy Torres" },
+            { id: "c31-s3", label: "Provider completes transfer application", status: "completed", completedDate: "2026-01-28", assignedTo: "David Kim" },
+            { id: "c31-s4", label: "Recruiter reviews application", status: "completed", completedDate: "2026-01-30", assignedTo: "Amy Torres" },
+            { id: "c31-s5", label: "Recruiter submits to DEA", status: "completed", completedDate: "2026-02-01", assignedTo: "Amy Torres" },
+            { id: "c31-s6", label: "DEA confirms receipt", status: "in_progress", estimatedDate: "2026-02-20", assignedTo: "James Whitfield" },
+            { id: "c31-s7", label: "DEA approves transfer", status: "pending", estimatedDate: "2026-03-10" },
+          ],
+          estimatedApprovalDate: "2026-03-10",
+        },
+      }),
+      cred("c32", "Board Certification – Cardiology", "certification", "completed", "board_certification", {
+        issuingBody: "ABIM",
+        workflow: {
+          issuingOrganization: "American Board of Internal Medicine",
+          organizationType: "certification_board",
+          contacts: [{ name: "Dr. Susan Park", role: "Certification Director", organization: "ABIM", email: "s.park@abim.org" }],
+          steps: [
+            { id: "c32-s1", label: "Provider requests exam eligibility", status: "completed", completedDate: "2020-05-01", assignedTo: "David Kim" },
+            { id: "c32-s2", label: "ABIM confirms eligibility", status: "completed", completedDate: "2020-05-15", assignedTo: "Dr. Susan Park" },
+            { id: "c32-s3", label: "Provider completes board exam", status: "completed", completedDate: "2020-10-10", assignedTo: "David Kim" },
+            { id: "c32-s4", label: "ABIM issues certification", status: "completed", completedDate: "2020-10-28", assignedTo: "Dr. Susan Park" },
+          ],
+          actualApprovalDate: "2020-10-28",
+        },
+      }),
     ],
     highlights: [
       { text: "350+ complex PCI cases", icon: "procedure" },
@@ -395,10 +594,71 @@ export const mockProviders: Provider[] = [
     education: [{ institution: "Emory University", degree: "MD", field: "Medicine", graduationYear: 2013 }],
     experience: [{ organization: "Emory Healthcare", title: "Senior Cardiologist", startYear: 2019, specialty: "Heart Failure" }],
     credentials: [
-      cred("c33", "State Medical License (GA)", "license", "completed", "state_license", { issuingBody: "GA Board of Medicine" }),
-      cred("c34", "DEA Registration", "license", "completed", "identity_verification", { issuingBody: "DEA" }),
-      cred("c35", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
-      cred("c36", "ACLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
+      cred("c33", "State Medical License (GA)", "license", "completed", "state_license", {
+        issuingBody: "GA Board of Medicine",
+        workflow: {
+          issuingOrganization: "GA Board of Medicine",
+          organizationType: "state_license_board",
+          contacts: [{ name: "Diane Turner", role: "License Reviewer", organization: "GA Board of Medicine", email: "d.turner@ga.gov" }],
+          steps: [
+            { id: "c33-s1", label: "Provider requests documents from recruiter", status: "completed", completedDate: "2019-01-10", assignedTo: "Angela Morris" },
+            { id: "c33-s2", label: "Recruiter sends documents to provider", status: "completed", completedDate: "2019-01-12", assignedTo: "Amy Torres" },
+            { id: "c33-s3", label: "Provider completes documents", status: "completed", completedDate: "2019-01-22", assignedTo: "Angela Morris" },
+            { id: "c33-s4", label: "Recruiter reviews/approves documents", status: "completed", completedDate: "2019-01-24", assignedTo: "Amy Torres" },
+            { id: "c33-s5", label: "Recruiter forwards documents to board", status: "completed", completedDate: "2019-01-25", assignedTo: "Amy Torres" },
+            { id: "c33-s6", label: "Board confirms receipt", status: "completed", completedDate: "2019-02-05", assignedTo: "Diane Turner" },
+            { id: "c33-s7", label: "Board approves license", status: "completed", completedDate: "2019-03-01", assignedTo: "Diane Turner" },
+          ],
+          actualApprovalDate: "2019-03-01",
+        },
+      }),
+      cred("c34", "DEA Registration", "license", "completed", "identity_verification", {
+        issuingBody: "DEA",
+        workflow: {
+          issuingOrganization: "Drug Enforcement Administration",
+          organizationType: "other",
+          contacts: [{ name: "Steven Rios", role: "Registration Coordinator", organization: "DEA – Southeast Division", phone: "(404) 555-0166" }],
+          steps: [
+            { id: "c34-s1", label: "Provider requests registration forms", status: "completed", completedDate: "2019-03-05", assignedTo: "Angela Morris" },
+            { id: "c34-s2", label: "Recruiter sends guidance", status: "completed", completedDate: "2019-03-06", assignedTo: "Amy Torres" },
+            { id: "c34-s3", label: "Provider completes application", status: "completed", completedDate: "2019-03-12", assignedTo: "Angela Morris" },
+            { id: "c34-s4", label: "Recruiter reviews application", status: "completed", completedDate: "2019-03-13", assignedTo: "Amy Torres" },
+            { id: "c34-s5", label: "Recruiter submits to DEA", status: "completed", completedDate: "2019-03-14", assignedTo: "Amy Torres" },
+            { id: "c34-s6", label: "DEA confirms receipt", status: "completed", completedDate: "2019-03-22", assignedTo: "Steven Rios" },
+            { id: "c34-s7", label: "DEA approves registration", status: "completed", completedDate: "2019-04-10", assignedTo: "Steven Rios" },
+          ],
+          actualApprovalDate: "2019-04-10",
+        },
+      }),
+      cred("c35", "Board Certification – Cardiology", "certification", "completed", "board_certification", {
+        issuingBody: "ABIM",
+        workflow: {
+          issuingOrganization: "American Board of Internal Medicine",
+          organizationType: "certification_board",
+          contacts: [{ name: "Dr. Rachel Moore", role: "Certification Director", organization: "ABIM", email: "r.moore@abim.org" }],
+          steps: [
+            { id: "c35-s1", label: "Provider requests exam eligibility", status: "completed", completedDate: "2018-03-01", assignedTo: "Angela Morris" },
+            { id: "c35-s2", label: "ABIM confirms eligibility", status: "completed", completedDate: "2018-03-20", assignedTo: "Dr. Rachel Moore" },
+            { id: "c35-s3", label: "Provider completes board exam", status: "completed", completedDate: "2018-09-15", assignedTo: "Angela Morris" },
+            { id: "c35-s4", label: "ABIM issues certification", status: "completed", completedDate: "2018-10-01", assignedTo: "Dr. Rachel Moore" },
+          ],
+          actualApprovalDate: "2018-10-01",
+        },
+      }),
+      cred("c36", "ACLS Certification", "certification", "completed", "other", {
+        issuingBody: "AHA",
+        workflow: {
+          issuingOrganization: "American Heart Association",
+          organizationType: "certification_board",
+          contacts: [{ name: "Nancy Wells", role: "Training Coordinator", organization: "AHA – Atlanta Training Center", email: "n.wells@aha.org" }],
+          steps: [
+            { id: "c36-s1", label: "Provider registers for ACLS renewal", status: "completed", completedDate: "2025-09-01", assignedTo: "Angela Morris" },
+            { id: "c36-s2", label: "Provider completes ACLS course", status: "completed", completedDate: "2025-09-15", assignedTo: "Angela Morris" },
+            { id: "c36-s3", label: "AHA issues renewed certification", status: "completed", completedDate: "2025-09-15", assignedTo: "Nancy Wells" },
+          ],
+          actualApprovalDate: "2025-09-15",
+        },
+      }),
     ],
     highlights: [
       { text: "Heart failure subspecialty with transplant experience", icon: "credential" },
@@ -424,7 +684,21 @@ export const mockProviders: Provider[] = [
     credentials: [
       cred("c37", "State Medical License (IL)", "license", "completed", "state_license", { issuingBody: "IL Board of Medicine" }),
       cred("c38", "DEA Registration", "license", "completed", "identity_verification", { issuingBody: "DEA" }),
-      cred("c39", "Board Certification – Cardiology", "certification", "in_progress", "board_certification", { issuingBody: "ABIM", notes: "Exam scheduled" }),
+      cred("c39", "Board Certification – Cardiology", "certification", "in_progress", "board_certification", {
+        issuingBody: "ABIM", notes: "Exam scheduled",
+        workflow: {
+          issuingOrganization: "American Board of Internal Medicine",
+          organizationType: "certification_board",
+          contacts: [{ name: "Dr. Rachel Moore", role: "Certification Director", organization: "ABIM", email: "r.moore@abim.org" }],
+          steps: [
+            { id: "c39-s1", label: "Provider requests exam eligibility", status: "completed", completedDate: "2025-11-01", assignedTo: "Robert Nakamura" },
+            { id: "c39-s2", label: "ABIM confirms eligibility", status: "completed", completedDate: "2025-11-20", assignedTo: "Dr. Rachel Moore" },
+            { id: "c39-s3", label: "Provider completes board exam", status: "in_progress", estimatedDate: "2026-04-15", assignedTo: "Robert Nakamura", notes: "Exam scheduled for April 15" },
+            { id: "c39-s4", label: "ABIM issues certification", status: "pending", estimatedDate: "2026-05-01" },
+          ],
+          estimatedApprovalDate: "2026-05-01",
+        },
+      }),
     ],
     highlights: [
       { text: "Structural heart disease specialist — TAVR & MitraClip", icon: "credential" },
@@ -546,9 +820,56 @@ export const mockProviders: Provider[] = [
     education: [{ institution: "University of Pittsburgh", degree: "MD", field: "Medicine", graduationYear: 2017 }],
     experience: [{ organization: "Penn Medicine", title: "Cardiology Fellow", startYear: 2022 }],
     credentials: [
-      cred("c52", "State Medical License (PA)", "license", "in_progress", "state_license", { issuingBody: "PA Board of Medicine", notes: "Pending verification" }),
-      cred("c53", "DEA Registration", "license", "incomplete", "identity_verification"),
-      cred("c54", "Board Certification – Cardiology", "certification", "in_progress", "board_certification", { issuingBody: "ABIM" }),
+      cred("c52", "State Medical License (PA)", "license", "in_progress", "state_license", {
+        issuingBody: "PA Board of Medicine", notes: "Pending verification",
+        workflow: {
+          issuingOrganization: "PA Board of Medicine",
+          organizationType: "state_license_board",
+          contacts: [{ name: "Margaret Liu", role: "Licensing Specialist", organization: "PA Board of Medicine", email: "m.liu@pa.gov" }],
+          steps: [
+            { id: "c52-s1", label: "Provider requests documents from recruiter", status: "completed", completedDate: "2026-01-15", assignedTo: "Thomas Wright" },
+            { id: "c52-s2", label: "Recruiter sends documents to provider", status: "completed", completedDate: "2026-01-16", assignedTo: "Amy Torres" },
+            { id: "c52-s3", label: "Provider completes documents", status: "completed", completedDate: "2026-01-28", assignedTo: "Thomas Wright" },
+            { id: "c52-s4", label: "Recruiter reviews/approves documents", status: "completed", completedDate: "2026-01-30", assignedTo: "Amy Torres" },
+            { id: "c52-s5", label: "Recruiter forwards documents to board", status: "completed", completedDate: "2026-02-01", assignedTo: "Amy Torres" },
+            { id: "c52-s6", label: "Board confirms receipt", status: "in_progress", estimatedDate: "2026-02-25", assignedTo: "Margaret Liu", notes: "Transcript verification in progress" },
+            { id: "c52-s7", label: "Board approves license", status: "pending", estimatedDate: "2026-03-20" },
+          ],
+          estimatedApprovalDate: "2026-03-20",
+        },
+      }),
+      cred("c53", "DEA Registration", "license", "incomplete", "identity_verification", {
+        workflow: {
+          issuingOrganization: "Drug Enforcement Administration",
+          organizationType: "other",
+          contacts: [{ name: "Patricia Dunn", role: "Registration Specialist", organization: "DEA – Northeast Division", phone: "(202) 555-0180" }],
+          steps: [
+            { id: "c53-s1", label: "Provider requests registration forms", status: "pending", assignedTo: "Thomas Wright" },
+            { id: "c53-s2", label: "Recruiter sends guidance", status: "pending" },
+            { id: "c53-s3", label: "Provider completes application", status: "pending" },
+            { id: "c53-s4", label: "Recruiter reviews application", status: "pending" },
+            { id: "c53-s5", label: "Recruiter submits to DEA", status: "pending" },
+            { id: "c53-s6", label: "DEA confirms receipt", status: "pending" },
+            { id: "c53-s7", label: "DEA approves registration", status: "pending" },
+          ],
+          estimatedApprovalDate: "2026-05-01",
+        },
+      }),
+      cred("c54", "Board Certification – Cardiology", "certification", "in_progress", "board_certification", {
+        issuingBody: "ABIM",
+        workflow: {
+          issuingOrganization: "American Board of Internal Medicine",
+          organizationType: "certification_board",
+          contacts: [{ name: "Dr. Susan Park", role: "Certification Director", organization: "ABIM", email: "s.park@abim.org" }],
+          steps: [
+            { id: "c54-s1", label: "Provider requests exam eligibility", status: "completed", completedDate: "2025-12-01", assignedTo: "Thomas Wright" },
+            { id: "c54-s2", label: "ABIM confirms eligibility", status: "completed", completedDate: "2025-12-20", assignedTo: "Dr. Susan Park" },
+            { id: "c54-s3", label: "Provider completes board exam", status: "in_progress", estimatedDate: "2026-06-01", assignedTo: "Thomas Wright", notes: "Studying — exam date June 1" },
+            { id: "c54-s4", label: "ABIM issues certification", status: "pending", estimatedDate: "2026-06-20" },
+          ],
+          estimatedApprovalDate: "2026-06-20",
+        },
+      }),
     ],
     highlights: [
       { text: "Early-career fellow with strong research output", icon: "research" },
@@ -601,7 +922,20 @@ export const mockProviders: Provider[] = [
       cred("c59", "State Medical License (TN)", "license", "completed", "state_license", { issuingBody: "TN Board of Medicine" }),
       cred("c60", "DEA Registration", "license", "completed", "identity_verification", { issuingBody: "DEA" }),
       cred("c61", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
-      cred("c62", "BLS Certification", "certification", "exception", "other", { issuingBody: "AHA", notes: "Expired — grace period granted" }),
+      cred("c62", "BLS Certification", "certification", "exception", "other", {
+        issuingBody: "AHA", notes: "Expired — grace period granted",
+        workflow: {
+          issuingOrganization: "American Heart Association",
+          organizationType: "certification_board",
+          contacts: [{ name: "Nancy Wells", role: "Training Coordinator", organization: "AHA – Nashville Training Center", email: "n.wells@aha.org" }],
+          steps: [
+            { id: "c62-s1", label: "Provider registers for renewal course", status: "completed", completedDate: "2026-01-10", assignedTo: "Marcus Blake" },
+            { id: "c62-s2", label: "Provider completes BLS course", status: "in_progress", estimatedDate: "2026-02-28", assignedTo: "Marcus Blake", notes: "Course rescheduled from Feb 15 — grace period active" },
+            { id: "c62-s3", label: "AHA issues renewed certification", status: "pending", estimatedDate: "2026-03-05" },
+          ],
+          estimatedApprovalDate: "2026-03-05",
+        },
+      }),
     ],
     highlights: [
       { text: "Cardiac CT/MRI imaging specialist", icon: "credential" },
@@ -654,7 +988,22 @@ export const mockProviders: Provider[] = [
       cred("c67", "State Medical License (MI)", "license", "completed", "state_license", { issuingBody: "MI Board of Medicine" }),
       cred("c68", "DEA Registration", "license", "completed", "identity_verification", { issuingBody: "DEA" }),
       cred("c69", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
-      cred("c70", "Malpractice Insurance", "license", "red_flag", "other", { notes: "Coverage gap identified" }),
+      cred("c70", "Malpractice Insurance", "license", "red_flag", "other", {
+        notes: "Coverage gap identified",
+        workflow: {
+          issuingOrganization: "ProAssurance",
+          organizationType: "other",
+          contacts: [{ name: "Angela Freeman", role: "Claims Analyst", organization: "ProAssurance", email: "a.freeman@proassurance.com", phone: "(800) 555-0133" }],
+          steps: [
+            { id: "c70-s1", label: "Provider requests coverage review", status: "completed", completedDate: "2026-01-15", assignedTo: "Omar Hassan" },
+            { id: "c70-s2", label: "Recruiter sends policy requirements", status: "completed", completedDate: "2026-01-16", assignedTo: "Amy Torres" },
+            { id: "c70-s3", label: "Provider submits claims history", status: "completed", completedDate: "2026-01-22", assignedTo: "Omar Hassan" },
+            { id: "c70-s4", label: "Insurer reviews claims history", status: "blocked", assignedTo: "Angela Freeman", notes: "Gap in coverage identified between May–Aug 2024 — requesting explanation from provider" },
+            { id: "c70-s5", label: "Insurer issues policy", status: "pending" },
+          ],
+          estimatedApprovalDate: "2026-03-01",
+        },
+      }),
     ],
     highlights: [
       { text: "450+ PCI procedures at Henry Ford", icon: "procedure" },
@@ -707,7 +1056,20 @@ export const mockProviders: Provider[] = [
       cred("c75", "DEA Registration", "license", "completed", "identity_verification", { issuingBody: "DEA" }),
       cred("c76", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
       cred("c77", "BLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
-      cred("c78", "ACLS Certification", "certification", "in_progress", "other", { issuingBody: "AHA", notes: "Renewal in progress" }),
+      cred("c78", "ACLS Certification", "certification", "in_progress", "other", {
+        issuingBody: "AHA", notes: "Renewal in progress",
+        workflow: {
+          issuingOrganization: "American Heart Association",
+          organizationType: "certification_board",
+          contacts: [{ name: "David Nguyen", role: "Training Coordinator", organization: "AHA – Providence Training Center", email: "d.nguyen@aha.org" }],
+          steps: [
+            { id: "c78-s1", label: "Provider registers for renewal course", status: "completed", completedDate: "2026-01-20", assignedTo: "Jonathan Park" },
+            { id: "c78-s2", label: "Provider completes ACLS course", status: "in_progress", estimatedDate: "2026-03-01", assignedTo: "Jonathan Park", notes: "Course scheduled for Feb 28" },
+            { id: "c78-s3", label: "AHA issues renewed certification", status: "pending", estimatedDate: "2026-03-05" },
+          ],
+          estimatedApprovalDate: "2026-03-05",
+        },
+      }),
     ],
     highlights: [
       { text: "550+ coronary interventions performed", icon: "procedure" },
@@ -731,8 +1093,41 @@ export const mockProviders: Provider[] = [
     education: [{ institution: "University of Colorado", degree: "MD", field: "Medicine", graduationYear: 2017 }],
     experience: [{ organization: "UCHealth", title: "Cardiologist", startYear: 2022 }],
     credentials: [
-      cred("c79", "State Medical License (CO)", "license", "in_progress", "state_license", { issuingBody: "CO Board of Medicine" }),
-      cred("c80", "DEA Registration", "license", "incomplete", "identity_verification"),
+      cred("c79", "State Medical License (CO)", "license", "in_progress", "state_license", {
+        issuingBody: "CO Board of Medicine",
+        workflow: {
+          issuingOrganization: "CO Board of Medicine",
+          organizationType: "state_license_board",
+          contacts: [{ name: "Jeff Caldwell", role: "Licensing Coordinator", organization: "CO Board of Medicine", email: "j.caldwell@colorado.gov" }],
+          steps: [
+            { id: "c79-s1", label: "Provider requests documents from recruiter", status: "completed", completedDate: "2026-01-28", assignedTo: "Samantha Green" },
+            { id: "c79-s2", label: "Recruiter sends documents to provider", status: "completed", completedDate: "2026-01-29", assignedTo: "Amy Torres" },
+            { id: "c79-s3", label: "Provider completes documents", status: "completed", completedDate: "2026-02-08", assignedTo: "Samantha Green" },
+            { id: "c79-s4", label: "Recruiter reviews/approves documents", status: "in_progress", estimatedDate: "2026-02-20", assignedTo: "Amy Torres" },
+            { id: "c79-s5", label: "Recruiter forwards documents to board", status: "pending", estimatedDate: "2026-02-22" },
+            { id: "c79-s6", label: "Board confirms receipt", status: "pending", estimatedDate: "2026-03-05" },
+            { id: "c79-s7", label: "Board approves license", status: "pending", estimatedDate: "2026-04-01" },
+          ],
+          estimatedApprovalDate: "2026-04-01",
+        },
+      }),
+      cred("c80", "DEA Registration", "license", "incomplete", "identity_verification", {
+        workflow: {
+          issuingOrganization: "Drug Enforcement Administration",
+          organizationType: "other",
+          contacts: [{ name: "Michael Brant", role: "Registration Specialist", organization: "DEA – Western Division", phone: "(303) 555-0188" }],
+          steps: [
+            { id: "c80-s1", label: "Provider requests registration forms", status: "in_progress", estimatedDate: "2026-02-20", assignedTo: "Samantha Green", notes: "Waiting for CO license before proceeding" },
+            { id: "c80-s2", label: "Recruiter sends guidance", status: "pending" },
+            { id: "c80-s3", label: "Provider completes application", status: "pending" },
+            { id: "c80-s4", label: "Recruiter reviews application", status: "pending" },
+            { id: "c80-s5", label: "Recruiter submits to DEA", status: "pending" },
+            { id: "c80-s6", label: "DEA confirms receipt", status: "pending" },
+            { id: "c80-s7", label: "DEA approves registration", status: "pending" },
+          ],
+          estimatedApprovalDate: "2026-05-15",
+        },
+      }),
       cred("c81", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
     ],
     highlights: [
@@ -756,8 +1151,42 @@ export const mockProviders: Provider[] = [
     education: [{ institution: "Tufts University", degree: "MD", field: "Medicine", graduationYear: 2014 }],
     experience: [{ organization: "Tufts Medical Center", title: "Senior Cardiologist", startYear: 2019, specialty: "Cardiac Catheterization" }],
     credentials: [
-      cred("c82", "State Medical License (MA)", "license", "completed", "state_license", { issuingBody: "MA Board of Medicine" }),
-      cred("c83", "DEA Registration", "license", "completed", "identity_verification", { issuingBody: "DEA" }),
+      cred("c82", "State Medical License (MA)", "license", "completed", "state_license", {
+        issuingBody: "MA Board of Medicine",
+        workflow: {
+          issuingOrganization: "MA Board of Medicine",
+          organizationType: "state_license_board",
+          contacts: [{ name: "Linda Marsh", role: "Licensing Coordinator", organization: "MA Board of Medicine", email: "l.marsh@mass.gov" }],
+          steps: [
+            { id: "c82-s1", label: "Provider requests documents from recruiter", status: "completed", completedDate: "2019-02-01", assignedTo: "Daniel Reeves" },
+            { id: "c82-s2", label: "Recruiter sends documents to provider", status: "completed", completedDate: "2019-02-03", assignedTo: "Amy Torres" },
+            { id: "c82-s3", label: "Provider completes documents", status: "completed", completedDate: "2019-02-15", assignedTo: "Daniel Reeves" },
+            { id: "c82-s4", label: "Recruiter reviews/approves documents", status: "completed", completedDate: "2019-02-17", assignedTo: "Amy Torres" },
+            { id: "c82-s5", label: "Recruiter forwards documents to board", status: "completed", completedDate: "2019-02-18", assignedTo: "Amy Torres" },
+            { id: "c82-s6", label: "Board confirms receipt", status: "completed", completedDate: "2019-02-28", assignedTo: "Linda Marsh" },
+            { id: "c82-s7", label: "Board approves license", status: "completed", completedDate: "2019-03-25", assignedTo: "Linda Marsh" },
+          ],
+          actualApprovalDate: "2019-03-25",
+        },
+      }),
+      cred("c83", "DEA Registration", "license", "completed", "identity_verification", {
+        issuingBody: "DEA",
+        workflow: {
+          issuingOrganization: "Drug Enforcement Administration",
+          organizationType: "other",
+          contacts: [{ name: "James Whitfield", role: "Registration Coordinator", organization: "DEA – Northeast Division", phone: "(202) 555-0142" }],
+          steps: [
+            { id: "c83-s1", label: "Provider requests registration forms", status: "completed", completedDate: "2019-04-01", assignedTo: "Daniel Reeves" },
+            { id: "c83-s2", label: "Recruiter sends guidance", status: "completed", completedDate: "2019-04-02", assignedTo: "Amy Torres" },
+            { id: "c83-s3", label: "Provider completes application", status: "completed", completedDate: "2019-04-10", assignedTo: "Daniel Reeves" },
+            { id: "c83-s4", label: "Recruiter reviews application", status: "completed", completedDate: "2019-04-11", assignedTo: "Amy Torres" },
+            { id: "c83-s5", label: "Recruiter submits to DEA", status: "completed", completedDate: "2019-04-12", assignedTo: "Amy Torres" },
+            { id: "c83-s6", label: "DEA confirms receipt", status: "completed", completedDate: "2019-04-20", assignedTo: "James Whitfield" },
+            { id: "c83-s7", label: "DEA approves registration", status: "completed", completedDate: "2019-05-08", assignedTo: "James Whitfield" },
+          ],
+          actualApprovalDate: "2019-05-08",
+        },
+      }),
       cred("c84", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
       cred("c85", "BLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
       cred("c86", "ACLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
