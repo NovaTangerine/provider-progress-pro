@@ -109,7 +109,7 @@ const Index = () => {
 
       {viewMode === "list" ?
       <div className="overflow-x-auto">
-          <table className="w-full table-fixed">
+          <table className="w-full table-fixed min-w-[900px]">
             <thead>
               <tr className="bg-muted text-muted-foreground [&>th]:bg-muted">
                 <th className="px-4 py-2.5 w-[40px] sticky left-0 z-20 bg-muted" />
