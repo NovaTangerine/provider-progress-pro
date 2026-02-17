@@ -143,7 +143,7 @@ const Index = () => {
           </table>
         </div> :
 
-      <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-5 animate-fade-in [&>*]:max-w-[400px]">
+      <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 animate-fade-in">
           {filteredProviders.map((provider) =>
         <ProviderCard key={provider.id} provider={provider} />
         )}
