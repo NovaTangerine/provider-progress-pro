@@ -30,14 +30,16 @@ const Index = () => {
   const [cardHighlightsExpanded, setCardHighlightsExpanded] = useState(false);
   const [cardAvailabilityExpanded, setCardAvailabilityExpanded] = useState(false);
   const providerThRef = useRef<HTMLTableCellElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [headerPadding, setHeaderPadding] = useState(0);
 
   useEffect(() => {
     const measure = () => {
-      if (providerThRef.current) {
-        const rect = providerThRef.current.getBoundingClientRect();
+      if (providerThRef.current && containerRef.current) {
+        const thRect = providerThRef.current.getBoundingClientRect();
+        const containerRect = containerRef.current.getBoundingClientRect();
         const paddingLeft = parseFloat(getComputedStyle(providerThRef.current).paddingLeft) || 0;
-        setHeaderPadding(rect.left + paddingLeft + window.scrollX);
+        setHeaderPadding(thRect.left - containerRect.left + paddingLeft);
       }
     };
     measure();
@@ -55,7 +57,7 @@ const Index = () => {
   mockRole.providers;
 
   return (
-    <div className="min-h-screen bg-background max-w-[1440px] mx-auto">
+    <div ref={containerRef} className="min-h-screen bg-background max-w-[1440px] mx-auto">
       <RoleHeader role={mockRole} />
 
       {/* View toggle bar */}
