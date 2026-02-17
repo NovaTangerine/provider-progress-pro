@@ -108,12 +108,15 @@ function HighlightItem({ text, icon }: {text: string;icon?: string;}) {
 }
 
 function formatDateRange(startDate: string, endDate?: string) {
-  const fmt = (d: string) => {
-    const date = new Date(d + "T00:00:00");
-    return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-  };
-  if (endDate) return `${fmt(startDate)} – ${fmt(endDate)}`;
-  return `Starting ${fmt(startDate)}`;
+  const start = new Date(startDate + "T00:00:00");
+  if (!endDate) {
+    return `Starting ${start.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
+  }
+  const end = new Date(endDate + "T00:00:00");
+  const sameYear = start.getFullYear() === end.getFullYear();
+  const startFmt = start.toLocaleDateString("en-US", { month: "short", day: "numeric", ...(!sameYear && { year: "numeric" }) });
+  const endFmt = end.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return `${startFmt} – ${endFmt}`;
 }
 
 export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle }: ProviderCardProps) {
