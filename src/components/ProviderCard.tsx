@@ -142,7 +142,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
 
         <div className="px-5 py-4 space-y-5 divide-y divide-dashed divide-border/50 [&>*]:pt-5 [&>*:first-child]:pt-0">
           {/* Availability Section */}
-          <div className="space-y-2.5">
+          <div className="space-y-3.5">
             <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
               Availability
             </h4>
@@ -193,7 +193,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
 
           {/* Provider Highlights */}
           {highlights.length > 0 && (
-            <div className="space-y-2.5">
+            <div className="space-y-3.5">
               <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
                 Provider Highlights
               </h4>
@@ -219,7 +219,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
 
 
           {/* Credentials */}
-          <div className="space-y-2.5">
+          <div className="space-y-3.5">
             <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
               Credentials
             </h4>
