@@ -122,7 +122,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
 
   return (
     <>
-      <div className="rounded-lg border border-border bg-card shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden grid grid-rows-subgrid row-span-4">
+      <div className="rounded-lg border border-border bg-card shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden grid grid-rows-subgrid row-span-4 gap-0">
         {/* Header */}
         <div className="px-7 py-4 border-b border-border flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
