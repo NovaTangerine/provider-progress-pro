@@ -25,6 +25,41 @@ export interface StatusMeta {
   description?: string;
 }
 
+// ── Credential workflow step ──
+export type WorkflowStepStatus = "pending" | "in_progress" | "completed" | "blocked";
+
+export interface CredentialWorkflowStep {
+  id: string;
+  label: string;
+  status: WorkflowStepStatus;
+  completedDate?: string;
+  estimatedDate?: string;
+  assignedTo?: string;
+  notes?: string;
+}
+
+// ── Credential contact ──
+export interface CredentialContact {
+  name: string;
+  role?: string;
+  organization: string;
+  email?: string;
+  phone?: string;
+}
+
+// ── Credential workflow ──
+export type OrganizationType = "hospital_board" | "state_license_board" | "certification_board" | "other";
+
+export interface CredentialWorkflow {
+  issuingOrganization: string;
+  organizationType: OrganizationType;
+  contacts: CredentialContact[];
+  steps: CredentialWorkflowStep[];
+  estimatedApprovalDate?: string;
+  actualApprovalDate?: string;
+  expirationDate?: string;
+}
+
 // ── Credential (license or certification) ──
 export interface Credential {
   id: string;
@@ -35,6 +70,7 @@ export interface Credential {
   issuingBody?: string;
   expirationDate?: string;
   notes?: string;
+  workflow?: CredentialWorkflow;
 }
 
 // ── Education ──
