@@ -27,6 +27,8 @@ const Index = () => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [activeStage, setActiveStage] = useState<ProviderStage | null>(null);
+  const [cardHighlightsExpanded, setCardHighlightsExpanded] = useState(false);
+  const [cardAvailabilityExpanded, setCardAvailabilityExpanded] = useState(false);
   const providerThRef = useRef<HTMLTableCellElement>(null);
   const [headerPadding, setHeaderPadding] = useState(0);
 
@@ -145,7 +147,14 @@ const Index = () => {
 
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in" style={{ gridTemplateRows: 'auto', gridAutoRows: 'auto' }}>
           {filteredProviders.map((provider) =>
-        <ProviderCard key={provider.id} provider={provider} />
+        <ProviderCard
+          key={provider.id}
+          provider={provider}
+          highlightsExpanded={cardHighlightsExpanded}
+          onHighlightsToggle={() => setCardHighlightsExpanded(prev => !prev)}
+          availabilityExpanded={cardAvailabilityExpanded}
+          onAvailabilityToggle={() => setCardAvailabilityExpanded(prev => !prev)}
+        />
         )}
         </div>
       }

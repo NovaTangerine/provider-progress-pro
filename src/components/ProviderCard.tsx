@@ -22,6 +22,10 @@ import { Badge } from "@/components/ui/badge";
 
 interface ProviderCardProps {
   provider: Provider;
+  highlightsExpanded: boolean;
+  onHighlightsToggle: () => void;
+  availabilityExpanded: boolean;
+  onAvailabilityToggle: () => void;
 }
 
 function CredentialPill({ credential, onClick }: {credential: Credential;onClick: (c: Credential) => void;}) {
@@ -112,10 +116,8 @@ function formatDateRange(startDate: string, endDate?: string) {
   return `Starting ${fmt(startDate)}`;
 }
 
-export function ProviderCard({ provider }: ProviderCardProps) {
+export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle }: ProviderCardProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
-  const [highlightsExpanded, setHighlightsExpanded] = useState(false);
-  const [availabilityExpanded, setAvailabilityExpanded] = useState(false);
   const highlights = provider.highlights ?? [];
   const visibleHighlights = highlightsExpanded ? highlights : highlights.slice(0, 3);
   const hasMore = highlights.length > 3;
@@ -151,7 +153,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
               <span>{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
               <span className="text-muted-foreground/40">·</span>
               <button
-                onClick={() => setAvailabilityExpanded(!availabilityExpanded)}
+                onClick={onAvailabilityToggle}
                 className="text-xs text-primary/80 hover:text-primary underline underline-offset-2 transition-colors">
 
                 {availabilityExpanded ? "Hide details" : "View details"}
@@ -204,7 +206,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
               </div>
               {hasMore &&
             <button
-              onClick={() => setHighlightsExpanded(!highlightsExpanded)}
+              onClick={onHighlightsToggle}
               className="flex items-center gap-1 text-xs text-primary/80 hover:text-primary font-medium transition-colors">
 
                   {highlightsExpanded ?
