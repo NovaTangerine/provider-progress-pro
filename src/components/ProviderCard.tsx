@@ -19,6 +19,8 @@ import {
   Sparkles } from
 "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { Progress } from "@/components/ui/progress";
 
 interface ProviderCardProps {
   provider: Provider;
@@ -28,18 +30,79 @@ interface ProviderCardProps {
   onAvailabilityToggle: () => void;
 }
 
+function getLastUpdate(credential: Credential): { label: string; date?: string } | null {
+  const steps = credential.workflow?.steps;
+  if (!steps) return null;
+  for (let i = steps.length - 1; i >= 0; i--) {
+    if (steps[i].status === "completed" || steps[i].status === "in_progress" || steps[i].status === "blocked") {
+      return { label: steps[i].label, date: steps[i].completedDate || steps[i].estimatedDate };
+    }
+  }
+  return null;
+}
+
+function getNextStep(credential: Credential): string | null {
+  const steps = credential.workflow?.steps;
+  if (!steps) return null;
+  const next = steps.find((s) => s.status === "pending" || s.status === "in_progress" || s.status === "blocked");
+  return next?.label ?? null;
+}
+
 function CredentialPill({ credential, onClick }: {credential: Credential;onClick: (c: Credential) => void;}) {
   const config = STATUS_CONFIG[credential.status];
-  return (
+  const workflow = credential.workflow;
+  const completedSteps = workflow?.steps.filter((s) => s.status === "completed").length ?? 0;
+  const totalSteps = workflow?.steps.length ?? 0;
+  const lastUpdate = getLastUpdate(credential);
+  const nextStep = getNextStep(credential);
+
+  const pill = (
     <button
       onClick={() => onClick(credential)}
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium border transition-all duration-150 hover:shadow-sm cursor-pointer ${config.bgClassName} ${config.className} border-transparent hover:border-current/20`}
-      title={`${credential.name} — ${config.label}`}>
-
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium border transition-all duration-150 hover:shadow-sm cursor-pointer ${config.bgClassName} ${config.className} border-transparent hover:border-current/20`}>
       <span className={`w-1.5 h-1.5 rounded-full ${config.dotClassName} shrink-0`} />
       <span className="truncate max-w-[140px]">{credential.name}</span>
-    </button>);
+    </button>
+  );
 
+  if (!workflow) {
+    return pill;
+  }
+
+  return (
+    <HoverCard openDelay={200} closeDelay={100}>
+      <HoverCardTrigger asChild>{pill}</HoverCardTrigger>
+      <HoverCardContent side="top" align="center" className="w-64 p-3 space-y-2.5 text-xs">
+        <div className="flex items-center justify-between gap-2">
+          <p className="font-medium text-foreground truncate text-sm leading-tight">{credential.name}</p>
+          <StatusBadge status={credential.status} compact />
+        </div>
+
+        {lastUpdate && (
+          <div className="space-y-0.5">
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Last Update</p>
+            <p className="text-foreground/80">{lastUpdate.label}</p>
+            {lastUpdate.date && <p className="text-muted-foreground text-[10px]">{new Date(lastUpdate.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>}
+          </div>
+        )}
+
+        {nextStep && (
+          <div className="space-y-0.5">
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Next Step</p>
+            <p className="text-foreground/80">{nextStep}</p>
+          </div>
+        )}
+
+        <div className="space-y-1">
+          <div className="flex items-center justify-between">
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Progress</p>
+            <p className="text-muted-foreground">{completedSteps}/{totalSteps} steps</p>
+          </div>
+          <Progress value={totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0} className="h-1.5" />
+        </div>
+      </HoverCardContent>
+    </HoverCard>
+  );
 }
 
 function StatusLegendBar({ credentials }: {credentials: Credential[];}) {
