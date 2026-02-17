@@ -140,7 +140,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
           <StatusBadge status={provider.overallStatus} />
         </div>
 
-        <div className="px-7 py-4 space-y-5 divide-y divide-dashed divide-border/50 [&>*]:pt-5 [&>*:first-child]:pt-0">
+        <div className="px-7 pt-6 pb-4 space-y-5 divide-y divide-dashed divide-border/50 [&>*]:pt-5 [&>*:first-child]:pt-0">
           {/* Availability Section */}
           <div className="space-y-3.5">
             <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
