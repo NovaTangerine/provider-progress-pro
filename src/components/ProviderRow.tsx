@@ -61,17 +61,17 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
         className={`group cursor-pointer border-b border-t border-t-transparent transition-colors duration-100 ${
           isExpanded
             ? "border-border bg-card"
-            : "border-grid-border hover:border-y-foreground/25 hover:bg-grid-row-hover [&:has(+tr:hover)]:border-b-foreground/25"
+            : "border-grid-border bg-background hover:border-y-foreground/25 hover:bg-grid-row-hover [&:has(+tr:hover)]:border-b-foreground/25"
         }`}
       >
-        <td className="px-4 py-3 w-8">
+        <td className="px-4 py-3 w-8 sticky left-0 z-10 bg-inherit">
           {isExpanded ? (
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           ) : (
             <ChevronRight className="w-4 h-4 text-muted-foreground" />
           )}
         </td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3 sticky left-[40px] z-10 bg-inherit">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary shrink-0">
               {provider.firstName[0]}

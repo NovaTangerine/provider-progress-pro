@@ -112,23 +112,23 @@ const Index = () => {
           <table className="w-full table-fixed">
             <thead>
               <tr className="bg-muted text-muted-foreground [&>th]:bg-muted">
-                <th className="px-4 py-2.5 w-[40px]" />
-                <th ref={providerThRef} className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[20%]">
+                <th className="px-4 py-2.5 w-[40px] sticky left-0 z-20 bg-muted" />
+                <th ref={providerThRef} className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[20%] min-w-[180px] sticky left-[40px] z-20 bg-muted">
                   Provider
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[12%]">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[12%] min-w-[120px]">
                   Status
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[14%]">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[14%] min-w-[140px]">
                   Credentials
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[12%]">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[12%] min-w-[120px]">
                   Type
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[15%]">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider w-[15%] min-w-[130px]">
                   Available
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider min-w-[160px]">
                   Current Org
                 </th>
               </tr>
