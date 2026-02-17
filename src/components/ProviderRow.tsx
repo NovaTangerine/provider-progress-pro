@@ -58,10 +58,12 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
       {/* Main row */}
       <tr
         onClick={onToggle}
-        className={`group cursor-pointer border-b transition-colors duration-100 ${
+        className={`group cursor-pointer border-b transition-all duration-100 ${
           isExpanded ? "border-border bg-card" : "border-grid-border hover:bg-grid-row-hover hover:border-foreground/25"
         }`}
-        style={{ borderTopColor: undefined }}
+        style={!isExpanded ? { boxShadow: undefined } : undefined}
+        onMouseEnter={(e) => { if (!isExpanded) e.currentTarget.style.boxShadow = 'inset 0 1px 0 0 hsl(var(--foreground) / 0.25)'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.boxShadow = ''; }}
       >
         <td className="px-4 py-3 w-8">
           {isExpanded ? (
