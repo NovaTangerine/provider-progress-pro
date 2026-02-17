@@ -144,7 +144,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
         {/* Availability Section */}
         <div className="px-7 space-y-3 border-b border-dashed border-border/50 py-[20px]">
-          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+          <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
             Availability
           </h4>
           <div className="space-y-2">
@@ -196,7 +196,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         <div className="px-7 space-y-3 border-b border-dashed border-border/50 py-[20px]">
           {highlights.length > 0 ?
           <>
-              <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+              <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
                 Provider Highlights
               </h4>
               <div className="space-y-2">
@@ -224,7 +224,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
         {/* Credentials */}
         <div className="px-7 space-y-3 py-[20px] pb-[24px]">
-          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+          <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
             Credentials
           </h4>
           <StatusLegendBar credentials={provider.credentials} />
