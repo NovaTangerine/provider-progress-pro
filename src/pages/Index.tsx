@@ -61,13 +61,10 @@ const Index = () => {
       {/* View toggle bar */}
       <div className="border-b border-border bg-card px-6 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          {viewMode === "list" &&
           <StageToggle
             providers={mockRole.providers}
             activeStage={activeStage}
             onStageChange={setActiveStage} />
-
-          }
         </div>
         <div className="inline-flex items-center rounded-md border border-border bg-muted p-0.5">
           <button
