@@ -119,10 +119,12 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
       {isExpanded && (
         <tr className="bg-grid-row-expanded border-b border-grid-border">
           <td colSpan={7} className="p-0">
-            <ProviderExpandedDetail
-              provider={provider}
-              onSelectCredential={setSelectedCredential}
-            />
+            <div className="max-w-[100vw] overflow-hidden">
+              <ProviderExpandedDetail
+                provider={provider}
+                onSelectCredential={setSelectedCredential}
+              />
+            </div>
           </td>
         </tr>
       )}
