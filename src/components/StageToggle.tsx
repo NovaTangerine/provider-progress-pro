@@ -1,5 +1,12 @@
 import { ProviderStage, Provider } from "@/types/recruiting";
-import { X } from "lucide-react";
+import { X, ChevronDown } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 interface StageToggleProps {
   providers: Provider[];
@@ -15,6 +22,8 @@ const STAGES: { value: ProviderStage; label: string }[] = [
 ];
 
 export function StageToggle({ providers, activeStage, onStageChange }: StageToggleProps) {
+  const isMobile = useIsMobile();
+
   const counts = providers.reduce(
     (acc, p) => {
       acc[p.stage] = (acc[p.stage] || 0) + 1;
@@ -22,6 +31,51 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
     },
     {} as Record<ProviderStage, number>
   );
+
+  const activeLabel = activeStage
+    ? STAGES.find((s) => s.value === activeStage)?.label
+    : "All Stages";
+
+  if (isMobile) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-card text-foreground transition-all duration-150">
+            {activeLabel}
+            {activeStage && (
+              <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[10px] font-semibold bg-primary/15 text-primary">
+                {counts[activeStage] || 0}
+              </span>
+            )}
+            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="min-w-[180px]">
+          <DropdownMenuItem
+            onClick={() => onStageChange(null)}
+            className={`text-xs ${!activeStage ? "font-semibold" : ""}`}
+          >
+            All Stages
+            <span className="ml-auto text-muted-foreground text-[10px]">
+              {providers.length}
+            </span>
+          </DropdownMenuItem>
+          {STAGES.map((s) => (
+            <DropdownMenuItem
+              key={s.value}
+              onClick={() => onStageChange(s.value)}
+              className={`text-xs ${activeStage === s.value ? "font-semibold" : ""}`}
+            >
+              {s.label}
+              <span className="ml-auto text-muted-foreground text-[10px]">
+                {counts[s.value] || 0}
+              </span>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
 
   return (
     <div className="flex items-center gap-1">
