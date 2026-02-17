@@ -124,7 +124,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
     <>
       <div className="rounded-lg border border-border bg-card shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden">
         {/* Header */}
-        <div className="px-5 py-4 border-b border-border flex items-start justify-between gap-4">
+        <div className="px-7 py-4 border-b border-border flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary shrink-0">
               {provider.firstName[0]}
@@ -140,7 +140,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
           <StatusBadge status={provider.overallStatus} />
         </div>
 
-        <div className="px-5 py-4 space-y-5 divide-y divide-dashed divide-border/50 [&>*]:pt-5 [&>*:first-child]:pt-0">
+        <div className="px-7 py-4 space-y-5 divide-y divide-dashed divide-border/50 [&>*]:pt-5 [&>*:first-child]:pt-0">
           {/* Availability Section */}
           <div className="space-y-3.5">
             <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
