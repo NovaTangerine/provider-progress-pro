@@ -129,16 +129,18 @@ const Index = () => {
 
       {viewMode === "list" &&
       <div className="pr-6 pt-4 pb-3 flex items-center gap-10" style={{ paddingLeft: headerPadding > 0 ? `${headerPadding}px` : 'calc(40px + 2rem)' }}>
-          <div className="flex items-center gap-2">
-            <h2 className="text-sm font-semibold text-foreground">
-              {activeStage ? STAGE_HEADER_LABELS[activeStage] : "All Providers"}
-            </h2>
-            <span className="text-xs text-muted-foreground font-medium">
-              {filteredProviders.length}
-            </span>
-          </div>
+          {!isMobile && (
+            <div className="flex items-center gap-2">
+              <h2 className="text-sm font-semibold text-foreground">
+                {activeStage ? STAGE_HEADER_LABELS[activeStage] : "All Providers"}
+              </h2>
+              <span className="text-xs text-muted-foreground font-medium">
+                {filteredProviders.length}
+              </span>
+            </div>
+          )}
           {isMobile && (
-            <div className="ml-auto flex-1 max-w-[calc(100%-20px)] h-1.5 rounded-full bg-border overflow-hidden">
+            <div className="flex-1 h-1.5 rounded-full bg-border overflow-hidden">
               <div
                 className="h-full rounded-full bg-muted-foreground/40 transition-transform duration-100 origin-left"
                 style={{ width: '30%', transform: `translateX(${scrollProgress * 233}%)` }}

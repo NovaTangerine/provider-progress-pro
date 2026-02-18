@@ -34,7 +34,7 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
 
   const activeLabel = activeStage
     ? STAGES.find((s) => s.value === activeStage)?.label
-    : "All Stages";
+    : "All Providers";
 
   if (isMobile) {
     return (
@@ -42,11 +42,9 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
         <DropdownMenuTrigger asChild>
           <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-card text-foreground transition-all duration-150">
             {activeLabel}
-            {activeStage && (
-              <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[10px] font-semibold bg-primary/15 text-primary">
-                {counts[activeStage] || 0}
-              </span>
-            )}
+            <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[10px] font-semibold bg-primary/15 text-primary">
+              {activeStage ? (counts[activeStage] || 0) : providers.length}
+            </span>
             <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
           </button>
         </DropdownMenuTrigger>
@@ -55,7 +53,7 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
             onClick={() => onStageChange(null)}
             className={`text-xs ${!activeStage ? "font-semibold" : ""}`}
           >
-            All Stages
+            All Providers
             <span className="ml-auto text-muted-foreground text-[10px]">
               {providers.length}
             </span>
