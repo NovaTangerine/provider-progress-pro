@@ -71,30 +71,30 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
   return (
     <HoverCard openDelay={200} closeDelay={100}>
       <HoverCardTrigger asChild>{pill}</HoverCardTrigger>
-      <HoverCardContent side="top" align="center" className="w-64 p-3 space-y-2.5 text-xs">
+      <HoverCardContent side="top" align="center" className="w-72 p-6 space-y-4 text-sm">
         <div className="flex items-center justify-between gap-2">
-          <p className="font-medium text-foreground truncate text-sm leading-tight">{credential.name}</p>
+          <p className="font-medium text-foreground truncate text-base leading-relaxed">{credential.name}</p>
           <StatusBadge status={credential.status} compact />
         </div>
 
         {lastUpdate && (
-          <div className="space-y-0.5">
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Last Update</p>
-            <p className="text-foreground/80">{lastUpdate.label}</p>
-            {lastUpdate.date && <p className="text-muted-foreground text-[10px]">{new Date(lastUpdate.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>}
+          <div className="space-y-1">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Last Update</p>
+            <p className="text-foreground/80 leading-relaxed">{lastUpdate.label}</p>
+            {lastUpdate.date && <p className="text-muted-foreground text-xs">{new Date(lastUpdate.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>}
           </div>
         )}
 
         {nextStep && (
-          <div className="space-y-0.5">
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Next Step</p>
-            <p className="text-foreground/80">{nextStep}</p>
+          <div className="space-y-1">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Next Step</p>
+            <p className="text-foreground/80 leading-relaxed">{nextStep}</p>
           </div>
         )}
 
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Progress</p>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Progress</p>
             <p className="text-muted-foreground">{completedSteps}/{totalSteps} steps</p>
           </div>
           <Progress value={totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0} className="h-1.5" />
