@@ -243,14 +243,15 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                   )}
                 </div>
                 <div className="border-t border-dashed border-foreground/[0.06] my-4" />
-                {provider.availability.availableDays &&
-                  <DayOfWeekBar days={provider.availability.availableDays} />
-                }
-                {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 &&
-                  <div className="-mt-1">
+                <div className="space-y-2.5">
+                  <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Scheduling Preferences</p>
+                  {provider.availability.availableDays &&
+                    <DayOfWeekBar days={provider.availability.availableDays} />
+                  }
+                  {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 &&
                     <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
-                  </div>
-                }
+                  }
+                </div>
               </div>
             }
           </div>
