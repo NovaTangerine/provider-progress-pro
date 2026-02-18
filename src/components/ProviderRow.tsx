@@ -73,7 +73,7 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
         </td>
         <td className="px-4 py-3 sticky left-[40px] z-10 bg-inherit">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary shrink-0">
+            <div className="w-9 h-9 rounded-full bg-primary/10 group-hover:bg-primary/15 flex items-center justify-center text-sm font-semibold text-primary/70 group-hover:text-primary shrink-0 transition-colors duration-150">
               {provider.firstName[0]}
               {provider.lastName[0]}
             </div>
