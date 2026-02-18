@@ -80,7 +80,7 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
         {lastUpdate && (
           <div className="space-y-1">
             <div className="flex items-center gap-1.5">
-              <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Last Update</p>
+              <p className="text-[10px] uppercase tracking-widest text-[#909cad] font-medium">Last Update</p>
               {lastUpdate.date && (
                 <>
                   <span className="text-muted-foreground/50">·</span>
@@ -94,14 +94,14 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
 
         {nextStep && (
           <div className="space-y-1">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Next Step</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#909cad] font-medium">Next Step</p>
             <p className="text-foreground/80 leading-relaxed">{nextStep}</p>
           </div>
         )}
 
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Progress</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#909cad] font-medium">Progress</p>
             <p className="text-muted-foreground">{completedSteps}/{totalSteps} steps</p>
           </div>
           <Progress value={totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0} className="h-1.5" />
