@@ -74,10 +74,10 @@ export function ProviderExpandedDetail({ provider, onSelectCredential }: Provide
   })).filter((g) => g.credentials.length > 0);
 
   return (
-    <div className="px-8 py-6 animate-fade-in">
-      <div className="grid grid-cols-[3fr_2fr] gap-8">
+    <div className="px-4 md:px-8 py-6 animate-fade-in">
+      <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 md:gap-8">
         {/* Credentials — primary */}
-        <div className="space-y-5">
+        <div className="space-y-5 order-1">
           <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground">
             Licenses & Certifications
           </h4>
@@ -92,7 +92,7 @@ export function ProviderExpandedDetail({ provider, onSelectCredential }: Provide
         </div>
 
         {/* Secondary info — softer */}
-        <div className="space-y-5 border-l border-border/50 pl-6">
+        <div className="space-y-5 md:border-l md:border-border/50 md:pl-6 order-2">
           <div className="group/section space-y-2 cursor-default">
             <h5 className="text-[11px] font-medium text-muted-foreground/70 tracking-wide">
               Contact & Availability
