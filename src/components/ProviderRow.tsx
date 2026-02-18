@@ -71,14 +71,14 @@ export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: P
             : "border-grid-border bg-background hover:border-y-foreground/25 hover:bg-grid-row-hover [&:has(+tr:hover)]:border-b-foreground/25"
         }`}
       >
-        <td className="px-4 py-3 w-8 sticky left-0 z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(0)}>
+        <td className="px-2 md:px-4 py-3 w-8 sticky left-0 z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(0)}>
           {isExpanded ? (
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           ) : (
             <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-150" />
           )}
         </td>
-        <td className="px-4 py-3 sticky left-[40px] z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(1)}>
+        <td className="px-2 md:px-4 py-3 sticky left-[32px] md:left-[40px] z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(1)}>
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-primary/10 group-hover:bg-primary/15 flex items-center justify-center text-sm font-semibold text-primary/70 group-hover:text-primary shrink-0 transition-colors duration-150">
               {provider.firstName[0]}
