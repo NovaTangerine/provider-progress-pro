@@ -119,10 +119,10 @@ const Index = () => {
             {filteredProviders.length}
           </span>
           {isMobile && (
-            <div className="ml-auto w-16 h-1.5 rounded-full bg-border overflow-hidden">
+            <div className="ml-auto flex-1 max-w-[calc(100%-20px)] h-1.5 rounded-full bg-border overflow-hidden">
               <div
                 className="h-full rounded-full bg-muted-foreground/40 transition-transform duration-100 origin-left"
-                style={{ width: '40%', transform: `translateX(${scrollProgress * 150}%)` }}
+                style={{ width: '30%', transform: `translateX(${scrollProgress * 233}%)` }}
               />
             </div>
           )}
