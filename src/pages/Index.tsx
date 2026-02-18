@@ -128,7 +128,7 @@ const Index = () => {
       </div>
 
       {viewMode === "list" &&
-      <div className={`pt-4 pb-3 flex items-center ${isMobile ? 'px-6' : 'pr-6 gap-10'}`} style={{ paddingLeft: isMobile ? undefined : (headerPadding > 0 ? `${headerPadding}px` : 'calc(40px + 2rem)') }}>
+      <div className={`pt-4 pb-3 flex items-center ${isMobile ? 'px-7' : 'pr-6 gap-10'}`} style={{ paddingLeft: isMobile ? undefined : (headerPadding > 0 ? `${headerPadding}px` : 'calc(40px + 2rem)') }}>
           {!isMobile && (
             <div className="flex items-center gap-2">
               <h2 className="text-sm font-semibold text-foreground">
