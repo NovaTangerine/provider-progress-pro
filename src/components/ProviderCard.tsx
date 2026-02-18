@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Provider, Credential, CredentialStatus } from "@/types/recruiting";
 import { ShiftPreferenceIcons } from "./ShiftPreferenceIcons";
 import { StatusBadge, STATUS_CONFIG } from "./StatusBadge";
@@ -27,6 +27,35 @@ interface ProviderCardProps {
   onHighlightsToggle: () => void;
   availabilityExpanded: boolean;
   onAvailabilityToggle: () => void;
+}
+
+function MarqueeText({ children, className }: { children: string; className?: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const [distance, setDistance] = useState(0);
+
+  const measure = useCallback(() => {
+    if (containerRef.current && textRef.current) {
+      const overflow = textRef.current.scrollWidth - containerRef.current.clientWidth;
+      setIsOverflowing(overflow > 2);
+      setDistance(overflow > 2 ? overflow : 0);
+    }
+  }, []);
+
+  useEffect(() => { measure(); }, [measure, children]);
+
+  return (
+    <div ref={containerRef} className={`min-w-0 overflow-hidden whitespace-nowrap ${className ?? ""}`}>
+      <span
+        ref={textRef}
+        className={`inline-block ${isOverflowing ? "hover:animate-marquee" : ""}`}
+        style={isOverflowing ? { "--marquee-distance": `-${distance}px` } as React.CSSProperties : undefined}
+      >
+        {children}
+      </span>
+    </div>
+  );
 }
 
 function getLastUpdate(credential: Credential): { label: string; date?: string } | null {
@@ -79,16 +108,14 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
 
         {lastUpdate && (
           <div className="space-y-1">
-            <div className="flex items-center gap-1.5">
-              <p className="text-[10px] uppercase tracking-widest text-[#909cad] font-medium">Last Update</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#909cad] font-medium">Last Update</p>
+            <div className="flex items-baseline gap-1.5 min-w-0">
               {lastUpdate.date && (
-                <>
-                  <span className="text-muted-foreground/50">·</span>
-                  <p className="text-muted-foreground text-xs">{new Date(lastUpdate.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
-                </>
+                <span className="text-muted-foreground text-xs shrink-0">{new Date(lastUpdate.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
               )}
+              {lastUpdate.date && <span className="text-muted-foreground/50 shrink-0">·</span>}
+              <MarqueeText className="text-foreground/80 leading-relaxed">{lastUpdate.label}</MarqueeText>
             </div>
-            <p className="text-foreground/80 leading-relaxed">{lastUpdate.label}</p>
           </div>
         )}
 
@@ -136,7 +163,6 @@ function StatusLegendBar({ credentials }: {credentials: Credential[];}) {
               className={`${config.dotClassName} transition-all duration-300`}
               style={{ width: `${count / total * 100}%` }}
               title={`${config.label}: ${count}/${total}`} />);
-
 
         })}
       </div>
