@@ -124,7 +124,7 @@ export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: P
 
       {/* Expanded detail */}
       {isExpanded && (
-        <tr className="bg-grid-row-expanded border-b border-grid-border">
+        <tr className="bg-grid-row-expanded border-b border-grid-border touch-pan-y">
           <td colSpan={7} className="p-0">
             <div className="max-w-[100vw] overflow-hidden">
               <ProviderExpandedDetail
