@@ -100,7 +100,7 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
   return (
     <HoverCard openDelay={200} closeDelay={100}>
       <HoverCardTrigger asChild>{pill}</HoverCardTrigger>
-      <HoverCardContent side="top" align="center" className="w-72 p-6 space-y-4 text-sm">
+      <HoverCardContent side="top" align="center" className="w-72 pt-5 px-6 pb-6 space-y-4 text-sm">
         <div className="flex items-center justify-between gap-2">
           <p className="font-medium text-foreground truncate text-base leading-relaxed">{credential.name}</p>
           <StatusBadge status={credential.status} compact />
