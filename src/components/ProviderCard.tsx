@@ -225,30 +225,31 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               </button>
             </div>
             {availabilityExpanded &&
-            <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-3 py-4 space-y-3">
+            <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-3 py-4 space-y-4">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Coverage</p>
+                    <p className="text-sm text-foreground/80 capitalize mt-0.5">{provider.availability.type.replace("-", " ")}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Relocation</p>
+                    <p className="text-sm text-foreground/80 mt-0.5">{provider.availability.willingToRelocate ? "Yes" : "No"}</p>
+                  </div>
+                  {provider.availability.scheduleNotes?.map((note, i) =>
+                    <div key={i} className="col-span-2">
+                      <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Schedule Note</p>
+                      <p className="text-sm text-foreground/80 mt-0.5">{note.label}</p>
+                    </div>
+                  )}
+                </div>
                 {provider.availability.availableDays &&
                   <DayOfWeekBar days={provider.availability.availableDays} />
                 }
-                <div className="flex items-center gap-2 text-sm">
-                  <Badge variant="outline" className="text-[10px] font-normal capitalize">
-                    {provider.availability.type.replace("-", " ")}
-                  </Badge>
-                </div>
-                {provider.availability.scheduleNotes?.map((note, i) =>
-              <div key={i} className="flex items-center gap-2 text-sm">
-                    <span className="w-3.5 h-3.5 shrink-0" />
-                    <span className="text-xs text-muted-foreground italic">{note.label}</span>
-                  </div>
-              )}
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="w-3.5 h-3.5 shrink-0" />
-                  <span className="text-muted-foreground text-xs">
-                    {provider.availability.willingToRelocate ? "Willing to relocate" : "Won't relocate"}
-                  </span>
-                </div>
                 {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 &&
-              <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
-              }
+                  <div className="pt-1">
+                    <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
+                  </div>
+                }
               </div>
             }
           </div>
