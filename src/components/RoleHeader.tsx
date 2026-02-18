@@ -1,6 +1,7 @@
 import { Role } from "@/types/recruiting";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Building2, Calendar, Users } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface RoleHeaderProps {
   role: Role;
@@ -13,34 +14,46 @@ const urgencyStyles = {
 };
 
 export function RoleHeader({ role }: RoleHeaderProps) {
+  const isMobile = useIsMobile();
+
+  const details = (
+    <div className={`flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 text-sm text-muted-foreground ${isMobile ? '' : ''}`}>
+      <span className="flex items-center gap-1.5">
+        <Building2 className="w-3.5 h-3.5" />
+        {role.facility} · {role.department}
+      </span>
+      <span className="flex items-center gap-1.5">
+        <MapPin className="w-3.5 h-3.5" />
+        {role.location}
+      </span>
+      <span className="flex items-center gap-1.5">
+        <Calendar className="w-3.5 h-3.5" />
+        Target: {role.targetStartDate}
+      </span>
+      <span className="flex items-center gap-1.5">
+        <Users className="w-3.5 h-3.5" />
+        {role.providers.length} candidates
+      </span>
+    </div>
+  );
+
   return (
     <div className="border-b border-border bg-card px-6 py-5">
       <div className="flex items-start justify-between">
-        <div>
+        <div className="w-full">
           <div className="flex items-center gap-3 mb-1">
             <h1 className="text-xl font-bold text-foreground">{role.title}</h1>
             <Badge className={`text-xs font-medium capitalize ${urgencyStyles[role.urgency]}`}>
               {role.urgency}
             </Badge>
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 text-sm text-muted-foreground">
-            <span className="flex items-center gap-1.5">
-              <Building2 className="w-3.5 h-3.5" />
-              {role.facility} · {role.department}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5" />
-              {role.location}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" />
-              Target: {role.targetStartDate}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Users className="w-3.5 h-3.5" />
-              {role.providers.length} candidates
-            </span>
-          </div>
+          {isMobile ? (
+            <div className="mt-3 rounded-lg bg-[hsl(0_0%_97.5%)] dark:bg-[hsl(0_0%_12%)] p-4">
+              {details}
+            </div>
+          ) : (
+            details
+          )}
         </div>
       </div>
     </div>
