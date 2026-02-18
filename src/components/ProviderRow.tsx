@@ -49,9 +49,9 @@ function CredentialSummary({ credentials }: { credentials: Credential[] }) {
 }
 
 const typeColorMap: Record<string, string> = {
-  "full-time": "bg-[hsl(210_14%_93%)] text-[hsl(215_12%_35%)]",
-  "part-time": "bg-[hsl(38_20%_93%)] text-[hsl(38_30%_32%)]",
-  "locum": "bg-[hsl(262_15%_93%)] text-[hsl(262_18%_38%)]",
+  "full-time": "bg-[hsl(210_14%_93%)] text-[hsl(215_12%_35%)] border border-[hsl(210_14%_87%)]",
+  "part-time": "bg-[hsl(38_20%_93%)] text-[hsl(38_30%_32%)] border border-[hsl(38_18%_87%)]",
+  "locum": "bg-[hsl(262_15%_93%)] text-[hsl(262_18%_38%)] border border-[hsl(262_12%_87%)]",
 };
 
 export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps) {
