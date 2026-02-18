@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { mockRole } from "@/data/mockData";
 import { RoleHeader } from "@/components/RoleHeader";
 import { ProviderRow } from "@/components/ProviderRow";
@@ -35,6 +35,15 @@ const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [headerPadding, setHeaderPadding] = useState(0);
   const [hoveredColumn, setHoveredColumn] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    setScrollProgress(maxScroll > 0 ? el.scrollLeft / maxScroll : 0);
+  }, []);
 
   useEffect(() => {
     setViewMode("presentation");
@@ -109,11 +118,19 @@ const Index = () => {
           <span className="text-xs text-muted-foreground font-medium">
             {filteredProviders.length}
           </span>
+          {isMobile && (
+            <div className="ml-auto w-16 h-1.5 rounded-full bg-border overflow-hidden">
+              <div
+                className="h-full rounded-full bg-muted-foreground/40 transition-transform duration-100 origin-left"
+                style={{ width: '40%', transform: `translateX(${scrollProgress * 150}%)` }}
+              />
+            </div>
+          )}
         </div>
       }
 
       {viewMode === "list" ?
-      <div className="overflow-x-auto">
+      <div ref={scrollRef} onScroll={handleScroll} className="overflow-x-auto">
           <table className="w-full table-fixed min-w-[900px]" onMouseLeave={() => setHoveredColumn(null)}>
             <thead>
               <tr className="bg-muted text-muted-foreground [&>th]:bg-muted">
