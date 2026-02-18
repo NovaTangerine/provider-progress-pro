@@ -66,23 +66,13 @@ const Index = () => {
 
   const toggleProvider = (id: string) => {
     const isExpanding = expandedId !== id;
-    setExpandedId((prev) => prev === id ? null : id);
     if (isExpanding && isMobile && scrollRef.current) {
-      scrollRef.current.style.opacity = '0';
+      // Reset scroll before React re-renders the expanded row,
+      // so the new content appears at the start position seamlessly.
       scrollRef.current.scrollLeft = 0;
       setScrollProgress(0);
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          if (scrollRef.current) {
-            scrollRef.current.style.transition = 'opacity 150ms ease-in';
-            scrollRef.current.style.opacity = '1';
-            setTimeout(() => {
-              if (scrollRef.current) scrollRef.current.style.transition = '';
-            }, 150);
-          }
-        });
-      });
     }
+    setExpandedId((prev) => prev === id ? null : id);
   };
 
   const filteredProviders = activeStage ?
