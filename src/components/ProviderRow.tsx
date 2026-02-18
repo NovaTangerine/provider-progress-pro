@@ -48,6 +48,12 @@ function CredentialSummary({ credentials }: { credentials: Credential[] }) {
   );
 }
 
+const typeColorMap: Record<string, string> = {
+  "full-time": "bg-[hsl(210_14%_93%)] text-[hsl(215_12%_45%)]",
+  "part-time": "bg-[hsl(38_20%_93%)] text-[hsl(38_25%_40%)]",
+  "locum": "bg-[hsl(262_15%_93%)] text-[hsl(262_15%_45%)]",
+};
+
 export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
 
@@ -95,7 +101,7 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
         </td>
         <td className="px-4 py-3">
           <div className="text-sm">
-            <Badge variant="secondary" className="text-xs font-normal capitalize">
+            <Badge variant="secondary" className={`text-xs font-normal capitalize ${typeColorMap[provider.availability.type] ?? ""}`}>
               {provider.availability.type.replace("-", " ")}
             </Badge>
           </div>
