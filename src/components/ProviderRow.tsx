@@ -95,7 +95,7 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
         </td>
         <td className="px-4 py-3">
           <div className="text-sm">
-            <Badge variant="outline" className="text-xs font-normal capitalize">
+            <Badge variant="secondary" className="text-xs font-normal capitalize">
               {provider.availability.type.replace("-", " ")}
             </Badge>
           </div>
