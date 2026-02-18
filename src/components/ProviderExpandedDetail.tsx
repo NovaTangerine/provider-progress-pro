@@ -78,7 +78,7 @@ export function ProviderExpandedDetail({ provider, onSelectCredential }: Provide
       <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 md:gap-8">
         {/* Credentials — primary */}
         <div className="space-y-5 order-1">
-          <h4 className="text-[11px] font-normal uppercase tracking-wider text-muted-foreground/70">
+          <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Licenses & Certifications
           </h4>
           {grouped.map((g) => (
