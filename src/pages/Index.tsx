@@ -34,6 +34,7 @@ const Index = () => {
   const providerThRef = useRef<HTMLTableCellElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [headerPadding, setHeaderPadding] = useState(0);
+  const [hoveredColumn, setHoveredColumn] = useState<number | null>(null);
 
   useEffect(() => {
     setViewMode("presentation");
@@ -113,26 +114,26 @@ const Index = () => {
 
       {viewMode === "list" ?
       <div className="overflow-x-auto">
-          <table className="w-full table-fixed min-w-[900px]">
+          <table className="w-full table-fixed min-w-[900px]" onMouseLeave={() => setHoveredColumn(null)}>
             <thead>
               <tr className="bg-muted text-muted-foreground [&>th]:bg-muted">
                 <th className="px-4 py-2.5 w-[40px] sticky left-0 z-20 bg-muted" />
-                <th ref={providerThRef} className="px-4 py-2.5 text-left text-xs font-normal uppercase tracking-wider w-[20%] min-w-[180px] sticky left-[40px] z-20 bg-muted">
+                <th ref={providerThRef} className={`px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[20%] min-w-[180px] sticky left-[40px] z-20 bg-muted transition-all duration-150 ${hoveredColumn === 1 ? "font-medium text-foreground/70" : "font-normal"}`}>
                   Provider
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-normal uppercase tracking-wider w-[12%] min-w-[120px]">
+                <th className={`px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[12%] min-w-[120px] transition-all duration-150 ${hoveredColumn === 2 ? "font-medium text-foreground/70" : "font-normal"}`}>
                   Status
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-normal uppercase tracking-wider w-[14%] min-w-[140px]">
+                <th className={`px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[14%] min-w-[140px] transition-all duration-150 ${hoveredColumn === 3 ? "font-medium text-foreground/70" : "font-normal"}`}>
                   Credentials
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-normal uppercase tracking-wider w-[12%] min-w-[120px]">
+                <th className={`px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[12%] min-w-[120px] transition-all duration-150 ${hoveredColumn === 4 ? "font-medium text-foreground/70" : "font-normal"}`}>
                   Type
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-normal uppercase tracking-wider w-[15%] min-w-[130px]">
+                <th className={`px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[15%] min-w-[130px] transition-all duration-150 ${hoveredColumn === 5 ? "font-medium text-foreground/70" : "font-normal"}`}>
                   Available
                 </th>
-                <th className="px-4 py-2.5 text-left text-xs font-normal uppercase tracking-wider min-w-[160px]">
+                <th className={`px-4 py-2.5 text-left text-xs uppercase tracking-wider min-w-[160px] transition-all duration-150 ${hoveredColumn === 6 ? "font-medium text-foreground/70" : "font-normal"}`}>
                   Current Org
                 </th>
               </tr>
@@ -143,7 +144,8 @@ const Index = () => {
               key={provider.id}
               provider={provider}
               isExpanded={expandedId === provider.id}
-              onToggle={() => toggleProvider(provider.id)} />
+              onToggle={() => toggleProvider(provider.id)}
+              onColumnHover={setHoveredColumn} />
 
             )}
             </tbody>

@@ -14,6 +14,7 @@ interface ProviderRowProps {
   provider: Provider;
   isExpanded: boolean;
   onToggle: () => void;
+  onColumnHover?: (col: number | null) => void;
 }
 
 function CredentialSummary({ credentials }: { credentials: Credential[] }) {
@@ -54,7 +55,7 @@ const typeColorMap: Record<string, string> = {
   "locum": "bg-[hsl(262_15%_93%)] text-[hsl(262_18%_38%)] border border-[hsl(262_12%_87%)] group-hover:border-[hsl(262_12%_80%)]",
 };
 
-export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps) {
+export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: ProviderRowProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
 
   const currentExp = provider.experience.find((e) => !e.endYear);
@@ -70,14 +71,14 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
             : "border-grid-border bg-background hover:border-y-foreground/25 hover:bg-grid-row-hover [&:has(+tr:hover)]:border-b-foreground/25"
         }`}
       >
-        <td className="px-4 py-3 w-8 sticky left-0 z-10 bg-inherit">
+        <td className="px-4 py-3 w-8 sticky left-0 z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(0)}>
           {isExpanded ? (
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           ) : (
             <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-150" />
           )}
         </td>
-        <td className="px-4 py-3 sticky left-[40px] z-10 bg-inherit">
+        <td className="px-4 py-3 sticky left-[40px] z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(1)}>
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-primary/10 group-hover:bg-primary/15 flex items-center justify-center text-sm font-semibold text-primary/70 group-hover:text-primary shrink-0 transition-colors duration-150">
               {provider.firstName[0]}
@@ -93,26 +94,26 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
             </div>
           </div>
         </td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3" onMouseEnter={() => onColumnHover?.(2)}>
           <StatusBadge status={provider.overallStatus} />
         </td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3" onMouseEnter={() => onColumnHover?.(3)}>
           <CredentialSummary credentials={provider.credentials} />
         </td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3" onMouseEnter={() => onColumnHover?.(4)}>
           <div className="text-sm">
             <Badge variant="secondary" className={`text-xs font-normal capitalize transition-colors duration-150 ${typeColorMap[provider.availability.type] ?? ""}`}>
               {provider.availability.type.replace("-", " ")}
             </Badge>
           </div>
         </td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3" onMouseEnter={() => onColumnHover?.(5)}>
           <span className="text-sm text-muted-foreground group-hover:text-foreground/50 group-hover:[text-shadow:0_0_0.5px_currentColor] transition-all duration-150 flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5" />
             {provider.availability.startDate}
           </span>
         </td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3" onMouseEnter={() => onColumnHover?.(6)}>
           {currentExp && (
             <p className="text-sm text-muted-foreground group-hover:text-foreground/50 group-hover:[text-shadow:0_0_0.5px_currentColor] transition-all duration-150 truncate max-w-[200px]">
               {currentExp.organization}
