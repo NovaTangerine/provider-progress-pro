@@ -225,7 +225,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               </button>
             </div>
             {availabilityExpanded &&
-            <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-5 space-y-4">
+            <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-6 space-y-4">
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   <div>
                     <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Coverage</p>
