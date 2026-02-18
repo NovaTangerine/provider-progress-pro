@@ -42,7 +42,7 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
         <DropdownMenuTrigger asChild>
           <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-card text-foreground transition-all duration-150">
             {activeLabel}
-            <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[10px] font-semibold bg-primary/15 text-primary">
+            <span className="text-[11px] font-medium text-muted-foreground">
               {activeStage ? (counts[activeStage] || 0) : providers.length}
             </span>
             <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
