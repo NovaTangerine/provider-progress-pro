@@ -6,8 +6,6 @@ import { CredentialModal } from "./CredentialModal";
 import {
   Calendar,
   Clock,
-  Mail,
-  Phone,
   ChevronDown,
   ChevronUp,
   Syringe,
@@ -18,6 +16,7 @@ import {
   FlaskConical,
   Sparkles } from
 "lucide-react";
+import { DayOfWeekBar } from "./DayOfWeekBar";
 import { Badge } from "@/components/ui/badge";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Progress } from "@/components/ui/progress";
@@ -226,18 +225,15 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               </button>
             </div>
             {availabilityExpanded &&
-            <>
+            <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-3 py-4 space-y-3">
+                {provider.availability.availableDays &&
+                  <DayOfWeekBar days={provider.availability.availableDays} />
+                }
                 <div className="flex items-center gap-2 text-sm">
                   <Badge variant="outline" className="text-[10px] font-normal capitalize">
                     {provider.availability.type.replace("-", " ")}
                   </Badge>
                 </div>
-                {provider.availability.recurringDays &&
-              <div className="flex items-center gap-2 text-sm">
-                    <Clock className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                    <span className="text-muted-foreground">{provider.availability.recurringDays}</span>
-                  </div>
-              }
                 {provider.availability.scheduleNotes?.map((note, i) =>
               <div key={i} className="flex items-center gap-2 text-sm">
                     <span className="w-3.5 h-3.5 shrink-0" />
@@ -253,7 +249,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                 {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 &&
               <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
               }
-              </>
+              </div>
             }
           </div>
         </div>
