@@ -131,7 +131,7 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
             <p className="text-[10px] uppercase tracking-widest text-[#909cad] font-medium">Progress</p>
             <p className="text-muted-foreground">{completedSteps}/{totalSteps} steps</p>
           </div>
-          <Progress value={totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0} className="h-1.5" />
+          <Progress value={totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0} className="h-1.5" indicatorClassName={config.dotClassName} />
         </div>
       </HoverCardContent>
     </HoverCard>
