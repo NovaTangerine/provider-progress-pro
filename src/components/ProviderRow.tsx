@@ -107,14 +107,14 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
           </div>
         </td>
         <td className="px-4 py-3">
-          <span className="text-sm text-muted-foreground group-hover:text-foreground/70 transition-colors duration-150 flex items-center gap-1.5">
+          <span className="text-sm text-muted-foreground group-hover:text-muted-foreground group-hover:font-medium transition-all duration-150 flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5" />
             {provider.availability.startDate}
           </span>
         </td>
         <td className="px-4 py-3">
           {currentExp && (
-            <p className="text-sm text-muted-foreground group-hover:text-foreground/70 transition-colors duration-150 truncate max-w-[200px]">
+            <p className="text-sm text-muted-foreground group-hover:font-medium transition-all duration-150 truncate max-w-[200px]">
               {currentExp.organization}
             </p>
           )}
