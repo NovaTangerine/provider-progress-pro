@@ -36,6 +36,10 @@ const Index = () => {
   const [headerPadding, setHeaderPadding] = useState(0);
 
   useEffect(() => {
+    setViewMode("presentation");
+  }, []);
+
+  useEffect(() => {
     const measure = () => {
       if (providerThRef.current && containerRef.current) {
         const thRect = providerThRef.current.getBoundingClientRect();
