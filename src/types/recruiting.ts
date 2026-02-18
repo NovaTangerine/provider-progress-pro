@@ -103,6 +103,9 @@ export interface ShiftPreference {
   stance: ShiftStance;
 }
 
+// Sun=0, Mon=1, Tue=2, Wed=3, Thu=4, Fri=5, Sat=6
+export type DayAvailability = "on" | "off" | "preferred";
+
 export interface Availability {
   startDate: string;
   endDate?: string; // if assignment is date-bounded
@@ -110,6 +113,7 @@ export interface Availability {
   willingToRelocate: boolean;
   preferredLocations?: string[];
   recurringDays?: string; // e.g. "Mon–Fri", "Weekdays only"
+  availableDays?: [DayAvailability, DayAvailability, DayAvailability, DayAvailability, DayAvailability, DayAvailability, DayAvailability];
   scheduleNotes?: ScheduleNote[];
   shiftPreferences?: ShiftPreference[];
 }

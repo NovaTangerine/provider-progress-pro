@@ -25,6 +25,7 @@ export const mockProviders: Provider[] = [
       willingToRelocate: true,
       preferredLocations: ["Boston, MA", "New York, NY"],
       recurringDays: "Mon–Fri",
+      availableDays: ["off", "on", "on", "on", "on", "on", "off"],
       scheduleNotes: [{ label: "No overnight call" }],
       shiftPreferences: [
         { shift: "weekends", stance: "does_not_work" },
@@ -157,6 +158,7 @@ export const mockProviders: Provider[] = [
       willingToRelocate: false,
       preferredLocations: ["Boston, MA"],
       recurringDays: "Mon–Thu",
+      availableDays: ["off", "on", "on", "on", "on", "off", "off"],
       scheduleNotes: [{ label: "No weekends" }, { label: "Available for on-call rotation" }],
       shiftPreferences: [
         { shift: "weekends", stance: "does_not_work" },
@@ -255,6 +257,7 @@ export const mockProviders: Provider[] = [
       type: "part-time",
       willingToRelocate: true,
       recurringDays: "Tue, Wed, Thu",
+      availableDays: ["off", "off", "on", "on", "on", "off", "off"],
       scheduleNotes: [{ label: "3 days/week max" }],
       shiftPreferences: [
         { shift: "nights", stance: "prefers" },
@@ -390,6 +393,7 @@ export const mockProviders: Provider[] = [
       type: "locum",
       willingToRelocate: true,
       preferredLocations: ["Northeast US"],
+      availableDays: ["on", "on", "on", "on", "on", "on", "on"],
       scheduleNotes: [{ label: "Flexible hours" }, { label: "Weekends available" }],
       shiftPreferences: [
         { shift: "weekends", stance: "works" },
@@ -468,7 +472,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "5678901234",
     email: "e.vasquez@email.com",
     phone: "(555) 567-8901",
-    availability: { startDate: "2026-04-15", type: "full-time", willingToRelocate: true, preferredLocations: ["Boston, MA"] },
+    availability: { startDate: "2026-04-15", type: "full-time", willingToRelocate: true, preferredLocations: ["Boston, MA"], availableDays: ["off", "on", "on", "on", "on", "on", "off"] },
     education: [{ institution: "Columbia University", degree: "MD", field: "Medicine", graduationYear: 2015 }],
     experience: [{ organization: "NewYork-Presbyterian", title: "Attending Cardiologist", startYear: 2020, specialty: "Interventional Cardiology" }],
     credentials: [
@@ -516,7 +520,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "6789012345",
     email: "d.kim@email.com",
     phone: "(555) 678-9012",
-    availability: { startDate: "2026-05-15", type: "full-time", willingToRelocate: false, preferredLocations: ["New York, NY"] },
+    availability: { startDate: "2026-05-15", type: "full-time", willingToRelocate: false, preferredLocations: ["New York, NY"], availableDays: ["off", "on", "on", "on", "on", "on", "off"] },
     education: [{ institution: "University of Michigan", degree: "MD", field: "Medicine", graduationYear: 2016 }],
     experience: [{ organization: "NYU Langone", title: "Interventional Cardiologist", startYear: 2021 }],
     credentials: [
@@ -590,7 +594,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "7890123456",
     email: "a.morris@email.com",
     phone: "(555) 789-0123",
-    availability: { startDate: "2026-03-20", type: "contract", willingToRelocate: true },
+    availability: { startDate: "2026-03-20", type: "contract", willingToRelocate: true, availableDays: ["off", "on", "on", "on", "on", "on", "preferred"] },
     education: [{ institution: "Emory University", degree: "MD", field: "Medicine", graduationYear: 2013 }],
     experience: [{ organization: "Emory Healthcare", title: "Senior Cardiologist", startYear: 2019, specialty: "Heart Failure" }],
     credentials: [
@@ -678,7 +682,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "8901234567",
     email: "r.nakamura@email.com",
     phone: "(555) 890-1234",
-    availability: { startDate: "2026-06-01", type: "full-time", willingToRelocate: true, preferredLocations: ["Chicago, IL", "Boston, MA"] },
+    availability: { startDate: "2026-06-01", type: "full-time", willingToRelocate: true, preferredLocations: ["Chicago, IL", "Boston, MA"], availableDays: ["off", "on", "on", "on", "on", "on", "off"] },
     education: [{ institution: "University of Chicago", degree: "MD", field: "Medicine", graduationYear: 2014 }],
     experience: [{ organization: "Northwestern Memorial Hospital", title: "Attending Cardiologist", startYear: 2020, specialty: "Structural Heart" }],
     credentials: [
@@ -718,7 +722,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "9012345678",
     email: "l.okafor@email.com",
     phone: "(555) 901-2345",
-    availability: { startDate: "2026-04-01", type: "full-time", willingToRelocate: false, preferredLocations: ["Houston, TX"] },
+    availability: { startDate: "2026-04-01", type: "full-time", willingToRelocate: false, preferredLocations: ["Houston, TX"], availableDays: ["off", "on", "on", "on", "on", "on", "off"] },
     education: [{ institution: "Baylor College of Medicine", degree: "MD", field: "Medicine", graduationYear: 2015 }],
     experience: [{ organization: "Texas Heart Institute", title: "Interventional Cardiologist", startYear: 2021 }],
     credentials: [
@@ -744,7 +748,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1023456789",
     email: "a.fitzgerald@email.com",
     phone: "(555) 102-3456",
-    availability: { startDate: "2026-05-01", type: "locum", willingToRelocate: true },
+    availability: { startDate: "2026-05-01", type: "locum", willingToRelocate: true, availableDays: ["preferred", "on", "on", "on", "on", "on", "preferred"] },
     education: [{ institution: "Georgetown University", degree: "MD", field: "Medicine", graduationYear: 2016 }],
     experience: [{ organization: "MedStar Washington Hospital", title: "Cardiologist", startYear: 2021 }],
     credentials: [
@@ -788,7 +792,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1123456780",
     email: "m.santos@email.com",
     phone: "(555) 112-3456",
-    availability: { startDate: "2026-03-15", type: "full-time", willingToRelocate: true, preferredLocations: ["Miami, FL", "Boston, MA"] },
+    availability: { startDate: "2026-03-15", type: "full-time", willingToRelocate: true, preferredLocations: ["Miami, FL", "Boston, MA"], availableDays: ["off", "on", "on", "on", "on", "on", "off"] },
     education: [{ institution: "University of Miami", degree: "MD", field: "Medicine", graduationYear: 2014 }],
     experience: [{ organization: "Jackson Memorial Hospital", title: "Senior Cardiologist", startYear: 2019, specialty: "Echocardiography" }],
     credentials: [
@@ -816,7 +820,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1223456781",
     email: "t.wright@email.com",
     phone: "(555) 122-3456",
-    availability: { startDate: "2026-07-01", type: "part-time", willingToRelocate: false, preferredLocations: ["Philadelphia, PA"] },
+    availability: { startDate: "2026-07-01", type: "part-time", willingToRelocate: false, preferredLocations: ["Philadelphia, PA"], availableDays: ["off", "on", "on", "on", "off", "off", "off"] },
     education: [{ institution: "University of Pittsburgh", degree: "MD", field: "Medicine", graduationYear: 2017 }],
     experience: [{ organization: "Penn Medicine", title: "Cardiology Fellow", startYear: 2022 }],
     credentials: [
@@ -888,7 +892,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1323456782",
     email: "c.johansson@email.com",
     phone: "(555) 132-3456",
-    availability: { startDate: "2026-04-15", type: "full-time", willingToRelocate: true, preferredLocations: ["Seattle, WA"] },
+    availability: { startDate: "2026-04-15", type: "full-time", willingToRelocate: true, preferredLocations: ["Seattle, WA"], availableDays: ["off", "on", "on", "on", "on", "on", "off"] },
     education: [{ institution: "University of Washington", degree: "MD", field: "Medicine", graduationYear: 2015 }],
     experience: [{ organization: "Swedish Medical Center", title: "Attending Cardiologist", startYear: 2020, specialty: "Preventive Cardiology" }],
     credentials: [
@@ -915,7 +919,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1423456783",
     email: "m.blake@email.com",
     phone: "(555) 142-3456",
-    availability: { startDate: "2026-03-01", type: "contract", willingToRelocate: true },
+    availability: { startDate: "2026-03-01", type: "contract", willingToRelocate: true, availableDays: ["off", "on", "on", "on", "on", "preferred", "off"] },
     education: [{ institution: "Vanderbilt University", degree: "MD", field: "Medicine", graduationYear: 2013 }],
     experience: [{ organization: "Vanderbilt University Medical Center", title: "Senior Cardiologist", startYear: 2018, specialty: "Cardiac Imaging" }],
     credentials: [
@@ -955,7 +959,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1523456784",
     email: "y.tanaka@email.com",
     phone: "(555) 152-3456",
-    availability: { startDate: "2026-06-01", type: "full-time", willingToRelocate: true, preferredLocations: ["San Francisco, CA"] },
+    availability: { startDate: "2026-06-01", type: "full-time", willingToRelocate: true, preferredLocations: ["San Francisco, CA"], availableDays: ["off", "on", "on", "on", "on", "on", "off"] },
     education: [{ institution: "UCSF", degree: "MD", field: "Medicine", graduationYear: 2016 }],
     experience: [{ organization: "Stanford Health Care", title: "Cardiologist", startYear: 2021, specialty: "Electrophysiology" }],
     credentials: [
@@ -981,7 +985,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1623456785",
     email: "o.hassan@email.com",
     phone: "(555) 162-3456",
-    availability: { startDate: "2026-04-01", type: "full-time", willingToRelocate: false, preferredLocations: ["Detroit, MI"] },
+    availability: { startDate: "2026-04-01", type: "full-time", willingToRelocate: false, preferredLocations: ["Detroit, MI"], availableDays: ["off", "on", "on", "on", "on", "on", "preferred"] },
     education: [{ institution: "Wayne State University", degree: "MD", field: "Medicine", graduationYear: 2014 }],
     experience: [{ organization: "Henry Ford Hospital", title: "Attending Cardiologist", startYear: 2019 }],
     credentials: [
@@ -1023,7 +1027,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1723456786",
     email: "r.cooper@email.com",
     phone: "(555) 172-3456",
-    availability: { startDate: "2026-05-15", type: "locum", willingToRelocate: true },
+    availability: { startDate: "2026-05-15", type: "locum", willingToRelocate: true, availableDays: ["preferred", "on", "on", "on", "on", "on", "preferred"] },
     education: [{ institution: "Northwestern University", degree: "MD", field: "Medicine", graduationYear: 2015 }],
     experience: [{ organization: "Rush University Medical Center", title: "Cardiologist", startYear: 2020 }],
     credentials: [
@@ -1048,7 +1052,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1823456787",
     email: "j.park@email.com",
     phone: "(555) 182-3456",
-    availability: { startDate: "2026-03-15", type: "full-time", willingToRelocate: true, preferredLocations: ["Boston, MA", "Providence, RI"] },
+    availability: { startDate: "2026-03-15", type: "full-time", willingToRelocate: true, preferredLocations: ["Boston, MA", "Providence, RI"], availableDays: ["off", "on", "on", "on", "on", "on", "off"] },
     education: [{ institution: "Brown University", degree: "MD", field: "Medicine", graduationYear: 2016 }],
     experience: [{ organization: "Rhode Island Hospital", title: "Interventional Cardiologist", startYear: 2021 }],
     credentials: [
@@ -1089,7 +1093,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "1923456788",
     email: "s.green@email.com",
     phone: "(555) 192-3456",
-    availability: { startDate: "2026-04-15", type: "part-time", willingToRelocate: false, preferredLocations: ["Denver, CO"] },
+    availability: { startDate: "2026-04-15", type: "part-time", willingToRelocate: false, preferredLocations: ["Denver, CO"], availableDays: ["off", "on", "off", "on", "off", "on", "off"] },
     education: [{ institution: "University of Colorado", degree: "MD", field: "Medicine", graduationYear: 2017 }],
     experience: [{ organization: "UCHealth", title: "Cardiologist", startYear: 2022 }],
     credentials: [
@@ -1147,7 +1151,7 @@ export const mockProviders: Provider[] = [
     npiNumber: "2023456789",
     email: "d.reeves@email.com",
     phone: "(555) 202-3456",
-    availability: { startDate: "2026-03-01", type: "full-time", willingToRelocate: true, preferredLocations: ["Boston, MA"] },
+    availability: { startDate: "2026-03-01", type: "full-time", willingToRelocate: true, preferredLocations: ["Boston, MA"], availableDays: ["off", "on", "on", "on", "on", "on", "off"] },
     education: [{ institution: "Tufts University", degree: "MD", field: "Medicine", graduationYear: 2014 }],
     experience: [{ organization: "Tufts Medical Center", title: "Senior Cardiologist", startYear: 2019, specialty: "Cardiac Catheterization" }],
     credentials: [
