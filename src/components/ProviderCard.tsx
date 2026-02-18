@@ -212,7 +212,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
             Availability
           </h4>
-          <div className="space-y-2">
+          <div className="space-y-4">
             <div className="flex items-center gap-2 text-sm">
               <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
               <span className="font-medium text-[#575757] text-lg tracking-tight">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
