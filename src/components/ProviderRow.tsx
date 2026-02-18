@@ -71,7 +71,7 @@ export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: P
             : "border-grid-border bg-background hover:border-y-foreground/25 hover:bg-grid-row-hover [&:has(+tr:hover)]:border-b-foreground/25"
         }`}
       >
-        <td className="px-2 md:px-4 py-3 w-8 sticky left-0 z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(0)}>
+        <td className="pl-3 pr-1 md:px-4 py-3 w-8 sticky left-0 z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(0)}>
           {isExpanded ? (
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           ) : (

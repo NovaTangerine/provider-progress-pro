@@ -128,7 +128,7 @@ const Index = () => {
       </div>
 
       {viewMode === "list" &&
-      <div className={`pt-4 pb-3 flex items-center ${isMobile ? 'px-4' : 'pr-6 gap-10'}`} style={{ paddingLeft: isMobile ? '1rem' : (headerPadding > 0 ? `${headerPadding}px` : 'calc(40px + 2rem)') }}>
+      <div className={`pt-4 pb-3 flex items-center ${isMobile ? 'px-6' : 'pr-6 gap-10'}`} style={{ paddingLeft: isMobile ? undefined : (headerPadding > 0 ? `${headerPadding}px` : 'calc(40px + 2rem)') }}>
           {!isMobile && (
             <div className="flex items-center gap-2">
               <h2 className="text-sm font-semibold text-foreground">
@@ -155,7 +155,7 @@ const Index = () => {
           <table className="w-full table-fixed min-w-[900px]" onMouseLeave={() => setHoveredColumn(null)}>
             <thead>
               <tr className="bg-muted text-muted-foreground [&>th]:bg-muted">
-                <th className="px-2 md:px-4 py-2.5 w-[32px] md:w-[40px] sticky left-0 z-20 bg-muted" />
+                <th className="pl-3 pr-1 md:px-4 py-2.5 w-[32px] md:w-[40px] sticky left-0 z-20 bg-muted" />
                 <th ref={providerThRef} className={`px-2 md:px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[20%] min-w-[180px] sticky left-[32px] md:left-[40px] z-20 bg-muted transition-all duration-150 ${hoveredColumn === 1 ? "font-medium text-foreground/70" : "font-normal"}`}>
                   Provider
                 </th>
