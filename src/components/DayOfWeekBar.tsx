@@ -15,7 +15,7 @@ interface DayOfWeekBarProps {
 
 export function DayOfWeekBar({ days }: DayOfWeekBarProps) {
   return (
-    <div className="grid grid-cols-7 gap-1.5">
+    <div className="grid grid-cols-7 gap-2.5">
       {days.map((status, i) => (
         <div
           key={i}
