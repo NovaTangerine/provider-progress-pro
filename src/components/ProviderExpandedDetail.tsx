@@ -54,7 +54,7 @@ function CategoryGroup({
     <div className="space-y-2">
       <div className="flex items-center gap-2">
         <span className={`w-2 h-2 rounded-full ${config.dotClassName}`} />
-        <h5 className="text-xs font-semibold text-foreground tracking-wide">
+        <h5 className="text-xs font-normal text-foreground tracking-wide">
           {CATEGORY_LABELS[category]}
         </h5>
       </div>
