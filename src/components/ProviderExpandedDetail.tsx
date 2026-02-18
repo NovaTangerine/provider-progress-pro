@@ -58,7 +58,7 @@ function CategoryGroup({
           {CATEGORY_LABELS[category]}
         </h5>
       </div>
-      <div className="space-y-1.5 pl-4">
+      <div className="space-y-1.5 md:pl-4">
         {credentials.map((cred) => (
           <CredentialCard key={cred.id} credential={cred} onClick={onSelect} />
         ))}
@@ -74,7 +74,7 @@ export function ProviderExpandedDetail({ provider, onSelectCredential }: Provide
   })).filter((g) => g.credentials.length > 0);
 
   return (
-    <div className="px-4 md:px-8 py-6 animate-fade-in">
+    <div className="px-6 pb-6 pt-6 md:px-8 md:py-6 animate-fade-in">
       <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 md:gap-8">
         {/* Credentials — primary */}
         <div className="space-y-5 order-1">
