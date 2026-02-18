@@ -178,7 +178,7 @@ const Index = () => {
                 <th ref={providerThRef} className={`px-2 md:px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[20%] min-w-[180px] sticky left-[32px] md:left-[40px] z-20 bg-muted transition-all duration-150 ${hoveredColumn === 1 ? "font-medium text-foreground/70" : "font-normal"}`}>
                   Provider
                 </th>
-                <th className={`px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[12%] min-w-[120px] transition-all duration-150 ${hoveredColumn === 2 ? "font-medium text-foreground/70" : "font-normal"}`}>
+                <th className={`px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[12%] min-w-[140px] transition-all duration-150 ${hoveredColumn === 2 ? "font-medium text-foreground/70" : "font-normal"}`}>
                   Status
                 </th>
                 <th className={`px-4 py-2.5 text-left text-xs uppercase tracking-wider w-[14%] min-w-[140px] transition-all duration-150 ${hoveredColumn === 3 ? "font-medium text-foreground/70" : "font-normal"}`}>
