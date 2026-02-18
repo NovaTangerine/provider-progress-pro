@@ -36,7 +36,7 @@ function CredentialSummary({ credentials }: { credentials: Credential[] }) {
         return (
           <span
             key={status}
-            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium border ${config.bgClassName} ${config.borderClassName} ${config.className}`}
+            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium border transition-colors duration-150 ${config.bgClassName} ${config.borderClassName} group-hover:border-current/20 ${config.className}`}
             title={`${count} ${config.label}`}
           >
             <span className={`w-1.5 h-1.5 rounded-full ${config.dotClassName}`} />
@@ -49,9 +49,9 @@ function CredentialSummary({ credentials }: { credentials: Credential[] }) {
 }
 
 const typeColorMap: Record<string, string> = {
-  "full-time": "bg-[hsl(210_14%_93%)] text-[hsl(215_12%_35%)] border border-[hsl(210_14%_87%)]",
-  "part-time": "bg-[hsl(38_20%_93%)] text-[hsl(38_30%_32%)] border border-[hsl(38_18%_87%)]",
-  "locum": "bg-[hsl(262_15%_93%)] text-[hsl(262_18%_38%)] border border-[hsl(262_12%_87%)]",
+  "full-time": "bg-[hsl(210_14%_93%)] text-[hsl(215_12%_35%)] border border-[hsl(210_14%_87%)] group-hover:border-[hsl(210_14%_80%)]",
+  "part-time": "bg-[hsl(38_20%_93%)] text-[hsl(38_30%_32%)] border border-[hsl(38_18%_87%)] group-hover:border-[hsl(38_18%_80%)]",
+  "locum": "bg-[hsl(262_15%_93%)] text-[hsl(262_18%_38%)] border border-[hsl(262_12%_87%)] group-hover:border-[hsl(262_12%_80%)]",
 };
 
 export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps) {
@@ -101,7 +101,7 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
         </td>
         <td className="px-4 py-3">
           <div className="text-sm">
-            <Badge variant="secondary" className={`text-xs font-normal capitalize ${typeColorMap[provider.availability.type] ?? ""}`}>
+            <Badge variant="secondary" className={`text-xs font-normal capitalize transition-colors duration-150 ${typeColorMap[provider.availability.type] ?? ""}`}>
               {provider.availability.type.replace("-", " ")}
             </Badge>
           </div>
