@@ -68,7 +68,7 @@ export function ProviderRow({ provider, isExpanded, onToggle }: ProviderRowProps
           {isExpanded ? (
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           ) : (
-            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-150" />
           )}
         </td>
         <td className="px-4 py-3 sticky left-[40px] z-10 bg-inherit">
