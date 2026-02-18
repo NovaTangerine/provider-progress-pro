@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, PointerEvent as ReactPointerEvent } from "react";
 import { mockRole } from "@/data/mockData";
 import { RoleHeader } from "@/components/RoleHeader";
 import { ProviderRow } from "@/components/ProviderRow";
@@ -37,6 +37,7 @@ const Index = () => {
   const [hoveredColumn, setHoveredColumn] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = useCallback(() => {
     const el = scrollRef.current;
@@ -44,6 +45,27 @@ const Index = () => {
     const maxScroll = el.scrollWidth - el.clientWidth;
     setScrollProgress(maxScroll > 0 ? el.scrollLeft / maxScroll : 0);
   }, []);
+
+  const scrubToPosition = useCallback((clientX: number) => {
+    const bar = progressBarRef.current;
+    const el = scrollRef.current;
+    if (!bar || !el) return;
+    const rect = bar.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    el.scrollLeft = ratio * maxScroll;
+  }, []);
+
+  const handleBarPointerDown = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    scrubToPosition(e.clientX);
+  }, [scrubToPosition]);
+
+  const handleBarPointerMove = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
+    if (e.buttons === 0) return;
+    scrubToPosition(e.clientX);
+  }, [scrubToPosition]);
 
   useEffect(() => {
     setViewMode("presentation");
@@ -130,11 +152,18 @@ const Index = () => {
             </div>
           )}
           {isMobile && (
-            <div className="flex-1 h-1.5 rounded-full bg-border overflow-hidden">
-              <div
-                className="h-full rounded-full bg-muted-foreground/40 transition-transform duration-100 origin-left"
-                style={{ width: '30%', transform: `translateX(${scrollProgress * 233}%)` }}
-              />
+            <div
+              ref={progressBarRef}
+              className="flex-1 h-4 flex items-center cursor-pointer touch-none"
+              onPointerDown={handleBarPointerDown}
+              onPointerMove={handleBarPointerMove}
+            >
+              <div className="w-full h-1.5 rounded-full bg-border overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-muted-foreground/40 transition-transform duration-100 origin-left"
+                  style={{ width: '30%', transform: `translateX(${scrollProgress * 233}%)` }}
+                />
+              </div>
             </div>
           )}
         </div>
