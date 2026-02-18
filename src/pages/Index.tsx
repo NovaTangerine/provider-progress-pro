@@ -27,7 +27,7 @@ type ViewMode = "list" | "presentation";
 const Index = () => {
   const isMobile = useIsMobile();
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<ViewMode>(isMobile ? "presentation" : "list");
+  const [viewMode, setViewMode] = useState<ViewMode>("presentation");
   const [activeStage, setActiveStage] = useState<ProviderStage | null>(null);
   const [cardHighlightsExpanded, setCardHighlightsExpanded] = useState(false);
   const [cardAvailabilityExpanded, setCardAvailabilityExpanded] = useState(false);
