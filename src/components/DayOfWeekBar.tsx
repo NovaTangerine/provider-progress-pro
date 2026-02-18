@@ -20,7 +20,7 @@ export function DayOfWeekBar({ days }: DayOfWeekBarProps) {
         <div
           key={i}
           title={`${DAY_FULL[i]}: ${status === "on" ? "Available" : status === "preferred" ? "Preferred" : "Unavailable"}`}
-          className={`flex items-center justify-center aspect-square rounded-md border text-xs font-semibold transition-colors duration-150 ${DAY_STYLES[status]}`}
+          className={`flex items-center justify-center aspect-square rounded-md border-[1.5px] text-xs font-semibold transition-colors duration-150 ${DAY_STYLES[status]}`}
         >
           {DAY_LABELS[i]}
         </div>
