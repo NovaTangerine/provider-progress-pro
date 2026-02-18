@@ -4,9 +4,9 @@ const DAY_LABELS = ["S", "M", "T", "W", "T", "F", "S"];
 const DAY_FULL = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const DAY_STYLES: Record<DayAvailability, string> = {
-  on: "bg-primary/10 text-primary border-primary/20",
-  off: "bg-muted text-muted-foreground/50 border-muted-foreground/15",
-  preferred: "bg-primary/20 text-primary border-primary/35 ring-1 ring-primary/15",
+  on: "bg-[hsl(225,40%,92%)] text-[hsl(225,40%,45%)] border-[hsl(225,35%,82%)]",
+  off: "bg-muted text-muted-foreground/40 border-muted-foreground/10",
+  preferred: "bg-[hsl(225,50%,88%)] text-[hsl(225,45%,40%)] border-[hsl(225,40%,75%)] ring-1 ring-[hsl(225,40%,80%)]",
 };
 
 interface DayOfWeekBarProps {
