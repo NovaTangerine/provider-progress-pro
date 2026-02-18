@@ -226,7 +226,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
             </div>
             {availabilityExpanded &&
             <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-5 space-y-4">
-                <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   <div>
                     <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Coverage</p>
                     <p className="text-sm text-foreground/80 capitalize mt-0.5">{provider.availability.type.replace("-", " ")}</p>
@@ -247,7 +247,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                   <DayOfWeekBar days={provider.availability.availableDays} />
                 }
                 {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 &&
-                  <div className="pt-1">
+                  <div className="-mt-1">
                     <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
                   </div>
                 }
