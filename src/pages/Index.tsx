@@ -65,7 +65,24 @@ const Index = () => {
 
 
   const toggleProvider = (id: string) => {
+    const isExpanding = expandedId !== id;
     setExpandedId((prev) => prev === id ? null : id);
+    if (isExpanding && isMobile && scrollRef.current) {
+      scrollRef.current.style.opacity = '0';
+      scrollRef.current.scrollLeft = 0;
+      setScrollProgress(0);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (scrollRef.current) {
+            scrollRef.current.style.transition = 'opacity 150ms ease-in';
+            scrollRef.current.style.opacity = '1';
+            setTimeout(() => {
+              if (scrollRef.current) scrollRef.current.style.transition = '';
+            }, 150);
+          }
+        });
+      });
+    }
   };
 
   const filteredProviders = activeStage ?
