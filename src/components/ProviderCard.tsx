@@ -79,9 +79,16 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
 
         {lastUpdate && (
           <div className="space-y-1">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Last Update</p>
+            <div className="flex items-center gap-1.5">
+              <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Last Update</p>
+              {lastUpdate.date && (
+                <>
+                  <span className="text-muted-foreground/50">·</span>
+                  <p className="text-muted-foreground text-xs">{new Date(lastUpdate.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
+                </>
+              )}
+            </div>
             <p className="text-foreground/80 leading-relaxed">{lastUpdate.label}</p>
-            {lastUpdate.date && <p className="text-muted-foreground text-xs">{new Date(lastUpdate.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>}
           </div>
         )}
 
