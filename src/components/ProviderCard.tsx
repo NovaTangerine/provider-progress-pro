@@ -232,7 +232,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               {provider.lastName[0]}
             </div>
             <div>
-              <p className="text-base font-semibold text-foreground transition-colors duration-200 group-hover/grid:text-[#555555] group-hover/card:!text-[#000000]">
+              <p className="text-base font-semibold text-foreground transition-colors duration-200 group-hover/grid:text-[#757575] group-hover/card:!text-[#000000]">
                 {provider.firstName} {provider.lastName}
               </p>
               <p className="text-xs text-muted-foreground">{provider.specialty}</p>
