@@ -88,7 +88,7 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
   const pill = (
     <button
       onClick={() => onClick(credential)}
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium border transition-all duration-150 hover:shadow-sm cursor-pointer ${config.bgClassName} ${config.className} border-transparent hover:border-current/20`}>
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium border transition-all duration-150 cursor-pointer ${config.bgClassName} ${config.className} border-transparent hover:border-current/20 hover:shadow-sm hover:scale-[1.04] hover:brightness-[0.97] active:scale-100`}>
       <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${workflow ? config.dotClassName : `border-[1.5px] ${config.dotClassName.replace('bg-', 'border-')}`}`} />
       <span className="truncate max-w-[140px]">{credential.name}</span>
     </button>
