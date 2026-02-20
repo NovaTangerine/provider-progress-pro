@@ -81,7 +81,7 @@ export function StatusBadge({ status, compact = false }: StatusBadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap overflow-hidden border ${config.bgClassName} ${config.borderClassName} ${config.className}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium whitespace-nowrap overflow-hidden border ${config.bgClassName} ${config.borderClassName} ${config.className}`}
     >
       <Icon className="w-3 h-3 shrink-0" />
       <span className="truncate">{config.label}</span>
