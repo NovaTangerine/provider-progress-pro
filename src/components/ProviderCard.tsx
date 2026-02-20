@@ -300,7 +300,10 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
                 Provider Highlights
               </h4>
-              <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-3 py-5 space-y-2">
+              <div
+                onClick={hasMore ? onHighlightsToggle : undefined}
+                className={`rounded-md bg-[hsl(0,0%,97.5%)] p-3 py-5 space-y-2 transition-colors duration-150 ${hasMore ? "cursor-pointer hover:bg-[hsl(0,0%,94.5%)]" : ""}`}
+              >
                 {highlights.slice(0, 3).map((h, i) =>
                   <HighlightItem key={i} text={h.text} icon={h.icon} />
                 )}
@@ -313,14 +316,12 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                         )}
                       </div>
                     </CollapsibleContent>
-                    <button
-                      onClick={onHighlightsToggle}
-                      className="flex items-center gap-1 text-xs text-primary/80 hover:text-primary font-medium transition-colors pt-1">
+                    <span className="flex items-center gap-1 text-xs text-primary/80 font-medium pt-1">
                       {highlightsExpanded ?
                         <>Show less <ChevronUp className="w-3 h-3" /></> :
                         <>+{highlights.length - 3} more <ChevronDown className="w-3 h-3" /></>
                       }
-                    </button>
+                    </span>
                   </Collapsible>
                 )}
               </div>
