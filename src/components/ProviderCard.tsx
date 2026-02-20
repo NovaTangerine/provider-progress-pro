@@ -30,7 +30,7 @@ interface ProviderCardProps {
   onAvailabilityToggle: () => void;
 }
 
-function MarqueeText({ children, className }: { children: string; className?: string }) {
+function MarqueeText({ children, className }: {children: string;className?: string;}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -44,22 +44,22 @@ function MarqueeText({ children, className }: { children: string; className?: st
     }
   }, []);
 
-  useEffect(() => { measure(); }, [measure, children]);
+  useEffect(() => {measure();}, [measure, children]);
 
   return (
     <div ref={containerRef} className={`min-w-0 overflow-hidden whitespace-nowrap ${className ?? ""}`}>
       <span
         ref={textRef}
         className={`inline-block ${isOverflowing ? "hover:animate-marquee" : ""}`}
-        style={isOverflowing ? { "--marquee-distance": `-${distance}px` } as React.CSSProperties : undefined}
-      >
+        style={isOverflowing ? { "--marquee-distance": `-${distance}px` } as React.CSSProperties : undefined}>
+
         {children}
       </span>
-    </div>
-  );
+    </div>);
+
 }
 
-function getLastUpdate(credential: Credential): { label: string; date?: string } | null {
+function getLastUpdate(credential: Credential): {label: string;date?: string;} | null {
   const steps = credential.workflow?.steps;
   if (!steps) return null;
   for (let i = steps.length - 1; i >= 0; i--) {
@@ -85,14 +85,14 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
   const lastUpdate = getLastUpdate(credential);
   const nextStep = getNextStep(credential);
 
-  const pill = (
-    <button
-      onClick={() => onClick(credential)}
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium border transition-all duration-150 cursor-pointer ${config.bgClassName} ${config.className} border-transparent hover:border-current/20 hover:shadow-sm hover:scale-[1.04] hover:brightness-[0.97] active:scale-100`}>
+  const pill =
+  <button
+    onClick={() => onClick(credential)}
+    className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium border transition-all duration-150 cursor-pointer ${config.bgClassName} ${config.className} border-transparent hover:border-current/20 hover:shadow-sm hover:scale-[1.04] hover:brightness-[0.97] active:scale-100`}>
       <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${workflow ? config.dotClassName : `border-[1.5px] ${config.dotClassName.replace('bg-', 'border-')}`}`} />
       <span className="truncate max-w-[140px]">{credential.name}</span>
-    </button>
-  );
+    </button>;
+
 
   if (!workflow) {
     return pill;
@@ -107,36 +107,36 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
           <StatusBadge status={credential.status} compact />
         </div>
 
-        {lastUpdate && (
-          <div className="space-y-1">
+        {lastUpdate &&
+        <div className="space-y-1">
             <p className="text-[10px] uppercase tracking-widest text-[#909cad] font-medium">Last Update</p>
             <div className="flex items-baseline gap-1.5 min-w-0">
-              {lastUpdate.date && (
-                <span className="text-muted-foreground text-xs shrink-0">{new Date(lastUpdate.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
-              )}
+              {lastUpdate.date &&
+            <span className="text-muted-foreground text-xs shrink-0">{new Date(lastUpdate.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+            }
               {lastUpdate.date && <span className="text-muted-foreground/50 shrink-0">·</span>}
               <MarqueeText className="text-foreground/80 leading-relaxed">{lastUpdate.label}</MarqueeText>
             </div>
           </div>
-        )}
+        }
 
-        {nextStep && (
-          <div className="space-y-1">
+        {nextStep &&
+        <div className="space-y-1">
             <p className="text-[10px] uppercase tracking-widest text-[#909cad] font-medium">Next Step</p>
             <p className="text-foreground/80 leading-relaxed">{nextStep}</p>
           </div>
-        )}
+        }
 
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
             <p className="text-[10px] uppercase tracking-widest text-[#909cad] font-medium">Progress</p>
             <p className="text-muted-foreground">{completedSteps}/{totalSteps} steps</p>
           </div>
-          <Progress value={totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0} className="h-1.5" indicatorClassName={config.dotClassName} />
+          <Progress value={totalSteps > 0 ? completedSteps / totalSteps * 100 : 0} className="h-1.5" indicatorClassName={config.dotClassName} />
         </div>
       </HoverCardContent>
-    </HoverCard>
-  );
+    </HoverCard>);
+
 }
 
 function StatusLegendBar({ credentials }: {credentials: Credential[];}) {
@@ -249,7 +249,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
           <div className="space-y-4">
             <div className="flex items-center gap-3 text-sm">
               <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-              <span className="font-medium text-[#575757] text-lg tracking-tight">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
+              <span className="text-lg tracking-tight text-[#333333] font-normal">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
               <span className="text-muted-foreground/40">·</span>
               <button
                 onClick={onAvailabilityToggle}
@@ -271,7 +271,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                       <p className="text-sm text-foreground/80 mt-0.5">{provider.availability.willingToRelocate ? "Yes" : "No"}</p>
                     </div>
                     {provider.availability.scheduleNotes?.map((note, i) =>
-                      <div key={i} className="col-span-2">
+                    <div key={i} className="col-span-2">
                         <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Schedule Note</p>
                         <p className="text-sm text-foreground/80 mt-0.5">{note.label}</p>
                       </div>
@@ -281,10 +281,10 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                   <div className="space-y-2.5">
                     <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Scheduling Preferences</p>
                     {provider.availability.availableDays &&
-                      <DayOfWeekBar days={provider.availability.availableDays} />
+                    <DayOfWeekBar days={provider.availability.availableDays} />
                     }
                     {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 &&
-                      <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
+                    <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
                     }
                   </div>
                 </div>
@@ -301,29 +301,29 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                 Provider Highlights
               </h4>
               <div
-                onClick={hasMore ? onHighlightsToggle : undefined}
-                className={`rounded-md bg-[hsl(0,0%,97.5%)] p-3 py-5 space-y-2 transition-[background-color] duration-[480ms] ${hasMore ? "cursor-pointer hover:bg-[hsl(0,0%,95.5%)]" : ""}`}
-              >
+              onClick={hasMore ? onHighlightsToggle : undefined}
+              className={`rounded-md bg-[hsl(0,0%,97.5%)] p-3 py-5 space-y-2 transition-[background-color] duration-[480ms] ${hasMore ? "cursor-pointer hover:bg-[hsl(0,0%,95.5%)]" : ""}`}>
+
                 {highlights.slice(0, 3).map((h, i) =>
-                  <HighlightItem key={i} text={h.text} icon={h.icon} />
-                )}
-                {hasMore && (
-                  <Collapsible open={highlightsExpanded}>
+              <HighlightItem key={i} text={h.text} icon={h.icon} />
+              )}
+                {hasMore &&
+              <Collapsible open={highlightsExpanded}>
                     <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
                       <div className="space-y-2 pt-1">
                         {highlights.slice(3).map((h, i) =>
-                          <HighlightItem key={i + 3} text={h.text} icon={h.icon} />
-                        )}
+                    <HighlightItem key={i + 3} text={h.text} icon={h.icon} />
+                    )}
                       </div>
                     </CollapsibleContent>
                     <span className="flex items-center gap-1 text-xs text-primary/80 font-medium pt-1">
                       {highlightsExpanded ?
-                        <>Show less <ChevronUp className="w-3 h-3" /></> :
-                        <>+{highlights.length - 3} more <ChevronDown className="w-3 h-3" /></>
-                      }
+                  <>Show less <ChevronUp className="w-3 h-3" /></> :
+                  <>+{highlights.length - 3} more <ChevronDown className="w-3 h-3" /></>
+                  }
                     </span>
                   </Collapsible>
-                )}
+              }
               </div>
             </> :
 
