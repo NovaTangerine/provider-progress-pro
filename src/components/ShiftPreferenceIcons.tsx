@@ -60,7 +60,7 @@ export function ShiftPreferenceIcons({ preferences }: ShiftPreferenceIconsProps)
             <Tooltip key={pref.shift}>
               <TooltipTrigger asChild>
                 <div
-                  className={`w-8 h-8 rounded-md border flex items-center justify-center ${stance.bg} ${stance.border} ${stance.text} transition-colors duration-150`}
+                  className={`w-8 h-8 rounded-md border flex items-center justify-center cursor-default transition-all duration-150 hover:scale-[1.1] hover:shadow-sm ${stance.bg} ${stance.border} ${stance.text}`}
                 >
                   <Icon className="w-4 h-4" />
                 </div>
