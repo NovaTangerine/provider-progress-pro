@@ -9,6 +9,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 
 interface ProviderRowProps {
   provider: Provider;
@@ -123,18 +124,20 @@ export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: P
       </tr>
 
       {/* Expanded detail */}
-      {isExpanded && (
-        <tr className="bg-grid-row-expanded border-b border-grid-border touch-pan-y">
-          <td colSpan={7} className="p-0">
-            <div className="max-w-[100vw] overflow-hidden">
-              <ProviderExpandedDetail
-                provider={provider}
-                onSelectCredential={setSelectedCredential}
-              />
-            </div>
-          </td>
-        </tr>
-      )}
+      <tr className="bg-grid-row-expanded border-b border-grid-border touch-pan-y">
+        <td colSpan={7} className="p-0">
+          <Collapsible open={isExpanded}>
+            <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
+              <div className="max-w-[100vw] overflow-hidden">
+                <ProviderExpandedDetail
+                  provider={provider}
+                  onSelectCredential={setSelectedCredential}
+                />
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+        </td>
+      </tr>
 
       <CredentialModal
         credential={selectedCredential}
