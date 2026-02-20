@@ -108,6 +108,14 @@ export default {
           from: { opacity: "0", height: "0" },
           to: { opacity: "1", height: "var(--expanded-height, auto)" },
         },
+        "collapsible-down": {
+          from: { height: "0", opacity: "0" },
+          to: { height: "var(--radix-collapsible-content-height)", opacity: "1" },
+        },
+        "collapsible-up": {
+          from: { height: "var(--radix-collapsible-content-height)", opacity: "1" },
+          to: { height: "0", opacity: "0" },
+        },
         marquee: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(var(--marquee-distance, -50%))" },
@@ -118,6 +126,8 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.2s ease-out",
         "slide-down": "slide-down 0.25s ease-out",
+        "collapsible-down": "collapsible-down 0.25s ease-out",
+        "collapsible-up": "collapsible-up 0.2s ease-out",
         marquee: "marquee 4s linear infinite alternate",
       },
     },
