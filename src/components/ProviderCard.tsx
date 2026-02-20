@@ -249,7 +249,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
           <div className="space-y-4">
             <div className="flex items-center gap-3 text-sm">
               <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-              <span className="text-lg tracking-tight text-[#333333] font-normal">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
+              <span className="text-lg tracking-tight text-[#333333] font-normal transition-[font-weight] duration-200 group-hover/card:font-medium">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
               <span className="text-muted-foreground/40">·</span>
               <button
                 onClick={onAvailabilityToggle}
