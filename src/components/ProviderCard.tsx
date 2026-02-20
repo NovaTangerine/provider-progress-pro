@@ -223,7 +223,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
   return (
     <>
-      <div className="group rounded-lg border border-border bg-card shadow-sm hover:shadow-md hover:border-border/80 hover:border-[1.5px] transition-[box-shadow,border-color] duration-200 overflow-hidden grid grid-rows-subgrid row-span-4 gap-0">
+      <div className="group rounded-lg border border-border bg-card shadow-sm hover:shadow-md hover:border-border/80 hover:shadow-[inset_0_0_0_0.5px_hsl(var(--border))] transition-[box-shadow,border-color] duration-200 overflow-hidden grid grid-rows-subgrid row-span-4 gap-0">
         {/* Header */}
         <div className="pl-5 pr-7 py-4 border-b border-border flex items-center justify-between gap-4 transition-[background-color] duration-200 group-hover:bg-muted/50">
           <div className="flex items-center gap-3">
