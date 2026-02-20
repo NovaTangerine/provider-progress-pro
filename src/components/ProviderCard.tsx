@@ -301,21 +301,28 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                 Provider Highlights
               </h4>
               <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-3 py-5 space-y-2">
-                {visibleHighlights.map((h, i) =>
-              <HighlightItem key={i} text={h.text} icon={h.icon} />
-              )}
-              {hasMore &&
-            <button
-              onClick={onHighlightsToggle}
-              className="flex items-center gap-1 text-xs text-primary/80 hover:text-primary font-medium transition-colors pt-1">
-
-                  {highlightsExpanded ?
-              <>Show less <ChevronUp className="w-3 h-3" /></> :
-
-              <>+{highlights.length - 3} more <ChevronDown className="w-3 h-3" /></>
-              }
-                </button>
-            }
+                {highlights.slice(0, 3).map((h, i) =>
+                  <HighlightItem key={i} text={h.text} icon={h.icon} />
+                )}
+                {hasMore && (
+                  <Collapsible open={highlightsExpanded}>
+                    <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
+                      <div className="space-y-2 pt-1">
+                        {highlights.slice(3).map((h, i) =>
+                          <HighlightItem key={i + 3} text={h.text} icon={h.icon} />
+                        )}
+                      </div>
+                    </CollapsibleContent>
+                    <button
+                      onClick={onHighlightsToggle}
+                      className="flex items-center gap-1 text-xs text-primary/80 hover:text-primary font-medium transition-colors pt-1">
+                      {highlightsExpanded ?
+                        <>Show less <ChevronUp className="w-3 h-3" /></> :
+                        <>+{highlights.length - 3} more <ChevronDown className="w-3 h-3" /></>
+                      }
+                    </button>
+                  </Collapsible>
+                )}
               </div>
             </> :
 
