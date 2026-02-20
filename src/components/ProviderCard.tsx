@@ -242,7 +242,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         </div>
 
         {/* Availability Section */}
-        <div className="px-7 space-y-3 border-b border-dashed border-border/50 pt-[20px] pb-[14px]">
+        <div className="px-7 space-y-3 pt-[20px] pb-[14px]">
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
             Availability
           </h4>
@@ -294,10 +294,10 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         </div>
 
         {/* Provider Highlights */}
-        <div className="px-7 space-y-3 border-b border-dashed border-border/50 py-[20px]">
+        <div className={`px-7 space-y-3 ${highlights.length > 0 ? 'border-t border-dashed border-border/50' : ''} py-[20px]`}>
           {highlights.length > 0 ?
           <>
-              <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
+              <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card pr-3 inline-block relative -top-[8px] -mb-[8px]">
                 Provider Highlights
               </h4>
               <div
@@ -332,8 +332,8 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         </div>
 
         {/* Credentials */}
-        <div className="px-7 space-y-3 py-[20px] pb-[24px]">
-          <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
+        <div className="px-7 space-y-3 border-t border-dashed border-border/50 py-[20px] pb-[24px]">
+          <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card pr-3 inline-block relative -top-[8px] -mb-[8px]">
             Credentials
           </h4>
           <StatusLegendBar credentials={provider.credentials} />
