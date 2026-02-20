@@ -20,6 +20,7 @@ import { DayOfWeekBar } from "./DayOfWeekBar";
 import { Badge } from "@/components/ui/badge";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Progress } from "@/components/ui/progress";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 
 interface ProviderCardProps {
   provider: Provider;
@@ -257,36 +258,38 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                 {availabilityExpanded ? "Hide details" : "View details"}
               </button>
             </div>
-            {availabilityExpanded &&
-            <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-6 space-y-4">
-                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Coverage</p>
-                    <p className="text-sm text-foreground/80 capitalize mt-0.5">{provider.availability.type.replace("-", " ")}</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Relocation</p>
-                    <p className="text-sm text-foreground/80 mt-0.5">{provider.availability.willingToRelocate ? "Yes" : "No"}</p>
-                  </div>
-                  {provider.availability.scheduleNotes?.map((note, i) =>
-                    <div key={i} className="col-span-2">
-                      <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Schedule Note</p>
-                      <p className="text-sm text-foreground/80 mt-0.5">{note.label}</p>
+            <Collapsible open={availabilityExpanded}>
+              <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
+                <div className="rounded-md bg-[hsl(0,0%,97.5%)] p-6 space-y-4 mt-3">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+                    <div>
+                      <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Coverage</p>
+                      <p className="text-sm text-foreground/80 capitalize mt-0.5">{provider.availability.type.replace("-", " ")}</p>
                     </div>
-                  )}
+                    <div>
+                      <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Relocation</p>
+                      <p className="text-sm text-foreground/80 mt-0.5">{provider.availability.willingToRelocate ? "Yes" : "No"}</p>
+                    </div>
+                    {provider.availability.scheduleNotes?.map((note, i) =>
+                      <div key={i} className="col-span-2">
+                        <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Schedule Note</p>
+                        <p className="text-sm text-foreground/80 mt-0.5">{note.label}</p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="border-t border-dashed border-foreground/[0.06] my-4" />
+                  <div className="space-y-2.5">
+                    <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Scheduling Preferences</p>
+                    {provider.availability.availableDays &&
+                      <DayOfWeekBar days={provider.availability.availableDays} />
+                    }
+                    {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 &&
+                      <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
+                    }
+                  </div>
                 </div>
-                <div className="border-t border-dashed border-foreground/[0.06] my-4" />
-                <div className="space-y-2.5">
-                  <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Scheduling Preferences</p>
-                  {provider.availability.availableDays &&
-                    <DayOfWeekBar days={provider.availability.availableDays} />
-                  }
-                  {provider.availability.shiftPreferences && provider.availability.shiftPreferences.length > 0 &&
-                    <ShiftPreferenceIcons preferences={provider.availability.shiftPreferences} />
-                  }
-                </div>
-              </div>
-            }
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </div>
 
