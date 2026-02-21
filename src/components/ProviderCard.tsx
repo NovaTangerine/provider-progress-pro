@@ -205,7 +205,7 @@ function HighlightItem({ text, icon }: {text: string;icon?: string;}) {
 
 function formatDateRange(startDate: string, endDate?: string) {
   const start = new Date(startDate + "T00:00:00");
-  const yearClass = "text-[#999] group-hover/grid:text-[#aaa] group-hover/card:!text-[#999]";
+  const yearClass = "text-[#999] provider-dim-year";
   if (!endDate) {
     return <>Starting {start.toLocaleDateString("en-US", { month: "short", day: "numeric" })}, <span className={yearClass}>{start.getFullYear()}</span></>;
   }
@@ -233,7 +233,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               {provider.lastName[0]}
             </div>
             <div>
-              <p className="text-base font-semibold text-foreground transition-colors duration-200 group-hover/grid:text-[#757575] group-hover/card:!text-[#000000]">
+              <p className="text-base font-semibold text-foreground transition-colors duration-200 provider-dim-name">
                 {provider.firstName} {provider.lastName}
               </p>
               <p className="text-xs text-muted-foreground">{provider.specialty}</p>
@@ -252,7 +252,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               onClick={onAvailabilityToggle}
               className="group/avail flex items-center gap-3 text-sm cursor-pointer rounded-md -mx-2 px-2 py-1.5 transition-colors duration-200 hover:bg-[hsl(0,0%,97%)]">
               <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0 transition-colors duration-200 group-hover/card:text-[hsl(252,56%,57%)]" />
-              <span className="text-lg tracking-tight text-[#333333] transition-[color] duration-200 font-medium group-hover/grid:text-[#757575] group-hover/card:!text-[#333333]">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
+              <span className="text-lg tracking-tight text-[#333333] transition-[color] duration-200 font-medium provider-dim-date">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
               <span className="text-muted-foreground/40">·</span>
               <span className="text-xs text-primary/80 underline underline-offset-2 transition-colors group-hover/avail:text-primary">
                 {availabilityExpanded ? "Hide details" : "View details"}
