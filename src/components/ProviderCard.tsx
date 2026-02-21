@@ -258,7 +258,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
   return (
     <>
       <div
-        className="group/card rounded-lg border border-border bg-card shadow-sm hover:shadow-[--card-hover-shadow] hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden grid grid-rows-subgrid row-span-4 gap-0"
+        className="group/card rounded-lg border border-border bg-card shadow-sm hover:shadow-[var(--card-hover-shadow)] hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden grid grid-rows-subgrid row-span-4 gap-0"
         style={{ '--card-hover-shadow': hoverShadow } as React.CSSProperties}
       >
         {/* Header */}
