@@ -132,6 +132,26 @@
   }
 }
 
+/* Provider card dim effect: only dim when a sibling card is hovered */
+.group\/grid:has(.group\/card:hover) .provider-dim-name {
+  color: #757575;
+}
+.group\/grid:has(.group\/card:hover) .group\/card:hover .provider-dim-name {
+  color: #000000;
+}
+.group\/grid:has(.group\/card:hover) .provider-dim-date {
+  color: #757575;
+}
+.group\/grid:has(.group\/card:hover) .group\/card:hover .provider-dim-date {
+  color: #333333;
+}
+.group\/grid:has(.group\/card:hover) .provider-dim-year {
+  color: #aaa;
+}
+.group\/grid:has(.group\/card:hover) .group\/card:hover .provider-dim-year {
+  color: #999;
+}
+
 @layer base {
   * {
     @apply border-border;
