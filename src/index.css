@@ -136,7 +136,7 @@
 .group\/card:hover [style*="--avatar-hover-bg"] {
   background-color: var(--avatar-hover-bg) !important;
   color: var(--avatar-hover-text) !important;
-  box-shadow: 0 0 0 0.5px var(--avatar-hover-text);
+  box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--avatar-hover-text) 40%, transparent);
 }
 
 /* Provider card dim effect: only dim when a sibling card is hovered */
