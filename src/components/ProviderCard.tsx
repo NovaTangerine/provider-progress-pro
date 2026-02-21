@@ -205,7 +205,7 @@ function HighlightItem({ text, icon }: {text: string;icon?: string;}) {
 
 function formatDateRange(startDate: string, endDate?: string) {
   const start = new Date(startDate + "T00:00:00");
-  const yearClass = "text-[#888]";
+  const yearClass = "text-[#999] group-hover/grid:text-[#aaa] group-hover/card:!text-[#999]";
   if (!endDate) {
     return <>Starting {start.toLocaleDateString("en-US", { month: "short", day: "numeric" })}, <span className={yearClass}>{start.getFullYear()}</span></>;
   }
