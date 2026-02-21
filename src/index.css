@@ -132,6 +132,12 @@
   }
 }
 
+/* Provider avatar status accent on card hover */
+.group\/card:hover [style*="--avatar-hover-bg"] {
+  background-color: var(--avatar-hover-bg) !important;
+  color: var(--avatar-hover-text) !important;
+}
+
 /* Provider card dim effect: only dim when a sibling card is hovered */
 .group\/grid:has(.group\/card:hover) .provider-dim-name {
   color: #757575;

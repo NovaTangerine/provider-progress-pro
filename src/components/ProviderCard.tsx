@@ -229,7 +229,23 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     red_flag: "hsla(0,72%,51%,0.07)",
     exception: "hsla(262,52%,50%,0.07)",
   };
+  const STATUS_AVATAR_BG: Record<string, string> = {
+    incomplete: "hsla(215,12%,65%,0.15)",
+    in_progress: "hsla(210,60%,50%,0.14)",
+    completed: "hsla(152,60%,40%,0.14)",
+    red_flag: "hsla(0,72%,51%,0.12)",
+    exception: "hsla(262,52%,50%,0.12)",
+  };
+  const STATUS_AVATAR_TEXT: Record<string, string> = {
+    incomplete: "hsl(215,12%,45%)",
+    in_progress: "hsl(210,60%,40%)",
+    completed: "hsl(152,55%,32%)",
+    red_flag: "hsl(0,65%,42%)",
+    exception: "hsl(262,45%,42%)",
+  };
   const gradientColor = STATUS_GRADIENT[provider.overallStatus] ?? STATUS_GRADIENT.incomplete;
+  const avatarBg = STATUS_AVATAR_BG[provider.overallStatus] ?? STATUS_AVATAR_BG.incomplete;
+  const avatarText = STATUS_AVATAR_TEXT[provider.overallStatus] ?? STATUS_AVATAR_TEXT.incomplete;
 
   return (
     <>
@@ -240,8 +256,11 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
             className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 pointer-events-none"
             style={{ backgroundImage: `linear-gradient(135deg, transparent 40%, ${gradientColor})` }}
           />
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full bg-primary/10 group-hover/card:bg-primary/20 transition-[background-color] duration-200 flex items-center justify-center text-sm font-bold text-primary shrink-0">
+          <div className="flex items-center gap-3 relative">
+            <div
+              className="w-11 h-11 rounded-full bg-primary/10 transition-[background-color,color] duration-200 flex items-center justify-center text-sm font-bold text-primary shrink-0"
+              style={{ '--avatar-hover-bg': avatarBg, '--avatar-hover-text': avatarText } as React.CSSProperties}
+            >
               {provider.firstName[0]}
               {provider.lastName[0]}
             </div>
