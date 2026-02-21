@@ -279,7 +279,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
             Availability
           </h4>
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div
               onClick={onAvailabilityToggle}
               className="group/avail flex items-center gap-3 text-sm cursor-pointer rounded-md -mx-2 px-2 py-1.5 transition-colors duration-200 hover:bg-[hsl(0,0%,97%)]">
