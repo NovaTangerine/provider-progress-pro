@@ -326,7 +326,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         </div>
 
         {/* Provider Highlights */}
-        <div className={`px-7 ${highlights.length > 0 ? 'border-t border-dashed border-border/65 relative' : ''} pt-[18px] pb-[36px]`}>
+        <div className={`px-7 ${highlights.length > 0 ? 'border-t border-dashed border-border/80 relative' : ''} pt-[18px] pb-[36px]`}>
           {highlights.length > 0 ?
           <>
               <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
@@ -364,7 +364,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         </div>
 
         {/* Credentials */}
-        <div className="px-7 space-y-2 border-t border-dashed border-border/65 relative pt-[16px] pb-[24px]">
+        <div className="px-7 space-y-2 border-t border-dashed border-border/80 relative pt-[16px] pb-[24px]">
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
             Credentials
           </h4>
