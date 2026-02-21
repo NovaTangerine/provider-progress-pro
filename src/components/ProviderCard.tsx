@@ -223,11 +223,11 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
   const hasMore = highlights.length > 3;
 
   const STATUS_SHADOW: Record<string, string> = {
-    incomplete: "0 4px 20px -1px hsla(215,12%,65%,0.18), 0 2px 10px -2px hsla(215,12%,65%,0.14)",
-    in_progress: "0 4px 20px -1px hsla(210,60%,50%,0.18), 0 2px 10px -2px hsla(210,60%,50%,0.14)",
-    completed: "0 4px 20px -1px hsla(152,60%,40%,0.18), 0 2px 10px -2px hsla(152,60%,40%,0.14)",
-    red_flag: "0 4px 20px -1px hsla(0,72%,51%,0.18), 0 2px 10px -2px hsla(0,72%,51%,0.14)",
-    exception: "0 4px 20px -1px hsla(262,52%,50%,0.18), 0 2px 10px -2px hsla(262,52%,50%,0.14)",
+    incomplete: "0 4px 20px -1px hsla(215,12%,65%,0.30), 0 2px 10px -2px hsla(215,12%,65%,0.22)",
+    in_progress: "0 4px 20px -1px hsla(210,60%,50%,0.30), 0 2px 10px -2px hsla(210,60%,50%,0.22)",
+    completed: "0 4px 20px -1px hsla(152,60%,40%,0.30), 0 2px 10px -2px hsla(152,60%,40%,0.22)",
+    red_flag: "0 4px 20px -1px hsla(0,72%,51%,0.30), 0 2px 10px -2px hsla(0,72%,51%,0.22)",
+    exception: "0 4px 20px -1px hsla(262,52%,50%,0.30), 0 2px 10px -2px hsla(262,52%,50%,0.22)",
   };
   const STATUS_GRADIENT: Record<string, string> = {
     incomplete: "hsla(215,12%,65%,0.07)",
@@ -258,7 +258,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
   return (
     <>
       <div
-        className="group/card rounded-lg border border-border bg-card shadow-sm hover:shadow-[var(--card-hover-shadow)] hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden grid grid-rows-subgrid row-span-4 gap-0"
+        className="group/card rounded-lg border border-border bg-card shadow-sm hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden grid grid-rows-subgrid row-span-4 gap-0 provider-card-shadow"
         style={{ '--card-hover-shadow': hoverShadow } as React.CSSProperties}
       >
         {/* Header */}

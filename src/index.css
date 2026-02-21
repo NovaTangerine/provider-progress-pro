@@ -159,6 +159,11 @@
   color: #999;
 }
 
+/* Provider card status-colored hover shadow */
+.provider-card-shadow:hover {
+  box-shadow: var(--card-hover-shadow) !important;
+}
+
 @layer base {
   * {
     @apply border-border;
