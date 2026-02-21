@@ -87,7 +87,7 @@ export default {
         },
       },
       boxShadow: {
-        "card-hover": "0 4px 24px -1px rgb(0 0 0 / 0.1), 0 2px 12px -2px rgb(0 0 0 / 0.1)",
+        "card-hover": "0 4px 24px -1px rgb(0 0 0 / 0.08), 0 2px 12px -2px rgb(0 0 0 / 0.08)",
       },
       borderRadius: {
         lg: "var(--radius)",
