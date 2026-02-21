@@ -207,13 +207,13 @@ function formatDateRange(startDate: string, endDate?: string) {
   const start = new Date(startDate + "T00:00:00");
   const yearClass = "text-[#999] provider-dim-year";
   if (!endDate) {
-    return <>Starting {start.toLocaleDateString("en-US", { month: "short", day: "numeric" })}, <span className={yearClass}>{start.getFullYear()}</span></>;
+    return <>Starting {start.toLocaleDateString("en-US", { month: "short", day: "numeric" })}<span className={yearClass}>, {start.getFullYear()}</span></>;
   }
   const end = new Date(endDate + "T00:00:00");
   const sameYear = start.getFullYear() === end.getFullYear();
   const startFmt = start.toLocaleDateString("en-US", { month: "short", day: "numeric", ...(!sameYear && { year: "numeric" }) });
   const endFmt = end.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  return <>{!sameYear ? startFmt : startFmt} – {endFmt}, <span className={yearClass}>{end.getFullYear()}</span></>;
+  return <>{!sameYear ? startFmt : startFmt} – {endFmt}<span className={yearClass}>, {end.getFullYear()}</span></>;
 }
 
 export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle }: ProviderCardProps) {
