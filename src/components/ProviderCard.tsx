@@ -297,7 +297,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         <div className={`px-7 ${highlights.length > 0 ? 'border-t border-dashed border-border/50 relative' : ''} pt-[18px] pb-[36px]`}>
           {highlights.length > 0 ?
           <>
-              <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card pr-3 absolute -top-[8px] left-7">
+              <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
                 Provider Highlights
               </h4>
               <div
@@ -333,7 +333,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
         {/* Credentials */}
         <div className="px-7 space-y-2 border-t border-dashed border-border/50 relative pt-[16px] pb-[24px]">
-          <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card pr-3 absolute -top-[8px] left-7">
+          <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
             Credentials
           </h4>
           <StatusLegendBar credentials={provider.credentials} />
