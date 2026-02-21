@@ -86,6 +86,9 @@ export default {
           border: "hsl(var(--grid-border))",
         },
       },
+      boxShadow: {
+        "card-hover": "0 4px 24px -1px rgb(0 0 0 / 0.1), 0 2px 12px -2px rgb(0 0 0 / 0.1)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
