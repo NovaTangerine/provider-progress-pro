@@ -275,7 +275,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         </div>
 
         {/* Availability Section */}
-        <div className="px-7 space-y-2 pt-[24px] pb-[16px]">
+        <div className="px-7 space-y-2 pt-[24px] pb-[20px]">
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
             Availability
           </h4>
