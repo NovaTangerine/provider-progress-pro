@@ -111,7 +111,7 @@ const Index = () => {
       <RoleHeader role={mockRole} />
 
       {/* View toggle bar */}
-      <div className="border-b border-border bg-[hsl(210_18%_98.5%)] px-6 py-2.5 flex items-center justify-between">
+      <div className="border-b border-border bg-[hsl(210_18%_98.5%)] px-6 py-2.5 flex items-center justify-between shadow-[0_2px_12px_-2px_rgb(0_0_0_/0.04)]">
         <div className="flex items-center gap-4">
           <StageToggle
             providers={mockRole.providers}
@@ -228,7 +228,7 @@ const Index = () => {
           </table>
         </div> :
 
-      <div className="group/grid p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
+      <div className="group/grid pt-[calc(1.5rem+8px)] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
           {filteredProviders.map((provider) =>
             <ProviderCard
               key={provider.id}
