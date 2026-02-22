@@ -52,7 +52,7 @@ export function RoleHeader({ role }: RoleHeaderProps) {
               {role.urgency}
             </Badge>
           </div>
-          <div className="mt-3 w-full sm:w-fit rounded-none bg-[hsl(0_0%_97.5%)] dark:bg-[hsl(0_0%_12%)] border-x border-[hsl(0_0%_92%)] dark:border-[hsl(0_0%_18%)] border-y-0 px-4 py-2.5 sm:py-2">
+          <div className="mt-3 w-full sm:w-fit rounded-none bg-[hsl(0_0%_97.5%)] dark:bg-[hsl(0_0%_12%)] border-l sm:border-x border-[hsl(0_0%_92%)] dark:border-[hsl(0_0%_18%)] border-y-0 px-4 py-2.5 sm:py-2">
             {details}
           </div>
         </div>
