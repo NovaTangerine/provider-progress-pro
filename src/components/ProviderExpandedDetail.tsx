@@ -74,8 +74,8 @@ export function ProviderExpandedDetail({ provider, onSelectCredential }: Provide
   })).filter((g) => g.credentials.length > 0);
 
   return (
-    <div className="px-6 pb-6 pt-6 md:px-8 md:py-6 animate-fade-in">
-      <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 md:gap-8">
+    <div className="px-6 pb-6 pt-6 md:px-8 md:py-6 animate-fade-in md:flex md:justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 md:gap-8 w-full md:max-w-4xl">
         {/* Credentials — primary */}
         <div className="space-y-5 order-1">
           <h4 className="text-xs font-normal uppercase tracking-wider text-muted-foreground">
