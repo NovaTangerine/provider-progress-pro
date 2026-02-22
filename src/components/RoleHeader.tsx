@@ -19,7 +19,7 @@ export function RoleHeader({ role }: RoleHeaderProps) {
   const dot = <span className="text-muted-foreground/40 select-none hidden sm:inline">·</span>;
 
   const details =
-  <div className={`flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3 text-sm text-muted-foreground/90`}>
+  <div className={`flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3 text-sm text-foreground/60`}>
       <span className="flex items-center gap-1.5">
         <Building2 className="w-3.5 h-3.5 text-muted-foreground/60" />
         {role.facility} · {role.department}
