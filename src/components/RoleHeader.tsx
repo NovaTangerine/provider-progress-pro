@@ -16,10 +16,10 @@ const urgencyStyles = {
 export function RoleHeader({ role }: RoleHeaderProps) {
   const isMobile = useIsMobile();
 
-  const dot = <span className="text-muted-foreground/40 select-none hidden sm:inline">·</span>;
+  const dot = <span className="text-muted-foreground/40 select-none hidden lg:inline">·</span>;
 
   const details =
-  <div className={`flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3 text-sm text-muted-foreground`}>
+  <div className={`grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:items-center gap-1.5 lg:gap-3 text-sm text-muted-foreground`}>
       <span className="flex items-center gap-1.5">
         <Building2 className="w-3.5 h-3.5 text-muted-foreground/50" />
         {role.facility} · {role.department}
