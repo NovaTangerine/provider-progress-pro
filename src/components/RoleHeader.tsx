@@ -47,7 +47,7 @@ export function RoleHeader({ role }: RoleHeaderProps) {
       <div className="flex items-start justify-between">
         <div className="w-full">
           <div className="flex items-center gap-3 mb-1">
-            <h1 className="text-2xl text-[#333333] font-semibold tracking-[-0.03em]">{role.title}</h1>
+            <h1 className="text-[1.2rem] text-[#333333] font-semibold tracking-[-0.03em]">{role.title}</h1>
             <Badge className={`text-xs font-medium capitalize ${urgencyStyles[role.urgency]}`}>
               {role.urgency}
             </Badge>
