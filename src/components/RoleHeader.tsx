@@ -16,20 +16,25 @@ const urgencyStyles = {
 export function RoleHeader({ role }: RoleHeaderProps) {
   const isMobile = useIsMobile();
 
+  const dot = <span className="text-muted-foreground/40 select-none hidden sm:inline">·</span>;
+
   const details =
-  <div className={`flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 text-sm text-muted-foreground ${isMobile ? '' : ''}`}>
+  <div className={`flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3 text-sm text-muted-foreground`}>
       <span className="flex items-center gap-1.5">
         <Building2 className="w-3.5 h-3.5" />
         {role.facility} · {role.department}
       </span>
+      {dot}
       <span className="flex items-center gap-1.5">
         <MapPin className="w-3.5 h-3.5" />
         {role.location}
       </span>
+      {dot}
       <span className="flex items-center gap-1.5">
         <Calendar className="w-3.5 h-3.5" />
         Target: {role.targetStartDate}
       </span>
+      {dot}
       <span className="flex items-center gap-1.5">
         <Users className="w-3.5 h-3.5" />
         {role.providers.length} candidates
