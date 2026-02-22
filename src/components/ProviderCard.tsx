@@ -334,7 +334,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               </h4>
               <div
               onClick={hasMore ? onHighlightsToggle : undefined}
-              className={`rounded-md bg-[hsl(0,0%,97.5%)] group-hover/card:bg-[hsl(230,15%,96.5%)] p-3 py-5 space-y-2 transition-[background-color] duration-[480ms] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,15%,95%)]" : ""}`}>
+              className={`rounded-md bg-[hsl(0,0%,97.5%)] group-hover/card:bg-[hsl(230,12%,97.5%)] p-3 py-5 space-y-2 transition-[background-color] duration-[480ms] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,15%,95%)]" : ""}`}>
 
                 {highlights.slice(0, 3).map((h, i) =>
               <HighlightItem key={i} text={h.text} icon={h.icon} />
