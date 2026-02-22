@@ -76,7 +76,7 @@ export function StageToggle({ providers, activeStage, onStageChange }: StageTogg
   }
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1.5">
       {STAGES.map((s) => {
         const isActive = activeStage === s.value;
         const count = counts[s.value] || 0;
