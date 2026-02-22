@@ -4,7 +4,7 @@ import { RoleHeader } from "@/components/RoleHeader";
 import { ProviderRow } from "@/components/ProviderRow";
 import { ProviderCard } from "@/components/ProviderCard";
 import { StageToggle } from "@/components/StageToggle";
-import { LayoutList, LayoutGrid } from "lucide-react";
+import { LayoutList, LayoutGrid, Link, Unlink } from "lucide-react";
 import { ProviderStage } from "@/types/recruiting";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -29,8 +29,13 @@ const Index = () => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("presentation");
   const [activeStage, setActiveStage] = useState<ProviderStage | null>(null);
+  const [cardSyncMode, setCardSyncMode] = useState(true);
+  // Sync mode (all cards together)
   const [cardHighlightsExpanded, setCardHighlightsExpanded] = useState(false);
   const [cardAvailabilityExpanded, setCardAvailabilityExpanded] = useState(false);
+  // Individual mode (one card at a time)
+  const [expandedHighlightId, setExpandedHighlightId] = useState<string | null>(null);
+  const [expandedAvailabilityId, setExpandedAvailabilityId] = useState<string | null>(null);
   const providerThRef = useRef<HTMLTableCellElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [headerPadding, setHeaderPadding] = useState(0);
@@ -137,6 +142,22 @@ const Index = () => {
             Presentation
           </button>
         </div>
+        {viewMode === "presentation" && (
+          <div className="flex items-center gap-1.5 ml-3">
+            <button
+              onClick={() => setCardSyncMode((v) => !v)}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all duration-150 border ${
+                cardSyncMode
+                  ? "bg-card text-foreground shadow-sm border-border"
+                  : "text-muted-foreground hover:text-foreground border-transparent"
+              }`}
+              title={cardSyncMode ? "All cards expand together" : "Only one card expands at a time"}
+            >
+              {cardSyncMode ? <Link className="w-3.5 h-3.5" /> : <Unlink className="w-3.5 h-3.5" />}
+              {cardSyncMode ? "Synced" : "Individual"}
+            </button>
+          </div>
+        )}
       </div>
 
       {viewMode === "list" &&
@@ -214,10 +235,22 @@ const Index = () => {
         <ProviderCard
           key={provider.id}
           provider={provider}
-          highlightsExpanded={cardHighlightsExpanded}
-          onHighlightsToggle={() => setCardHighlightsExpanded(prev => !prev)}
-          availabilityExpanded={cardAvailabilityExpanded}
-          onAvailabilityToggle={() => setCardAvailabilityExpanded(prev => !prev)}
+          highlightsExpanded={cardSyncMode ? cardHighlightsExpanded : expandedHighlightId === provider.id}
+          onHighlightsToggle={() => {
+            if (cardSyncMode) {
+              setCardHighlightsExpanded(prev => !prev);
+            } else {
+              setExpandedHighlightId(prev => prev === provider.id ? null : provider.id);
+            }
+          }}
+          availabilityExpanded={cardSyncMode ? cardAvailabilityExpanded : expandedAvailabilityId === provider.id}
+          onAvailabilityToggle={() => {
+            if (cardSyncMode) {
+              setCardAvailabilityExpanded(prev => !prev);
+            } else {
+              setExpandedAvailabilityId(prev => prev === provider.id ? null : provider.id);
+            }
+          }}
         />
         )}
         </div>
