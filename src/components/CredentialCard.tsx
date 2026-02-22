@@ -11,7 +11,7 @@ export function CredentialCard({ credential, onClick }: CredentialCardProps) {
   return (
     <button
       onClick={() => onClick?.(credential)}
-      className="w-full max-w-[640px] text-left p-3 rounded-lg border border-border bg-card hover:border-primary/20 hover:bg-muted/50 transition-all duration-150 group"
+      className="w-full max-w-[640px] text-left p-4 rounded-lg border border-border bg-card hover:border-primary/20 hover:bg-muted/50 transition-all duration-150 group"
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
