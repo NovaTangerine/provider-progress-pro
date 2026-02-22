@@ -119,7 +119,7 @@ const Index = () => {
             onStageChange={setActiveStage} />
         </div>
         <div className="flex items-center gap-3">
-          {viewMode === "presentation" && (
+          {viewMode === "presentation" && !isMobile && (
             <button
               onClick={() => setCardSyncMode((v) => !v)}
               className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] transition-all duration-150 ${
