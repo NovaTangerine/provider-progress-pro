@@ -47,13 +47,9 @@ export function RoleHeader({ role }: RoleHeaderProps) {
               {role.urgency}
             </Badge>
           </div>
-          {isMobile ?
           <div className="mt-3 rounded-lg bg-[hsl(0_0%_97.5%)] dark:bg-[hsl(0_0%_12%)] border border-[hsl(0_0%_92%)] dark:border-[hsl(0_0%_18%)] p-4">
-              {details}
-            </div> :
-
-          details
-          }
+            {details}
+          </div>
         </div>
       </div>
     </div>);
