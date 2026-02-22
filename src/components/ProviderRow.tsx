@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Provider, Credential, CredentialStatus } from "@/types/recruiting";
 import { StatusBadge, STATUS_CONFIG } from "./StatusBadge";
 import { CredentialModal } from "./CredentialModal";
@@ -73,7 +73,18 @@ const STATUS_AVATAR_TEXT: Record<string, string> = {
 
 export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: ProviderRowProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
+  const statusTdRef = useRef<HTMLTableCellElement>(null);
+  const [statusOffset, setStatusOffset] = useState<number | undefined>(undefined);
 
+  useEffect(() => {
+    if (!isExpanded || !statusTdRef.current) return;
+    const td = statusTdRef.current;
+    const tr = td.closest("tr");
+    if (!tr) return;
+    const trRect = tr.getBoundingClientRect();
+    const tdRect = td.getBoundingClientRect();
+    setStatusOffset(tdRect.left - trRect.left);
+  }, [isExpanded]);
   const currentExp = provider.experience.find((e) => !e.endYear);
 
   return (
@@ -113,7 +124,7 @@ export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: P
             </div>
           </div>
         </td>
-        <td className="px-4 py-3" onMouseEnter={() => onColumnHover?.(2)}>
+        <td ref={statusTdRef} className="px-4 py-3" onMouseEnter={() => onColumnHover?.(2)}>
           <StatusBadge status={provider.overallStatus} />
         </td>
         <td className="px-4 py-3" onMouseEnter={() => onColumnHover?.(3)}>
@@ -146,7 +157,10 @@ export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: P
         <td colSpan={7} className="p-0">
           <Collapsible open={isExpanded}>
             <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
-              <div className="max-w-[100vw] overflow-hidden">
+              <div
+                className="max-w-[100vw] overflow-hidden"
+                style={statusOffset != null ? { '--expanded-left-offset': `${statusOffset}px` } as React.CSSProperties : undefined}
+              >
                 <ProviderExpandedDetail
                   provider={provider}
                   onSelectCredential={setSelectedCredential}
