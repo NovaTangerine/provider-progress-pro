@@ -118,27 +118,43 @@ const Index = () => {
             activeStage={activeStage}
             onStageChange={setActiveStage} />
         </div>
-        <div className="inline-flex items-center rounded-md border border-border bg-muted p-0.5">
-          <button
-            onClick={() => setViewMode("list")}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all duration-150 ${
-            viewMode === "list" ?
-            "bg-card text-foreground shadow-sm" :
-            "text-muted-foreground hover:text-foreground"}`
-            }>
-            <LayoutList className="w-3.5 h-3.5" />
-            List
-          </button>
-          <button
-            onClick={() => setViewMode("presentation")}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all duration-150 ${
-            viewMode === "presentation" ?
-            "bg-card text-foreground shadow-sm" :
-            "text-muted-foreground hover:text-foreground"}`
-            }>
-            <LayoutGrid className="w-3.5 h-3.5" />
-            Presentation
-          </button>
+        <div className="flex items-center gap-3">
+          {viewMode === "presentation" && (
+            <button
+              onClick={() => setCardSyncMode((v) => !v)}
+              className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] transition-all duration-150 ${
+                cardSyncMode
+                  ? "text-muted-foreground/70"
+                  : "text-muted-foreground/70"
+              } hover:text-foreground/60`}
+              title={cardSyncMode ? "All cards expand together" : "Only one card expands at a time"}
+            >
+              {cardSyncMode ? <Link className="w-3 h-3" /> : <Unlink className="w-3 h-3" />}
+              {cardSyncMode ? "Synced" : "Individual"}
+            </button>
+          )}
+          <div className="inline-flex items-center rounded-md border border-border bg-muted p-0.5">
+            <button
+              onClick={() => setViewMode("list")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all duration-150 ${
+              viewMode === "list" ?
+              "bg-card text-foreground shadow-sm" :
+              "text-muted-foreground hover:text-foreground"}`
+              }>
+              <LayoutList className="w-3.5 h-3.5" />
+              List
+            </button>
+            <button
+              onClick={() => setViewMode("presentation")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all duration-150 ${
+              viewMode === "presentation" ?
+              "bg-card text-foreground shadow-sm" :
+              "text-muted-foreground hover:text-foreground"}`
+              }>
+              <LayoutGrid className="w-3.5 h-3.5" />
+              Presentation
+            </button>
+          </div>
         </div>
       </div>
 
@@ -212,22 +228,7 @@ const Index = () => {
           </table>
         </div> :
 
-      <>
-        <div className="p-6 pb-0 flex items-center justify-end">
-          <button
-            onClick={() => setCardSyncMode((v) => !v)}
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all duration-150 border ${
-              cardSyncMode
-                ? "bg-card text-foreground shadow-sm border-border"
-                : "text-muted-foreground hover:text-foreground border-transparent"
-            }`}
-            title={cardSyncMode ? "All cards expand together" : "Only one card expands at a time"}
-          >
-            {cardSyncMode ? <Link className="w-3.5 h-3.5" /> : <Unlink className="w-3.5 h-3.5" />}
-            {cardSyncMode ? "Synced" : "Individual"}
-          </button>
-        </div>
-        <div className="group/grid p-6 pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
+      <div className="group/grid p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
           {filteredProviders.map((provider) =>
             <ProviderCard
               key={provider.id}
@@ -252,7 +253,6 @@ const Index = () => {
             />
           )}
         </div>
-      </>
       }
     </div>);
 
