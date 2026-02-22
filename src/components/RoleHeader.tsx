@@ -19,24 +19,24 @@ export function RoleHeader({ role }: RoleHeaderProps) {
   const dot = <span className="text-muted-foreground/40 select-none hidden sm:inline">·</span>;
 
   const details =
-  <div className={`flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3 text-sm text-muted-foreground`}>
+  <div className={`flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3 text-sm text-muted-foreground/90`}>
       <span className="flex items-center gap-1.5">
-        <Building2 className="w-3.5 h-3.5" />
+        <Building2 className="w-3.5 h-3.5 text-muted-foreground/60" />
         {role.facility} · {role.department}
       </span>
       {dot}
       <span className="flex items-center gap-1.5">
-        <MapPin className="w-3.5 h-3.5" />
+        <MapPin className="w-3.5 h-3.5 text-muted-foreground/60" />
         {role.location}
       </span>
       {dot}
       <span className="flex items-center gap-1.5">
-        <Calendar className="w-3.5 h-3.5" />
+        <Calendar className="w-3.5 h-3.5 text-muted-foreground/60" />
         Target: {role.targetStartDate}
       </span>
       {dot}
       <span className="flex items-center gap-1.5">
-        <Users className="w-3.5 h-3.5" />
+        <Users className="w-3.5 h-3.5 text-muted-foreground/60" />
         {role.providers.length} candidates
       </span>
     </div>;
