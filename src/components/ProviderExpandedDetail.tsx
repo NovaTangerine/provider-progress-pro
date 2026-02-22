@@ -92,7 +92,7 @@ export function ProviderExpandedDetail({ provider, onSelectCredential }: Provide
         </div>
 
         {/* Secondary info — softer */}
-        <div className="space-y-5 md:border-l md:border-border/50 md:pl-6 order-2">
+        <div className="space-y-5 md:border-l md:border-border/50 md:pl-6 order-2 md:pt-[60px]">
           <div className="group/section space-y-2 cursor-default">
             <h5 className="text-[11px] font-medium text-muted-foreground/70 tracking-wide">
               Contact & Availability
