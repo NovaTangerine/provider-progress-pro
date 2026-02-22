@@ -28,6 +28,7 @@ interface ProviderCardProps {
   onHighlightsToggle: () => void;
   availabilityExpanded: boolean;
   onAvailabilityToggle: () => void;
+  constrainHeight?: boolean;
 }
 
 function MarqueeText({ children, className }: {children: string;className?: string;}) {
@@ -216,11 +217,14 @@ function formatDateRange(startDate: string, endDate?: string) {
   return <><span className="inline-block">{startFmt} – {endFmt}<span className={yearClass}>, {end.getFullYear()}</span></span></>;
 }
 
-export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle }: ProviderCardProps) {
+export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle, constrainHeight }: ProviderCardProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
   const highlights = provider.highlights ?? [];
   const visibleHighlights = highlightsExpanded ? highlights : highlights.slice(0, 3);
   const hasMore = highlights.length > 3;
+
+  const isExpanded = availabilityExpanded || highlightsExpanded;
+  const useSubgrid = !constrainHeight;
 
   const STATUS_GRADIENT: Record<string, string> = {
     incomplete: "hsla(215,12%,65%,0.07)",
@@ -249,7 +253,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
   return (
     <>
-      <div className="group/card rounded-lg border border-border bg-card shadow-sm hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden grid grid-rows-subgrid row-span-4 gap-0">
+      <div className={`group/card rounded-lg border border-border bg-card shadow-sm hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0`}>
         {/* Header */}
         <div className="relative pl-5 pr-7 py-4 border-b border-border group-hover/card:border-foreground/20 flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 group-hover/card:bg-muted/50">
           <div
