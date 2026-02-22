@@ -228,11 +228,12 @@ const Index = () => {
           </table>
         </div> :
 
-      <div className="group/grid p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in" style={{ gridTemplateRows: 'auto', gridAutoRows: 'auto' }}>
+      <div className="group/grid p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
           {filteredProviders.map((provider) =>
             <ProviderCard
               key={provider.id}
               provider={provider}
+              constrainHeight={!cardSyncMode}
               highlightsExpanded={cardSyncMode ? cardHighlightsExpanded : expandedHighlightId === provider.id}
               onHighlightsToggle={() => {
                 if (cardSyncMode) {
