@@ -56,6 +56,21 @@ const typeColorMap: Record<string, string> = {
   "locum": "bg-[hsl(262_15%_93%)] text-[hsl(262_18%_38%)] border border-[hsl(262_12%_87%)] group-hover:border-[hsl(262_12%_80%)]",
 };
 
+const STATUS_AVATAR_BG: Record<string, string> = {
+  incomplete: "hsla(215,12%,65%,0.15)",
+  in_progress: "hsla(210,60%,50%,0.14)",
+  completed: "hsla(152,60%,40%,0.14)",
+  red_flag: "hsla(0,72%,51%,0.12)",
+  exception: "hsla(262,52%,50%,0.12)",
+};
+const STATUS_AVATAR_TEXT: Record<string, string> = {
+  incomplete: "hsl(215,12%,45%)",
+  in_progress: "hsl(210,60%,40%)",
+  completed: "hsl(152,55%,32%)",
+  red_flag: "hsl(0,65%,42%)",
+  exception: "hsl(262,45%,42%)",
+};
+
 export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: ProviderRowProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
 
@@ -81,7 +96,10 @@ export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: P
         </td>
         <td className="px-2 md:px-4 py-3 sticky left-[32px] md:left-[40px] z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(1)}>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-primary/10 group-hover:bg-primary/15 flex items-center justify-center text-sm font-semibold text-primary/70 group-hover:text-primary shrink-0 transition-colors duration-150">
+            <div
+              className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary/70 group-hover:text-primary shrink-0 transition-[background-color,color] duration-200"
+              style={{ '--avatar-hover-bg': STATUS_AVATAR_BG[provider.overallStatus] ?? STATUS_AVATAR_BG.incomplete, '--avatar-hover-text': STATUS_AVATAR_TEXT[provider.overallStatus] ?? STATUS_AVATAR_TEXT.incomplete } as React.CSSProperties}
+            >
               {provider.firstName[0]}
               {provider.lastName[0]}
             </div>
