@@ -320,6 +320,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                     }
                   </div>
                 </div>
+                <div className="h-[20px]" />
               </CollapsibleContent>
             </Collapsible>
           </div>
