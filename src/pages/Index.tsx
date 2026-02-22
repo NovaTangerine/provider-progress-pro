@@ -111,7 +111,7 @@ const Index = () => {
       <RoleHeader role={mockRole} />
 
       {/* View toggle bar */}
-      <div className="border-b border-border bg-card px-6 py-2.5 flex items-center justify-between">
+      <div className="border-b border-border bg-background px-6 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <StageToggle
             providers={mockRole.providers}
