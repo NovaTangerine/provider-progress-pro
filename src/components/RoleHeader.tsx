@@ -19,7 +19,7 @@ export function RoleHeader({ role }: RoleHeaderProps) {
   const dot = <span className="text-muted-foreground/40 select-none hidden lg:inline">·</span>;
 
   const details =
-  <div className={`grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:items-center gap-1.5 lg:gap-3 text-sm text-muted-foreground`}>
+  <div className={`grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:items-center gap-x-6 gap-y-1.5 lg:gap-3 text-sm text-muted-foreground`}>
       <span className="flex items-center gap-1.5">
         <Building2 className="w-3.5 h-3.5 text-muted-foreground/50" />
         {role.facility} · {role.department}
@@ -52,7 +52,7 @@ export function RoleHeader({ role }: RoleHeaderProps) {
               {role.urgency}
             </Badge>
           </div>
-          <div className="mt-3 w-full sm:w-fit rounded-none bg-[hsl(0_0%_97.5%)] dark:bg-[hsl(0_0%_12%)] border-l sm:border-x border-[hsl(0_0%_92%)] dark:border-[hsl(0_0%_18%)] border-y-0 px-4 py-2.5 sm:py-2">
+          <div className="mt-3 w-full rounded-none bg-[hsl(0_0%_97.5%)] dark:bg-[hsl(0_0%_12%)] border-l sm:border-x border-[hsl(0_0%_92%)] dark:border-[hsl(0_0%_18%)] border-y-0 px-4 py-2.5 sm:py-2">
             {details}
           </div>
         </div>
