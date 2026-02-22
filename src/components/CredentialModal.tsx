@@ -29,7 +29,7 @@ interface CredentialModalProps {
 }
 
 const STEP_STATUS_CONFIG: Record<WorkflowStepStatus, { icon: React.ComponentType<{ className?: string }>; className: string; lineClassName: string }> = {
-  completed: { icon: CheckCircle2, className: "text-status-completed", lineClassName: "bg-status-completed" },
+  completed: { icon: CheckCircle2, className: "text-status-completed fill-white", lineClassName: "bg-status-completed" },
   in_progress: { icon: Loader2, className: "text-status-in-progress", lineClassName: "bg-status-in-progress" },
   pending: { icon: Circle, className: "text-muted-foreground/40", lineClassName: "bg-border" },
   blocked: { icon: AlertTriangle, className: "text-status-red-flag", lineClassName: "bg-status-red-flag" },
