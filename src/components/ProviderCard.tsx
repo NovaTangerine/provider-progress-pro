@@ -265,7 +265,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               {provider.lastName[0]}
             </div>
             <div>
-              <p className="text-base font-semibold text-foreground transition-colors duration-200 provider-dim-name">
+              <p className="text-base font-semibold text-foreground transition-colors duration-200 provider-dim-name tracking-[-0.01em]">
                 {provider.firstName} {provider.lastName}
               </p>
               <p className="text-xs text-muted-foreground">{provider.specialty}</p>
