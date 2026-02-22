@@ -46,8 +46,11 @@ function WorkflowStep({ step, isLast }: { step: CredentialWorkflowStep; isLast: 
         <div className={`absolute left-[9px] top-[22px] w-[2px] h-[calc(100%-6px)] ${config.lineClassName} opacity-40`} />
       )}
       {/* Icon */}
-      <div className="shrink-0 mt-0.5">
-        <Icon className={`w-[18px] h-[18px] ${config.className}`} />
+      <div className="shrink-0 mt-0.5 relative">
+        {step.status === 'completed' && (
+          <div className="absolute inset-[3px] rounded-full bg-background" />
+        )}
+        <Icon className={`w-[18px] h-[18px] ${config.className} relative`} />
       </div>
       {/* Content */}
       <div className="flex-1 min-w-0 pb-4">
