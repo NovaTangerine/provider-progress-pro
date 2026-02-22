@@ -66,10 +66,10 @@ export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: P
       {/* Main row */}
       <tr
         onClick={onToggle}
-        className={`group cursor-pointer border-b transition-colors duration-100 ${
+        className={`group cursor-pointer border-b border-t border-t-transparent transition-colors duration-100 ${
           isExpanded
             ? "border-border bg-card"
-            : "border-grid-border bg-background hover:bg-grid-row-hover hover:shadow-[inset_0_1px_0_0_hsl(215_25%_15%/0.25),inset_0_-1px_0_0_hsl(215_25%_15%/0.25)]"
+            : "border-grid-border bg-background hover:border-y-foreground/25 hover:bg-grid-row-hover"
         }`}
       >
         <td className="pl-3 pr-1 md:px-4 py-3 w-8 sticky left-0 z-10 bg-inherit" onMouseEnter={() => onColumnHover?.(0)}>
@@ -124,7 +124,7 @@ export function ProviderRow({ provider, isExpanded, onToggle, onColumnHover }: P
       </tr>
 
       {/* Expanded detail */}
-      <tr className="bg-grid-row-expanded border-b border-grid-border touch-pan-y">
+      <tr className={`bg-grid-row-expanded touch-pan-y ${isExpanded ? "border-b border-grid-border" : ""}`}>
         <td colSpan={7} className="p-0">
           <Collapsible open={isExpanded}>
             <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
