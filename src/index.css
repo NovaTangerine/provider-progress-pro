@@ -132,8 +132,9 @@
   }
 }
 
-/* Provider avatar status accent on card hover */
-.group\/card:hover [style*="--avatar-hover-bg"] {
+/* Provider avatar status accent on hover (card + list row) */
+.group\/card:hover [style*="--avatar-hover-bg"],
+.group:hover [style*="--avatar-hover-bg"] {
   background-color: var(--avatar-hover-bg) !important;
   color: var(--avatar-hover-text) !important;
   box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--avatar-hover-text) 40%, transparent);
