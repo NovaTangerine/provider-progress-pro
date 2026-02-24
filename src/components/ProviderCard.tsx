@@ -267,20 +267,21 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
   return (
     <>
-      {isFocused && onExitFocus && (
-        <div className="flex items-center justify-between px-2 pb-2 relative z-[60]">
-          <span className="text-[11px] text-white/70 font-medium">Focus Mode</span>
-          <button
-            onClick={(e) => { e.stopPropagation(); onExitFocus(); }}
-            className="text-[11px] text-white/60 hover:text-white underline underline-offset-2 transition-colors"
-          >
-            Exit
-          </button>
-        </div>
-      )}
+      <div className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0`}>
+        {isFocused && onExitFocus && (
+          <div className="flex items-center justify-between px-2 pb-2 relative z-[60] col-span-full row-span-1 -mb-0" style={{ gridRow: '1 / 2' }}>
+            <span className="text-[11px] text-white/70 font-medium">Focus Mode</span>
+            <button
+              onClick={(e) => { e.stopPropagation(); onExitFocus(); }}
+              className="text-[11px] text-white/60 hover:text-white underline underline-offset-2 transition-colors"
+            >
+              Exit
+            </button>
+          </div>
+        )}
       <div
         onClick={handleCardClick}
-      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0 ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
+      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
         {/* Header */}
         <div className={`relative pl-5 pr-7 py-4 border-b border-border group-hover/card:border-foreground/20 flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 group-hover/card:bg-muted/50 ${isFocused ? 'bg-muted/50 border-foreground/20' : ''}`}>
           <div
