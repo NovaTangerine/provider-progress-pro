@@ -29,6 +29,7 @@ interface ProviderCardProps {
   availabilityExpanded: boolean;
   onAvailabilityToggle: () => void;
   constrainHeight?: boolean;
+  focusModeActive?: boolean;
   isFocused?: boolean;
   onFocus?: (id: string) => void;
   onExitFocus?: () => void;
