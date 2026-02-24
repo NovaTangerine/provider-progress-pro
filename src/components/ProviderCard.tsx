@@ -369,7 +369,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         </div>
 
         {/* Credentials */}
-        <div className="px-7 space-y-2 border-t border-dashed border-border/[0.72] relative pt-[16px] pb-[24px] mt-5">
+        <div className="px-7 space-y-2 border-t border-dashed border-border/[0.72] relative pt-[16px] pb-[32px] mt-5">
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
             Credentials
           </h4>
