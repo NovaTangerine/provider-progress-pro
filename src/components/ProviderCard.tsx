@@ -269,7 +269,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     <>
       <div
         onClick={handleCardClick}
-      className={`group/card rounded-lg border border-border bg-card shadow-sm hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0 ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
+      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0 ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
         {/* Focus mode banner - positioned above header, outside card flow */}
         {isFocused && onExitFocus && (
           <div className="absolute bottom-full left-0 right-0 mb-2 flex items-center justify-between px-2">
