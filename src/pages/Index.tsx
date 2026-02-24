@@ -278,12 +278,29 @@ const Index = () => {
           </table>
         </div> :
 
-      <div className="group/grid pt-[calc(1.5rem+8px)] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
+      <>
+        {/* Focus mode overlay */}
+        {focusedProviderId && (
+          <div
+            className="fixed inset-0 bg-black/60 z-50 transition-opacity duration-200 flex flex-col items-center"
+            onClick={exitFocus}
+          >
+            <div className="pt-4 text-center pointer-events-none">
+              <p className="text-white/70 text-sm font-medium">
+                Focus Mode — press <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 text-xs font-mono">Esc</kbd> or click overlay to exit
+              </p>
+            </div>
+          </div>
+        )}
+        <div className="group/grid pt-[calc(1.5rem+8px)] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in relative" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
           {filteredProviders.map((provider) =>
             <ProviderCard
               key={provider.id}
               provider={provider}
               constrainHeight={!cardSyncMode}
+              isFocused={focusedProviderId === provider.id}
+              onFocus={handleFocusProvider}
+              onExitFocus={exitFocus}
               highlightsExpanded={cardSyncMode ? cardHighlightsExpanded : expandedHighlightId === provider.id}
               onHighlightsToggle={() => {
                 if (cardSyncMode) {
@@ -303,6 +320,7 @@ const Index = () => {
             />
           )}
         </div>
+      </>
       }
     </div>);
 
