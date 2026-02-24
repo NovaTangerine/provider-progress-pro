@@ -285,7 +285,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         {/* Header */}
         <div className={`relative pl-5 pr-7 py-4 border-b border-border group-hover/card:border-foreground/20 flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 group-hover/card:bg-muted/50 ${isFocused ? 'bg-muted/50 border-foreground/20' : ''}`}>
           <div
-            className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 pointer-events-none"
+            className={`absolute inset-0 transition-opacity duration-300 pointer-events-none ${isFocused ? 'opacity-100' : 'opacity-0 group-hover/card:opacity-100'}`}
             style={{ backgroundImage: `linear-gradient(135deg, transparent 40%, ${gradientColor})` }}
           />
           <div className="flex items-center gap-3 relative">
