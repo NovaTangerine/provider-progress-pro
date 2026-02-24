@@ -30,6 +30,8 @@ const Index = () => {
   const [viewMode, setViewMode] = useState<ViewMode>("presentation");
   const [activeStage, setActiveStage] = useState<ProviderStage | null>(null);
   const [cardSyncMode, setCardSyncMode] = useState(true);
+  const [focusMode, setFocusMode] = useState(false);
+  const [focusedProviderId, setFocusedProviderId] = useState<string | null>(null);
   // Sync mode (all cards together)
   const [cardHighlightsExpanded, setCardHighlightsExpanded] = useState(false);
   const [cardAvailabilityExpanded, setCardAvailabilityExpanded] = useState(false);
