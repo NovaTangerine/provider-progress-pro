@@ -298,6 +298,7 @@ const Index = () => {
               key={provider.id}
               provider={provider}
               constrainHeight={!cardSyncMode}
+              focusModeActive={focusMode}
               isFocused={focusedProviderId === provider.id}
               onFocus={handleFocusProvider}
               onExitFocus={exitFocus}
