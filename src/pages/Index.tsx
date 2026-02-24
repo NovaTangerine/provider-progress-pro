@@ -4,7 +4,7 @@ import { RoleHeader } from "@/components/RoleHeader";
 import { ProviderRow } from "@/components/ProviderRow";
 import { ProviderCard } from "@/components/ProviderCard";
 import { StageToggle } from "@/components/StageToggle";
-import { LayoutList, LayoutGrid, Link, Unlink } from "lucide-react";
+import { LayoutList, LayoutGrid, Link, Unlink, Focus } from "lucide-react";
 import { ProviderStage } from "@/types/recruiting";
 import { useIsMobile } from "@/hooks/use-mobile";
 
