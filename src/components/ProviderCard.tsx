@@ -267,9 +267,9 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
   return (
     <>
-      <div className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0`}>
+      <div className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0 relative ${isFocused ? 'mt-6' : ''}`}>
         {isFocused && onExitFocus && (
-          <div className="flex items-center justify-between px-2 pb-2 relative z-[60] col-span-full row-span-1 -mb-0" style={{ gridRow: '1 / 2' }}>
+          <div className="absolute bottom-full left-0 right-0 pb-1.5 flex items-center justify-between px-2 z-[60]">
             <span className="text-[11px] text-white/70 font-medium">Focus Mode</span>
             <button
               onClick={(e) => { e.stopPropagation(); onExitFocus(); }}
