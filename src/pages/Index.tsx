@@ -4,7 +4,7 @@ import { RoleHeader } from "@/components/RoleHeader";
 import { ProviderRow } from "@/components/ProviderRow";
 import { ProviderCard } from "@/components/ProviderCard";
 import { StageToggle } from "@/components/StageToggle";
-import { LayoutList, LayoutGrid, Link, Unlink } from "lucide-react";
+import { LayoutList, LayoutGrid, Link, Unlink, Focus } from "lucide-react";
 import { ProviderStage } from "@/types/recruiting";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -30,6 +30,8 @@ const Index = () => {
   const [viewMode, setViewMode] = useState<ViewMode>("presentation");
   const [activeStage, setActiveStage] = useState<ProviderStage | null>(null);
   const [cardSyncMode, setCardSyncMode] = useState(true);
+  const [focusMode, setFocusMode] = useState(false);
+  const [focusedProviderId, setFocusedProviderId] = useState<string | null>(null);
   // Sync mode (all cards together)
   const [cardHighlightsExpanded, setCardHighlightsExpanded] = useState(false);
   const [cardAvailabilityExpanded, setCardAvailabilityExpanded] = useState(false);
@@ -76,6 +78,35 @@ const Index = () => {
     setViewMode("presentation");
   }, []);
 
+  const handleFocusProvider = useCallback((id: string) => {
+    setFocusedProviderId(id);
+    setFocusMode(true);
+    setCardSyncMode(false);
+  }, []);
+
+  const exitFocus = useCallback(() => {
+    setFocusedProviderId(null);
+    setFocusMode(false);
+  }, []);
+
+  useEffect(() => {
+    if (!focusedProviderId) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") exitFocus();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [focusedProviderId, exitFocus]);
+
+  const toggleFocusMode = useCallback(() => {
+    if (focusMode) {
+      exitFocus();
+    } else {
+      setFocusMode(true);
+      setCardSyncMode(false);
+    }
+  }, [focusMode, exitFocus]);
+
   useEffect(() => {
     const measure = () => {
       if (providerThRef.current && containerRef.current) {
@@ -120,18 +151,37 @@ const Index = () => {
         </div>
         <div className="flex items-center gap-3">
           {viewMode === "presentation" && !isMobile && (
-            <button
-              onClick={() => setCardSyncMode((v) => !v)}
-              className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] transition-all duration-150 ${
-                cardSyncMode
-                  ? "text-muted-foreground/70"
-                  : "text-muted-foreground/70"
-              } hover:text-foreground/60`}
-              title={cardSyncMode ? "All cards expand together" : "Only one card expands at a time"}
-            >
-              {cardSyncMode ? <Link className="w-3 h-3" /> : <Unlink className="w-3 h-3" />}
-              {cardSyncMode ? "Synced" : "Individual"}
-            </button>
+            <>
+              <button
+                onClick={toggleFocusMode}
+                className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] transition-all duration-150 ${
+                  focusMode
+                    ? "text-primary/80 bg-primary/5"
+                    : "text-muted-foreground/70"
+                } hover:text-foreground/60`}
+                title="Ctrl+Click a card to focus on it"
+              >
+                <Focus className="w-3 h-3" />
+                Focus
+              </button>
+              <button
+                onClick={() => {
+                  if (focusMode) return;
+                  setCardSyncMode((v) => !v);
+                }}
+                className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] transition-all duration-150 ${
+                  focusMode ? "opacity-40 cursor-not-allowed" : ""
+                } ${
+                  cardSyncMode
+                    ? "text-muted-foreground/70"
+                    : "text-muted-foreground/70"
+                } hover:text-foreground/60`}
+                title={cardSyncMode ? "All cards expand together" : "Only one card expands at a time"}
+              >
+                {cardSyncMode ? <Link className="w-3 h-3" /> : <Unlink className="w-3 h-3" />}
+                {cardSyncMode ? "Synced" : "Individual"}
+              </button>
+            </>
           )}
           <div className="inline-flex items-center rounded-md border border-border bg-muted p-0.5">
             <button
@@ -228,12 +278,30 @@ const Index = () => {
           </table>
         </div> :
 
-      <div className="group/grid pt-[calc(1.5rem+8px)] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
+      <>
+        {/* Focus mode overlay */}
+        {focusedProviderId && (
+          <div
+            className="fixed inset-0 bg-black/60 z-50 transition-opacity duration-200 flex flex-col items-center"
+            onClick={exitFocus}
+          >
+            <div className="pt-4 text-center pointer-events-none">
+              <p className="text-white/70 text-sm font-medium">
+                Focus Mode — press <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 text-xs font-mono">Esc</kbd> or click overlay to exit
+              </p>
+            </div>
+          </div>
+        )}
+        <div className="group/grid pt-[calc(1.5rem+8px)] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in relative" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
           {filteredProviders.map((provider) =>
             <ProviderCard
               key={provider.id}
               provider={provider}
               constrainHeight={!cardSyncMode}
+              focusModeActive={focusMode}
+              isFocused={focusedProviderId === provider.id}
+              onFocus={handleFocusProvider}
+              onExitFocus={exitFocus}
               highlightsExpanded={cardSyncMode ? cardHighlightsExpanded : expandedHighlightId === provider.id}
               onHighlightsToggle={() => {
                 if (cardSyncMode) {
@@ -253,6 +321,7 @@ const Index = () => {
             />
           )}
         </div>
+      </>
       }
     </div>);
 
