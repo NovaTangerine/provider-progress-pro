@@ -4,7 +4,7 @@ import { RoleHeader } from "@/components/RoleHeader";
 import { ProviderRow } from "@/components/ProviderRow";
 import { ProviderCard } from "@/components/ProviderCard";
 import { StageToggle } from "@/components/StageToggle";
-import { LayoutList, LayoutGrid, Link, Unlink, Focus } from "lucide-react";
+import { LayoutList, LayoutGrid, Link, Unlink, Focus, X } from "lucide-react";
 import { ProviderStage } from "@/types/recruiting";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -290,6 +290,29 @@ const Index = () => {
             </p>
           </div>
         </div>
+
+        {/* Focus mode inline banner */}
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-out ${focusMode && !focusedProviderId ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'}`}
+        >
+          <div className="mx-6 mt-5 mb-0 px-4 py-3 rounded-lg border border-border bg-muted/50 flex items-center gap-3">
+            <Focus className="w-4 h-4 text-muted-foreground/60 shrink-0" />
+            <p className="text-xs text-muted-foreground flex-1 leading-relaxed">
+              You're in focus mode. Click a provider's card to focus and remove other distractions.{' '}
+              <button onClick={exitFocus} className="text-primary/70 hover:text-primary underline underline-offset-2 transition-colors">
+                Exit focus mode
+              </button>
+            </p>
+            <button
+              onClick={exitFocus}
+              className="text-muted-foreground/40 hover:text-muted-foreground transition-colors shrink-0 p-1 rounded hover:bg-accent"
+              aria-label="Exit focus mode"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
         <div className="group/grid pt-[calc(1.5rem+8px)] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-6 animate-fade-in relative" style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
           {filteredProviders.map((provider) =>
             <ProviderCard
