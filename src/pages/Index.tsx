@@ -78,6 +78,35 @@ const Index = () => {
     setViewMode("presentation");
   }, []);
 
+  const handleFocusProvider = useCallback((id: string) => {
+    setFocusedProviderId(id);
+    setFocusMode(true);
+    setCardSyncMode(false);
+  }, []);
+
+  const exitFocus = useCallback(() => {
+    setFocusedProviderId(null);
+    setFocusMode(false);
+  }, []);
+
+  useEffect(() => {
+    if (!focusedProviderId) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") exitFocus();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [focusedProviderId, exitFocus]);
+
+  const toggleFocusMode = useCallback(() => {
+    if (focusMode) {
+      exitFocus();
+    } else {
+      setFocusMode(true);
+      setCardSyncMode(false);
+    }
+  }, [focusMode, exitFocus]);
+
   useEffect(() => {
     const measure = () => {
       if (providerThRef.current && containerRef.current) {
