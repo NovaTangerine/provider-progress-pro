@@ -267,18 +267,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
   return (
     <>
-      <div className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0 relative ${isFocused ? 'mt-6' : ''}`}>
-        {isFocused && onExitFocus && (
-          <div className="absolute bottom-full left-0 right-0 pb-1.5 flex items-center justify-between px-2 z-[60]">
-            <span className="text-[11px] text-white/70 font-medium">Focus Mode</span>
-            <button
-              onClick={(e) => { e.stopPropagation(); onExitFocus(); }}
-              className="text-[11px] text-white/60 hover:text-white underline underline-offset-2 transition-colors"
-            >
-              Exit
-            </button>
-          </div>
-        )}
+      <div className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0`}>
       <div
         onClick={handleCardClick}
       className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
