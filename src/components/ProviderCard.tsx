@@ -29,6 +29,9 @@ interface ProviderCardProps {
   availabilityExpanded: boolean;
   onAvailabilityToggle: () => void;
   constrainHeight?: boolean;
+  isFocused?: boolean;
+  onFocus?: (id: string) => void;
+  onExitFocus?: () => void;
 }
 
 function MarqueeText({ children, className }: {children: string;className?: string;}) {
