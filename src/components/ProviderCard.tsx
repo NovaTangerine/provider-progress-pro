@@ -408,6 +408,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
             )}
           </div>
         </div>
+        </div>
       </div>
 
       <CredentialModal
