@@ -260,6 +260,8 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
       e.preventDefault();
       e.stopPropagation();
       onFocus(provider.id);
+    } else if (focusModeActive && !isFocused && onFocus) {
+      onFocus(provider.id);
     }
   };
 
