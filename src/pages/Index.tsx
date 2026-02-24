@@ -151,18 +151,37 @@ const Index = () => {
         </div>
         <div className="flex items-center gap-3">
           {viewMode === "presentation" && !isMobile && (
-            <button
-              onClick={() => setCardSyncMode((v) => !v)}
-              className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] transition-all duration-150 ${
-                cardSyncMode
-                  ? "text-muted-foreground/70"
-                  : "text-muted-foreground/70"
-              } hover:text-foreground/60`}
-              title={cardSyncMode ? "All cards expand together" : "Only one card expands at a time"}
-            >
-              {cardSyncMode ? <Link className="w-3 h-3" /> : <Unlink className="w-3 h-3" />}
-              {cardSyncMode ? "Synced" : "Individual"}
-            </button>
+            <>
+              <button
+                onClick={toggleFocusMode}
+                className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] transition-all duration-150 ${
+                  focusMode
+                    ? "text-primary/80 bg-primary/5"
+                    : "text-muted-foreground/70"
+                } hover:text-foreground/60`}
+                title="Ctrl+Click a card to focus on it"
+              >
+                <Focus className="w-3 h-3" />
+                Focus
+              </button>
+              <button
+                onClick={() => {
+                  if (focusMode) return;
+                  setCardSyncMode((v) => !v);
+                }}
+                className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] transition-all duration-150 ${
+                  focusMode ? "opacity-40 cursor-not-allowed" : ""
+                } ${
+                  cardSyncMode
+                    ? "text-muted-foreground/70"
+                    : "text-muted-foreground/70"
+                } hover:text-foreground/60`}
+                title={cardSyncMode ? "All cards expand together" : "Only one card expands at a time"}
+              >
+                {cardSyncMode ? <Link className="w-3 h-3" /> : <Unlink className="w-3 h-3" />}
+                {cardSyncMode ? "Synced" : "Individual"}
+              </button>
+            </>
           )}
           <div className="inline-flex items-center rounded-md border border-border bg-muted p-0.5">
             <button
