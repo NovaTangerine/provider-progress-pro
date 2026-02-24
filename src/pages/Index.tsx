@@ -282,7 +282,7 @@ const Index = () => {
         {/* Focus mode overlay */}
         {focusedProviderId && (
           <div
-            className="fixed inset-0 bg-black/60 z-50 transition-opacity duration-200 flex flex-col items-center"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity duration-200 flex flex-col items-center"
             onClick={exitFocus}
           >
             <div className="pt-4 text-center pointer-events-none">
