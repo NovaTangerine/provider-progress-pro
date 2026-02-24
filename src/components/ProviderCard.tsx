@@ -220,7 +220,7 @@ function formatDateRange(startDate: string, endDate?: string) {
   return <><span className="inline-block">{startFmt} – {endFmt}<span className={yearClass}>, {end.getFullYear()}</span></span></>;
 }
 
-export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle, constrainHeight }: ProviderCardProps) {
+export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle, constrainHeight, isFocused, onFocus, onExitFocus }: ProviderCardProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
   const highlights = provider.highlights ?? [];
   const visibleHighlights = highlightsExpanded ? highlights : highlights.slice(0, 3);
@@ -254,9 +254,19 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
   const avatarBg = STATUS_AVATAR_BG[provider.overallStatus] ?? STATUS_AVATAR_BG.incomplete;
   const avatarText = STATUS_AVATAR_TEXT[provider.overallStatus] ?? STATUS_AVATAR_TEXT.incomplete;
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    if ((e.ctrlKey || e.metaKey) && onFocus) {
+      e.preventDefault();
+      e.stopPropagation();
+      onFocus(provider.id);
+    }
+  };
+
   return (
     <>
-      <div className={`group/card rounded-lg border border-border bg-card shadow-sm hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0`}>
+      <div
+        onClick={handleCardClick}
+        className={`group/card rounded-lg border border-border bg-card shadow-sm hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1 transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${useSubgrid ? 'grid grid-rows-subgrid row-span-4' : 'self-start'} gap-0 ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
         {/* Header */}
         <div className="relative pl-5 pr-7 py-4 border-b border-border group-hover/card:border-foreground/20 flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 group-hover/card:bg-muted/50">
           <div
