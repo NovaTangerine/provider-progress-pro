@@ -170,12 +170,12 @@ const Index = () => {
               </button>
               <button
                 onClick={() => {
-                  if (focusMode) return;
+                  if (focusMode) {
+                    exitFocus();
+                  }
                   setCardSyncMode((v) => !v);
                 }}
                 className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] transition-all duration-150 ${
-                  focusMode ? "opacity-40 cursor-not-allowed" : ""
-                } ${
                   cardSyncMode
                     ? "text-muted-foreground/70"
                     : "text-muted-foreground/70"
