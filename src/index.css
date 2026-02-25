@@ -141,23 +141,23 @@
   box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--avatar-hover-text) 40%, transparent);
 }
 
-/* Provider card dim effect: only dim when a sibling card is hovered */
-.group\/grid:has(.group\/card:hover) .provider-dim-name {
+/* Provider card dim effect: only dim when a sibling card is hovered AND focus mode is NOT active */
+.group\/grid:not([data-focus-active]):has(.group\/card:hover) .provider-dim-name {
   color: #757575;
 }
-.group\/grid:has(.group\/card:hover) .group\/card:hover .provider-dim-name {
+.group\/grid:not([data-focus-active]):has(.group\/card:hover) .group\/card:hover .provider-dim-name {
   color: #000000;
 }
-.group\/grid:has(.group\/card:hover) .provider-dim-date {
+.group\/grid:not([data-focus-active]):has(.group\/card:hover) .provider-dim-date {
   color: #757575;
 }
-.group\/grid:has(.group\/card:hover) .group\/card:hover .provider-dim-date {
+.group\/grid:not([data-focus-active]):has(.group\/card:hover) .group\/card:hover .provider-dim-date {
   color: #333333;
 }
-.group\/grid:has(.group\/card:hover) .provider-dim-year {
+.group\/grid:not([data-focus-active]):has(.group\/card:hover) .provider-dim-year {
   color: #aaa;
 }
-.group\/grid:has(.group\/card:hover) .group\/card:hover .provider-dim-year {
+.group\/grid:not([data-focus-active]):has(.group\/card:hover) .group\/card:hover .provider-dim-year {
   color: #999;
 }
 
