@@ -31,6 +31,7 @@ interface ProviderCardProps {
   constrainHeight?: boolean;
   focusModeActive?: boolean;
   isFocused?: boolean;
+  anyCardFocused?: boolean;
   onFocus?: (id: string) => void;
   onExitFocus?: () => void;
 }
@@ -221,7 +222,7 @@ function formatDateRange(startDate: string, endDate?: string) {
   return <><span className="inline-block">{startFmt} – {endFmt}<span className={yearClass}>, {end.getFullYear()}</span></span></>;
 }
 
-export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle, constrainHeight, focusModeActive, isFocused, onFocus, onExitFocus }: ProviderCardProps) {
+export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle, constrainHeight, focusModeActive, isFocused, anyCardFocused, onFocus, onExitFocus }: ProviderCardProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
   const highlights = provider.highlights ?? [];
   const visibleHighlights = highlightsExpanded ? highlights : highlights.slice(0, 3);
@@ -270,11 +271,11 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
       <div className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4 pb-6' : 'self-start'} gap-0`} onClick={focusModeActive && !isFocused ? handleCardClick : undefined}>
       <div
         onClick={focusModeActive && !isFocused ? undefined : handleCardClick}
-      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm ${focusModeActive && !isFocused ? 'pointer-events-none' : 'hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
+      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm ${anyCardFocused && !isFocused ? 'pointer-events-none' : 'hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1px] outline-foreground/10 -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
         {/* Header */}
-        <div className={`relative pl-5 pr-7 py-4 border-b border-border ${focusModeActive && !isFocused ? '' : 'group-hover/card:border-foreground/20'} flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 ${focusModeActive && !isFocused ? '' : 'group-hover/card:bg-muted/50'} ${isFocused ? 'bg-muted/50 border-foreground/20' : ''}`}>
+        <div className={`relative pl-5 pr-7 py-4 border-b border-border ${anyCardFocused && !isFocused ? '' : 'group-hover/card:border-foreground/20'} flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:bg-muted/50'} ${isFocused ? 'bg-muted/50 border-foreground/20' : ''}`}>
           <div
-            className={`absolute inset-0 transition-opacity duration-300 pointer-events-none ${isFocused ? 'opacity-100' : focusModeActive ? 'opacity-0' : 'opacity-0 group-hover/card:opacity-100'}`}
+            className={`absolute inset-0 transition-opacity duration-300 pointer-events-none ${isFocused ? 'opacity-100' : anyCardFocused ? 'opacity-0' : 'opacity-0 group-hover/card:opacity-100'}`}
             style={{ backgroundImage: `linear-gradient(135deg, transparent 40%, ${gradientColor})` }}
           />
           <div className="flex items-center gap-3 relative">
