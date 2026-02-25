@@ -84,6 +84,10 @@ const Index = () => {
     setCardSyncMode(false);
   }, []);
 
+  const unfocusCard = useCallback(() => {
+    setFocusedProviderId(null);
+  }, []);
+
   const exitFocus = useCallback(() => {
     setFocusedProviderId(null);
     setFocusMode(false);
@@ -92,11 +96,11 @@ const Index = () => {
   useEffect(() => {
     if (!focusedProviderId) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") exitFocus();
+      if (e.key === "Escape") unfocusCard();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [focusedProviderId, exitFocus]);
+  }, [focusedProviderId, unfocusCard]);
 
   const toggleFocusMode = useCallback(() => {
     if (focusMode) {
@@ -282,11 +286,11 @@ const Index = () => {
         {/* Focus mode overlay */}
         <div
           className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex flex-col items-center transition-[opacity,backdrop-filter] duration-[480ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${focusedProviderId ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-          onClick={exitFocus}
+          onClick={unfocusCard}
         >
           <div className="pt-4 text-center pointer-events-none">
             <p className="text-white/70 text-sm font-medium">
-              Focus Mode — press <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 text-xs font-mono">Esc</kbd> or click overlay to exit
+              Focus Mode — press <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 text-xs font-mono">Esc</kbd> or click overlay to go back
             </p>
           </div>
         </div>
@@ -322,7 +326,7 @@ const Index = () => {
               focusModeActive={focusMode}
               isFocused={focusedProviderId === provider.id}
               onFocus={handleFocusProvider}
-              onExitFocus={exitFocus}
+              onExitFocus={unfocusCard}
               highlightsExpanded={cardSyncMode ? cardHighlightsExpanded : expandedHighlightId === provider.id}
               onHighlightsToggle={() => {
                 if (cardSyncMode) {
