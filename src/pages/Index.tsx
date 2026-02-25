@@ -297,7 +297,7 @@ const Index = () => {
 
         {/* Focus mode inline banner */}
         <div
-          className={`overflow-hidden transition-all duration-300 ease-out ${focusMode && !focusedProviderId ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'}`}
+          className={`overflow-hidden transition-all duration-300 ease-out ${focusMode ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'}`}
         >
           <div className="mx-6 mt-5 mb-0 px-4 py-3 rounded-lg border border-border bg-muted/50 flex items-center gap-3">
             <Focus className="w-4 h-4 text-muted-foreground/60 shrink-0" />
