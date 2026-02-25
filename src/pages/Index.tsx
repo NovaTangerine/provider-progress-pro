@@ -325,6 +325,7 @@ const Index = () => {
               constrainHeight={!cardSyncMode}
               focusModeActive={focusMode}
               isFocused={focusedProviderId === provider.id}
+              anyCardFocused={!!focusedProviderId}
               onFocus={handleFocusProvider}
               onExitFocus={unfocusCard}
               highlightsExpanded={cardSyncMode ? cardHighlightsExpanded : expandedHighlightId === provider.id}
