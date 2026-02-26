@@ -314,7 +314,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
             </div>
             <Collapsible open={availabilityExpanded}>
               <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
-                <div className="rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93%)] p-6 space-y-4 mt-1">
+                <div className="rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,95.5%)] p-6 space-y-4 mt-1">
                   <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                     <div>
                       <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Coverage</p>
