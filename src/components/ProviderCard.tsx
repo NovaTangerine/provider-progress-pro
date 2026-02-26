@@ -357,8 +357,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               </h4>
               <div
               onClick={hasMore ? onHighlightsToggle : undefined}
-              className={`rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] group-hover/card:bg-[hsl(230,12%,97.5%)] p-3 py-5 space-y-2 transition-[background-color] duration-[480ms] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,12%,96%)]" : ""}`}
-              style={{ borderImage: 'linear-gradient(to bottom, hsl(0,0%,96%), hsl(0,0%,90%)) 1' }}>
+              className={`rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-t-[hsl(0,0%,95.5%)] border-b-[hsl(0,0%,89%)] border-x-[hsl(0,0%,92%)] group-hover/card:bg-[hsl(230,12%,97.5%)] group-hover/card:border-t-[hsl(230,12%,95.5%)] group-hover/card:border-b-[hsl(230,12%,89%)] group-hover/card:border-x-[hsl(230,12%,92%)] p-3 py-5 space-y-2 transition-[background-color,border-color] duration-[480ms] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,12%,96%)] hover:!border-t-[hsl(230,12%,94%)] hover:!border-b-[hsl(230,12%,87%)] hover:!border-x-[hsl(230,12%,90%)]" : ""}`}>
 
                 {highlights.slice(0, 3).map((h, i) =>
               <HighlightItem key={i} text={h.text} icon={h.icon} />
