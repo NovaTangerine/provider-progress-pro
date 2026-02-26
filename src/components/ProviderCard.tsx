@@ -314,7 +314,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
             </div>
             <Collapsible open={availabilityExpanded}>
               <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
-                <div className="rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93.5%)] p-6 space-y-4 mt-1 shadow-[0_2px_8px_-1px_hsla(0,0%,0%,0.04)]">
+                <div className="rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93.5%)] p-6 space-y-4 mt-1 shadow-[0_2px_16px_-1px_hsla(0,0%,0%,0.04)]">
                   <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                     <div>
                       <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Coverage</p>
@@ -357,7 +357,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               </h4>
               <div
               onClick={hasMore ? onHighlightsToggle : undefined}
-              className={`rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93.5%)] group-hover/card:bg-[hsl(230,12%,97.5%)] group-hover/card:border-[hsl(230,12%,93.5%)] p-3 py-5 space-y-2 transition-[background-color,border-color] duration-[480ms] shadow-[0_2px_8px_-1px_hsla(0,0%,0%,0.04)] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,12%,96%)] hover:!border-[hsl(230,12%,91%)]" : ""}`}>
+              className={`rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93.5%)] group-hover/card:bg-[hsl(230,12%,97.5%)] group-hover/card:border-[hsl(230,12%,93.5%)] p-3 py-5 space-y-2 transition-[background-color,border-color] duration-[480ms] shadow-[0_2px_16px_-1px_hsla(0,0%,0%,0.04)] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,12%,96%)] hover:!border-[hsl(230,12%,91%)]" : ""}`}>
 
                 {highlights.slice(0, 3).map((h, i) =>
               <HighlightItem key={i} text={h.text} icon={h.icon} />
