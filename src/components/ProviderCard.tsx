@@ -392,11 +392,22 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
             Credentials
           </h4>
           <StatusLegendBar credentials={provider.credentials} />
-          <div className="flex flex-wrap gap-1.5 pt-2.5">
-            {provider.credentials.map((cred) =>
-            <CredentialPill key={cred.id} credential={cred} onClick={setSelectedCredential} />
-            )}
+          <div className="flex items-center gap-1 pt-1">
+            <span
+              onClick={() => setShowCredentialPills((v) => !v)}
+              className="text-xs text-primary/80 underline underline-offset-2 cursor-pointer transition-colors hover:text-primary">
+              {showCredentialPills ? "Hide details" : "View details"}
+            </span>
           </div>
+          <Collapsible open={showCredentialPills}>
+            <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
+              <div className="flex flex-wrap gap-1.5 pt-1.5">
+                {provider.credentials.map((cred) =>
+                <CredentialPill key={cred.id} credential={cred} onClick={setSelectedCredential} />
+                )}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
         </div>
       </div>
