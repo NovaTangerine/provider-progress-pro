@@ -224,6 +224,7 @@ function formatDateRange(startDate: string, endDate?: string) {
 
 export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle, constrainHeight, focusModeActive, isFocused, anyCardFocused, onFocus, onExitFocus }: ProviderCardProps) {
   const [selectedCredential, setSelectedCredential] = useState<Credential | null>(null);
+  const [showCredentialPills, setShowCredentialPills] = useState(false);
   const highlights = provider.highlights ?? [];
   const visibleHighlights = highlightsExpanded ? highlights : highlights.slice(0, 3);
   const hasMore = highlights.length > 3;
