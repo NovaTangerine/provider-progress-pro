@@ -317,7 +317,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className={`group/grid pt-[calc(1.5rem+8px)] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 ${cardSyncMode ? 'gap-y-0' : 'gap-y-6'} animate-fade-in relative`} data-focus-active={focusedProviderId ? "true" : undefined} style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
+        <div className={`group/grid pt-[calc(1.5rem+8px)] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 ${cardSyncMode ? 'gap-y-0' : 'gap-y-6'} animate-fade-in relative`} data-focus-active={focusedProviderId ? "true" : undefined}>
           {filteredProviders.map((provider) =>
             <ProviderCard
               key={provider.id}
