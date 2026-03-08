@@ -272,7 +272,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
       <div className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4 pb-6' : 'self-start'} gap-0`} onClick={focusModeActive && !isFocused ? handleCardClick : undefined}>
       <div
         onClick={focusModeActive && !isFocused ? undefined : handleCardClick}
-      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm ${anyCardFocused && !isFocused ? 'pointer-events-none' : 'hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1.5px] outline-foreground/10 -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
+      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm ${anyCardFocused && !isFocused ? 'pointer-events-none' : 'hover:shadow-card-hover hover:border-foreground/20 outline outline-0 hover:outline-[1.5px] outline-foreground/10 -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''} flex flex-col h-full flex flex-col h-full`}>
         {/* Header */}
         <div className={`relative pl-5 pr-7 py-4 border-b border-border ${anyCardFocused && !isFocused ? '' : 'group-hover/card:border-foreground/20'} flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:bg-muted/50'} ${isFocused ? 'bg-muted/50 border-foreground/20' : ''}`}>
           <div
@@ -388,7 +388,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         </div>
 
         {/* Credentials */}
-        <div className="px-7 space-y-2 border-t border-dashed border-border/[0.72] relative pt-[16px] pb-[32px] mt-5">
+        <div className="px-7 space-y-2 border-t border-dashed border-border/[0.72] relative ptauto[16px] pb-[32px] mt-5">
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
             Credentials
           </h4>
