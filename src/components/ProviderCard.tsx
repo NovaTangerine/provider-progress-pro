@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Provider, Credential, CredentialStatus } from "@/types/recruiting";
 import { ShiftPreferenceIcons } from "./ShiftPreferenceIcons";
-import { StatusBadge, STATUS_CONFIG } from "./StatusBadge";
+import { StatusBadge } from "./StatusBadge";
+import { STATUS_CONFIG } from "@/config/status";
 import { CredentialModal } from "./CredentialModal";
 import { CredentialingProgressBar } from "./CredentialingProgressBar";
 import {

@@ -7,7 +7,8 @@ export type CredentialStatus =
   | "exception"
   | "on_assignment"
   | "assignment_completed"
-  | "awaiting_confirmation";
+  | "awaiting_confirmation"
+  | "confirmed";
 
 // ── Provider journey stage ──
 export type ProviderStage =

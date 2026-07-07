@@ -149,7 +149,7 @@ const SingleJob = () => {
       overallStatus: "awaiting_confirmation"
     });
     const kimConfirmed = cloneProvider("confirmed", {
-      overallStatus: "completed",
+      overallStatus: "confirmed",
       fitScore: 96,
       fitEvaluation: "Great Fit",
       credentials: baseKimberly.credentials.map(c => ({

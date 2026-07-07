@@ -1,5 +1,5 @@
 import { Provider, Credential, CredentialStatus, CredentialCategory } from "@/types/recruiting";
-import { STATUS_CONFIG } from "./StatusBadge";
+import { STATUS_CONFIG } from "@/config/status";
 import { CredentialCard } from "./CredentialCard";
 import {
   Mail,

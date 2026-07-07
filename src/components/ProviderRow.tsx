@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Provider, Credential, CredentialStatus } from "@/types/recruiting";
-import { StatusBadge, STATUS_CONFIG } from "./StatusBadge";
+import { StatusBadge } from "./StatusBadge";
+import { STATUS_CONFIG } from "@/config/status";
 import { CredentialModal } from "./CredentialModal";
 import { ProviderExpandedDetail } from "./ProviderExpandedDetail";
 import {
