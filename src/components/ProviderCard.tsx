@@ -298,9 +298,33 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     red_flag: "hsl(0,65%,42%)",
     exception: "hsl(262,45%,42%)",
   };
+  const STATUS_BORDER_HOVER: Record<string, string> = {
+    incomplete: "hsla(215,12%,45%,0.35)",
+    in_progress: "hsla(210,60%,40%,0.35)",
+    completed: "hsla(152,55%,32%,0.35)",
+    red_flag: "hsla(0,65%,42%,0.35)",
+    exception: "hsla(262,45%,42%,0.35)",
+  };
+  const STATUS_OUTLINE: Record<string, string> = {
+    incomplete: "hsla(215,12%,45%,0.15)",
+    in_progress: "hsla(210,60%,40%,0.15)",
+    completed: "hsla(152,55%,32%,0.15)",
+    red_flag: "hsla(0,65%,42%,0.15)",
+    exception: "hsla(262,45%,42%,0.15)",
+  };
+  const STATUS_SHADOW: Record<string, string> = {
+    incomplete: "hsla(215,12%,45%,0.12)",
+    in_progress: "hsla(210,60%,40%,0.12)",
+    completed: "hsla(152,55%,32%,0.12)",
+    red_flag: "hsla(0,65%,42%,0.12)",
+    exception: "hsla(262,45%,42%,0.12)",
+  };
   const gradientColor = STATUS_GRADIENT[provider.overallStatus] ?? STATUS_GRADIENT.incomplete;
   const avatarBg = STATUS_AVATAR_BG[provider.overallStatus] ?? STATUS_AVATAR_BG.incomplete;
   const avatarText = STATUS_AVATAR_TEXT[provider.overallStatus] ?? STATUS_AVATAR_TEXT.incomplete;
+  const hoverBorder = STATUS_BORDER_HOVER[provider.overallStatus] ?? STATUS_BORDER_HOVER.incomplete;
+  const hoverOutline = STATUS_OUTLINE[provider.overallStatus] ?? STATUS_OUTLINE.incomplete;
+  const hoverShadow = STATUS_SHADOW[provider.overallStatus] ?? STATUS_SHADOW.incomplete;
 
   const handleCardClick = (e: React.MouseEvent) => {
     if ((e.ctrlKey || e.metaKey) && onFocus) {
@@ -316,10 +340,21 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     <>
       <div id={`provider-card-${provider.id}`} className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4 pb-6' : 'self-start'} gap-0`} onClick={focusModeActive && !isFocused ? handleCardClick : undefined}>
       <div
+        style={{ '--hover-border': hoverBorder, '--hover-outline': hoverOutline, '--hover-shadow': hoverShadow } as React.CSSProperties}
         onClick={focusModeActive && !isFocused ? undefined : handleCardClick}
-      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm ${anyCardFocused && !isFocused ? 'pointer-events-none' : 'hover:shadow-card-hover hover:border-foreground/30 outline outline-0 hover:outline-[1.5px] outline-foreground/10 -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
+      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-transparent bg-card bg-gradient-to-b from-card from-[45%] to-[hsl(0,0%,97.5%)] dark:to-[hsl(220,18%,10%)] shadow-sm ${anyCardFocused && !isFocused ? 'pointer-events-none' : 'hover:shadow-[0_4px_20px_-1px_var(--hover-shadow),0_2px_10px_-2px_var(--hover-shadow)] hover:border-[var(--hover-border)] outline outline-0 hover:outline-[2px] outline-[var(--hover-outline)] -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 ${isFocused ? 'relative z-[60] ring-2 ring-[var(--hover-border)]' : 'relative'}`}>
+        {/* Gradient Border Overlay */}
+        <div className={`absolute -inset-[1px] rounded-lg pointer-events-none transition-opacity duration-200 ${isFocused ? 'opacity-0' : 'group-hover/card:opacity-0'} z-10`} 
+             style={{
+               padding: '1px',
+               background: 'linear-gradient(to bottom, hsl(var(--border)) 45%, hsl(var(--border) / 0.55))',
+               WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+               WebkitMaskComposite: 'xor',
+               maskComposite: 'exclude',
+             }} 
+        />
         {/* Header */}
-        <div className={`relative pl-5 pr-7 py-4 border-b border-border bg-muted/30 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:border-foreground/20'} flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:bg-muted/50'} ${isFocused ? 'bg-muted/50 border-foreground/20' : ''}`}>
+        <div className={`relative rounded-t-[7px] pl-5 pr-7 py-4 border-b border-border bg-muted/30 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:border-foreground/20'} flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:bg-muted/50'} ${isFocused ? 'bg-muted/50 border-foreground/20' : ''} z-20`}>
           <div
             className={`absolute inset-0 transition-opacity duration-300 pointer-events-none ${isFocused ? 'opacity-100' : anyCardFocused ? 'opacity-0' : 'opacity-0 group-hover/card:opacity-100'}`}
             style={{ backgroundImage: `linear-gradient(135deg, transparent 40%, ${gradientColor})` }}
