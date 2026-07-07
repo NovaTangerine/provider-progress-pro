@@ -64,24 +64,21 @@ export const mockProviders: Provider[] = [
           expirationDate: "2027-12-31",
         },
       }),
-      cred("c2", "DEA Registration", "license", "completed", "identity_verification", {
-        issuingBody: "DEA", expirationDate: "2028-06-30",
+      cred("c2", "DEA Registration", "license", "in_progress", "identity_verification", {
+        issuingBody: "DEA", notes: "Pending address update approval",
         workflow: {
           issuingOrganization: "Drug Enforcement Administration",
           organizationType: "other",
           contacts: [{ name: "James Whitfield", role: "Registration Coordinator", organization: "DEA – Northeast Division", phone: "(202) 555-0142" }],
           steps: [
-            { id: "c2-s1", label: "Provider requests renewal forms", status: "completed", completedDate: "2025-08-10", assignedTo: "Sarah Chen" },
-            { id: "c2-s2", label: "Recruiter sends renewal guidance", status: "completed", completedDate: "2025-08-11", assignedTo: "Amy Torres" },
-            { id: "c2-s3", label: "Provider completes renewal application", status: "completed", completedDate: "2025-08-18", assignedTo: "Sarah Chen" },
-            { id: "c2-s4", label: "Recruiter reviews application", status: "completed", completedDate: "2025-08-19", assignedTo: "Amy Torres" },
-            { id: "c2-s5", label: "Recruiter submits to DEA", status: "completed", completedDate: "2025-08-20", assignedTo: "Amy Torres" },
-            { id: "c2-s6", label: "DEA confirms receipt", status: "completed", completedDate: "2025-08-28", assignedTo: "James Whitfield" },
-            { id: "c2-s7", label: "DEA approves registration", status: "completed", completedDate: "2025-09-15", assignedTo: "James Whitfield" },
+            { id: "c2-s1", label: "Provider requests address update forms", status: "completed", completedDate: "2026-01-05", assignedTo: "Sarah Chen" },
+            { id: "c2-s2", label: "Recruiter sends guidance", status: "completed", completedDate: "2026-01-06", assignedTo: "Amy Torres" },
+            { id: "c2-s3", label: "Provider completes application", status: "completed", completedDate: "2026-01-15", assignedTo: "Sarah Chen" },
+            { id: "c2-s4", label: "Recruiter submits to DEA", status: "completed", completedDate: "2026-01-16", assignedTo: "Amy Torres" },
+            { id: "c2-s5", label: "DEA reviewing address change", status: "in_progress", estimatedDate: "2026-02-15", assignedTo: "James Whitfield" },
+            { id: "c2-s6", label: "DEA approves registration", status: "pending", estimatedDate: "2026-02-28" },
           ],
-          estimatedApprovalDate: "2025-09-10",
-          actualApprovalDate: "2025-09-15",
-          expirationDate: "2028-06-30",
+          estimatedApprovalDate: "2026-02-28",
         },
       }),
       cred("c3", "Board Certification – Cardiology", "certification", "completed", "board_certification", {
@@ -114,8 +111,8 @@ export const mockProviders: Provider[] = [
           expirationDate: "2027-03-15",
         },
       }),
-      cred("c5", "ACLS Certification", "certification", "in_progress", "other", {
-        issuingBody: "AHA", notes: "Renewal scheduled for March",
+      cred("c5", "ACLS Certification", "certification", "incomplete", "other", {
+        issuingBody: "AHA", notes: "Course registration required",
         workflow: {
           issuingOrganization: "American Heart Association",
           organizationType: "certification_board",
@@ -123,15 +120,56 @@ export const mockProviders: Provider[] = [
             { name: "Mark Jensen", role: "Training Center Coordinator", organization: "AHA – Boston Training Center", email: "m.jensen@aha.org" },
           ],
           steps: [
-            { id: "c5-s1", label: "Provider requests renewal materials", status: "completed", completedDate: "2026-01-20", assignedTo: "Sarah Chen" },
-            { id: "c5-s2", label: "Recruiter sends registration info", status: "completed", completedDate: "2026-01-22", assignedTo: "Amy Torres" },
-            { id: "c5-s3", label: "Provider completes renewal course", status: "in_progress", estimatedDate: "2026-03-10", assignedTo: "Sarah Chen", notes: "Course date booked for March 8" },
+            { id: "c5-s1", label: "Recruiter sends registration info", status: "completed", completedDate: "2026-01-22", assignedTo: "Amy Torres" },
+            { id: "c5-s2", label: "Provider must register for course", status: "pending", estimatedDate: "2026-03-01", assignedTo: "Sarah Chen" },
+            { id: "c5-s3", label: "Provider completes renewal course", status: "pending", estimatedDate: "2026-03-10", assignedTo: "Sarah Chen" },
             { id: "c5-s4", label: "AHA issues renewed certification", status: "pending", estimatedDate: "2026-03-15" },
           ],
           estimatedApprovalDate: "2026-03-15",
         },
       }),
-      cred("c6", "Malpractice Insurance", "license", "completed", "other"),
+      cred("c6", "Hospital Privileges – Boston Med", "license", "red_flag", "other", {
+        issuingBody: "Boston Medical Center", notes: "Missing peer references",
+        workflow: {
+          issuingOrganization: "Boston Medical Center",
+          organizationType: "other",
+          contacts: [{ name: "Diane Hughes", role: "Medical Staff Office", organization: "Boston Medical Center", email: "d.hughes@bmc.org" }],
+          steps: [
+            { id: "c6-s1", label: "Provider submits privilege application", status: "completed", completedDate: "2026-01-10", assignedTo: "Sarah Chen" },
+            { id: "c6-s2", label: "MSO begins verification", status: "completed", completedDate: "2026-01-15", assignedTo: "Diane Hughes" },
+            { id: "c6-s3", label: "Peer references submitted", status: "blocked", notes: "2 out of 3 references unresponsive after 3 attempts", assignedTo: "Sarah Chen" },
+            { id: "c6-s4", label: "Medical Executive Committee Review", status: "pending" },
+          ],
+          estimatedApprovalDate: "2026-04-01",
+        },
+      }),
+      cred("c7", "Malpractice Insurance", "license", "in_progress", "other", {
+        issuingBody: "MedPro Group", notes: "Awaiting underwriting approval",
+        workflow: {
+          issuingOrganization: "MedPro Group",
+          organizationType: "other",
+          contacts: [{ name: "Karen Sloane", role: "Underwriting Specialist", organization: "MedPro Group", email: "k.sloane@medpro.com" }],
+          steps: [
+            { id: "c7-s1", label: "Provider completes application", status: "completed", completedDate: "2026-01-20", assignedTo: "Sarah Chen" },
+            { id: "c7-s2", label: "Underwriting review", status: "in_progress", estimatedDate: "2026-02-28", assignedTo: "Karen Sloane" },
+            { id: "c7-s3", label: "Policy issued", status: "pending", estimatedDate: "2026-03-05" },
+          ],
+          estimatedApprovalDate: "2026-03-05",
+        },
+      }),
+      cred("c8", "NPI Registry Update", "license", "incomplete", "other", {
+        issuingBody: "NPPES", notes: "Practice location needs updating",
+        workflow: {
+          issuingOrganization: "NPPES",
+          organizationType: "other",
+          steps: [
+            { id: "c8-s1", label: "Provider logs into NPPES", status: "pending", assignedTo: "Sarah Chen" },
+            { id: "c8-s2", label: "Provider updates practice location", status: "pending", assignedTo: "Sarah Chen" },
+            { id: "c8-s3", label: "NPPES confirms update", status: "pending" },
+          ],
+          estimatedApprovalDate: "2026-03-10",
+        }
+      }),
     ],
     highlights: [
       { text: "800+ cardiac catheterizations performed", icon: "procedure" },
@@ -501,6 +539,33 @@ export const mockProviders: Provider[] = [
       cred("c27", "DEA Registration", "license", "completed", "identity_verification", { issuingBody: "DEA" }),
       cred("c28", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
       cred("c29", "BLS Certification", "certification", "completed", "other", { issuingBody: "AHA" }),
+      cred("c29a", "Hospital Privileges – Mass Gen", "license", "in_progress", "other", {
+        issuingBody: "Massachusetts General Hospital",
+        workflow: {
+          issuingOrganization: "Massachusetts General Hospital",
+          organizationType: "other",
+          steps: [
+            { id: "c29a-s1", label: "Application submitted", status: "completed", completedDate: "2026-02-01", assignedTo: "Elena Vasquez" },
+            { id: "c29a-s2", label: "Committee review", status: "in_progress", estimatedDate: "2026-03-01" },
+            { id: "c29a-s3", label: "Approval", status: "pending", estimatedDate: "2026-03-15" }
+          ],
+          estimatedApprovalDate: "2026-03-15"
+        }
+      }),
+      cred("c29b", "Malpractice Insurance", "license", "exception", "other", {
+        issuingBody: "MedPro Group", notes: "Requires additional claims history",
+        workflow: {
+          issuingOrganization: "MedPro Group",
+          organizationType: "other",
+          steps: [
+            { id: "c29b-s1", label: "Application submitted", status: "completed", completedDate: "2026-01-20" },
+            { id: "c29b-s2", label: "Underwriting review", status: "blocked", notes: "Past claims history needed from 2018-2020", assignedTo: "Elena Vasquez" },
+            { id: "c29b-s3", label: "Policy issued", status: "pending" }
+          ],
+          estimatedApprovalDate: "2026-03-30"
+        }
+      }),
+      cred("c29c", "NPI Registry Update", "license", "incomplete", "other", { issuingBody: "NPPES" }),
     ],
     highlights: [
       { text: "500+ coronary stent placements", icon: "procedure" },
@@ -774,6 +839,8 @@ export const mockProviders: Provider[] = [
         },
       }),
       cred("c46", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
+      cred("c46a", "BLS Certification", "certification", "in_progress", "other", { issuingBody: "AHA", notes: "Course completed, awaiting certificate" }),
+      cred("c46b", "Malpractice Insurance", "license", "in_progress", "other", { issuingBody: "The Doctors Company" }),
     ],
     highlights: [
       { text: "Locum experience across 8 facilities", icon: "site" },
@@ -900,6 +967,7 @@ export const mockProviders: Provider[] = [
       cred("c56", "DEA Registration", "license", "completed", "identity_verification", { issuingBody: "DEA" }),
       cred("c57", "Board Certification – Cardiology", "certification", "completed", "board_certification", { issuingBody: "ABIM" }),
       cred("c58", "Malpractice Insurance", "license", "completed", "other"),
+      cred("c58a", "Hospital Privileges – Swedish Medical Center", "license", "in_progress", "other", { issuingBody: "Swedish Medical Center" }),
     ],
     highlights: [
       { text: "Preventive cardiology subspecialty focus", icon: "credential" },
@@ -1008,6 +1076,7 @@ export const mockProviders: Provider[] = [
           estimatedApprovalDate: "2026-03-01",
         },
       }),
+      cred("c70a", "BLS Certification", "certification", "incomplete", "other", { issuingBody: "AHA" }),
     ],
     highlights: [
       { text: "450+ PCI procedures at Henry Ford", icon: "procedure" },

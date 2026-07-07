@@ -15,24 +15,37 @@ const STAGES = [
 ];
 
 export function CredentialingProgressBar({ provider, dimProgress }: CredentialingProgressBarProps) {
-  // Derive the active step from the overall status
-  let activeStep = 1; // 0-indexed, so 1 = "App Sent"
-  const status = provider.overallStatus;
+  const credentials = provider.credentials || [];
+  const total = credentials.length;
   
-  if (status === "completed") {
-    activeStep = 3;
-  } else if (status === "in_progress") {
-    activeStep = 2;
-  } else if (status === "incomplete") {
-    activeStep = 1;
-  } else if (status === "exception" || status === "red_flag") {
-    // If it's blocked, we'll assume it's in the review stage or app sent stage.
-    // We'll just put it at step 2 (Under Review) for visual purposes.
-    activeStep = 2;
-  }
+  let score = 0;
+  let hasError = false;
+  let primaryErrorStatus: "red_flag" | "exception" | null = null;
+  
+  credentials.forEach(cred => {
+    if (cred.status === 'completed') score += 100;
+    else if (cred.status === 'in_progress') score += 50;
+    else if (cred.status === 'red_flag' || cred.status === 'exception') {
+      score += 50;
+      hasError = true;
+      if (!primaryErrorStatus) primaryErrorStatus = cred.status;
+    }
+  });
 
-  const isError = status === "exception" || status === "red_flag";
-  const errorConfig = isError ? STATUS_CONFIG[status] : null;
+  const progressPercent = total === 0 ? 0 : Math.round(score / total);
+  
+  let activeStep = 0; // Not Started
+  if (progressPercent === 100) activeStep = 3;
+  else if (progressPercent >= 34) activeStep = 2;
+  else if (progressPercent > 0) activeStep = 1;
+
+  const isError = hasError;
+  const errorConfig = isError && primaryErrorStatus ? STATUS_CONFIG[primaryErrorStatus] : null;
+
+  let label = STAGES[activeStep];
+  if (isError) {
+    label = "Action Required";
+  }
 
   return (
     <div className="space-y-2">
@@ -44,7 +57,7 @@ export function CredentialingProgressBar({ provider, dimProgress }: Credentialin
       <div className="flex items-center gap-3 flex-wrap">
         <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
           <span className={`w-2 h-2 rounded-full transition-all ${isError ? errorConfig?.dotClassName : 'bg-primary'} ${dimProgress ? 'opacity-30 saturate-50 duration-75' : 'opacity-100 saturate-100 duration-300'}`} />
-          {STAGES[activeStep]}
+          {label}
         </span>
       </div>
     </div>

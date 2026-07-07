@@ -33,8 +33,8 @@ const Index = () => {
   const [focusMode, setFocusMode] = useState(false);
   const [focusedProviderId, setFocusedProviderId] = useState<string | null>(null);
   // Sync mode (all cards together)
-  const [cardHighlightsExpanded, setCardHighlightsExpanded] = useState(false);
-  const [cardAvailabilityExpanded, setCardAvailabilityExpanded] = useState(false);
+  const [expandedHighlightRows, setExpandedHighlightRows] = useState<number[]>([]);
+  const [expandedAvailabilityRows, setExpandedAvailabilityRows] = useState<number[]>([]);
   // Individual mode (one card at a time)
   const [expandedHighlightId, setExpandedHighlightId] = useState<string | null>(null);
   const [expandedAvailabilityId, setExpandedAvailabilityId] = useState<string | null>(null);
@@ -76,6 +76,18 @@ const Index = () => {
 
   useEffect(() => {
     setViewMode("presentation");
+  }, []);
+
+  const [numCols, setNumCols] = useState(3);
+  useEffect(() => {
+    const updateCols = () => {
+      if (window.innerWidth >= 1024) setNumCols(3);
+      else if (window.innerWidth >= 768) setNumCols(2);
+      else setNumCols(1);
+    };
+    updateCols();
+    window.addEventListener('resize', updateCols);
+    return () => window.removeEventListener('resize', updateCols);
   }, []);
 
   const handleFocusProvider = useCallback((id: string) => {
@@ -374,34 +386,41 @@ const Index = () => {
         </div>
 
         <div className={`group/grid pt-[calc(1.5rem+8px)] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 ${cardSyncMode ? 'gap-y-0' : 'gap-y-6'} animate-fade-in relative`} data-focus-active={focusedProviderId ? "true" : undefined} style={{ gridTemplateRows: cardSyncMode ? 'auto' : undefined, gridAutoRows: cardSyncMode ? 'auto' : undefined }}>
-          {filteredProviders.map((provider) =>
-            <ProviderCard
-              key={provider.id}
-              provider={provider}
-              constrainHeight={!cardSyncMode}
-              focusModeActive={focusMode}
-              isFocused={focusedProviderId === provider.id}
-              anyCardFocused={!!focusedProviderId}
-              onFocus={handleFocusProvider}
-              onExitFocus={unfocusCard}
-              highlightsExpanded={cardSyncMode ? cardHighlightsExpanded : expandedHighlightId === provider.id}
-              onHighlightsToggle={() => {
-                if (cardSyncMode) {
-                  setCardHighlightsExpanded(prev => !prev);
-                } else {
-                  setExpandedHighlightId(prev => prev === provider.id ? null : provider.id);
-                }
-              }}
-              availabilityExpanded={cardSyncMode ? cardAvailabilityExpanded : expandedAvailabilityId === provider.id}
-              onAvailabilityToggle={() => {
-                if (cardSyncMode) {
-                  setCardAvailabilityExpanded(prev => !prev);
-                } else {
-                  setExpandedAvailabilityId(prev => prev === provider.id ? null : provider.id);
-                }
-              }}
-            />
-          )}
+          {filteredProviders.map((provider, index) => {
+            const rowIndex = Math.floor(index / numCols);
+            return (
+              <ProviderCard
+                key={provider.id}
+                provider={provider}
+                constrainHeight={!cardSyncMode}
+                focusModeActive={focusMode}
+                isFocused={focusedProviderId === provider.id}
+                anyCardFocused={!!focusedProviderId}
+                onFocus={handleFocusProvider}
+                onExitFocus={unfocusCard}
+                highlightsExpanded={cardSyncMode ? expandedHighlightRows.includes(rowIndex) : expandedHighlightId === provider.id}
+                onHighlightsToggle={() => {
+                  if (cardSyncMode) {
+                    setExpandedHighlightRows(prev => 
+                      prev.includes(rowIndex) ? prev.filter(r => r !== rowIndex) : [...prev, rowIndex]
+                    );
+                  } else {
+                    setExpandedHighlightId(prev => prev === provider.id ? null : provider.id);
+                  }
+                }}
+                availabilityExpanded={cardSyncMode ? expandedAvailabilityRows.includes(rowIndex) : expandedAvailabilityId === provider.id}
+                onAvailabilityToggle={() => {
+                  if (cardSyncMode) {
+                    setExpandedAvailabilityRows(prev => 
+                      prev.includes(rowIndex) ? prev.filter(r => r !== rowIndex) : [...prev, rowIndex]
+                    );
+                  } else {
+                    setExpandedAvailabilityId(prev => prev === provider.id ? null : provider.id);
+                  }
+                }}
+              />
+            );
+          })}
         </div>
       </>
       }

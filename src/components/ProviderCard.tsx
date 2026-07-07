@@ -342,7 +342,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
       <div
         style={{ '--hover-border': hoverBorder, '--hover-outline': hoverOutline, '--hover-shadow': hoverShadow } as React.CSSProperties}
         onClick={focusModeActive && !isFocused ? undefined : handleCardClick}
-      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-transparent bg-card bg-gradient-to-b from-card from-[45%] to-[hsl(0,0%,97.5%)] dark:to-[hsl(220,18%,10%)] shadow-sm ${anyCardFocused && !isFocused ? 'pointer-events-none' : 'hover:shadow-[0_4px_20px_-1px_var(--hover-shadow),0_2px_10px_-2px_var(--hover-shadow)] hover:border-[var(--hover-border)] outline outline-0 hover:outline-[2px] outline-[var(--hover-outline)] -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 ${isFocused ? 'relative z-[60] ring-2 ring-[var(--hover-border)]' : 'relative'}`}>
+      className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-transparent bg-card shadow-sm ${anyCardFocused && !isFocused ? 'pointer-events-none' : 'hover:shadow-[0_4px_20px_-1px_var(--hover-shadow),0_2px_10px_-2px_var(--hover-shadow)] hover:border-[var(--hover-border)] outline outline-0 hover:outline-[2px] outline-[var(--hover-outline)] -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 ${isFocused ? 'relative z-[60] ring-2 ring-[var(--hover-border)]' : 'relative'}`}>
         {/* Gradient Border Overlay */}
         <div className={`absolute -inset-[1px] rounded-lg pointer-events-none transition-opacity duration-200 ${isFocused ? 'opacity-0' : 'group-hover/card:opacity-0'} z-10`} 
              style={{
@@ -501,35 +501,38 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
           );
         })()}
 
-        {/* Credentials */}
-        <div className="px-7 space-y-2 border-t border-dashed border-border/[0.72] relative pt-[16px] pb-[32px] mt-5">
-          <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
-            {provider.stage === "credentialing" ? "Credentialing Progress" : "Credentials"}
-          </h4>
-          {provider.stage === "credentialing" ? (
+        {/* Credentials / Credentialing Progress */}
+        {provider.stage === "credentialing" ? (
+          <div className={`mt-5 px-7 py-5 border-t border-border bg-muted/30 rounded-b-[7px] transition-[background-color,border-color] duration-200 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:bg-muted/50 group-hover/card:border-foreground/20'} ${isFocused ? 'bg-muted/50 border-foreground/20' : ''}`}>
+            <h4 className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground mb-3">
+              Credentialing Progress
+            </h4>
             <CredentialingProgressBar provider={provider} dimProgress={anyCardFocused && !isFocused} />
-          ) : (
-            <>
-              <StatusLegendBar credentials={provider.credentials} dimProgress={anyCardFocused && !isFocused} />
-              <div className="flex items-center gap-1 pt-1">
-                <span
-                  onClick={() => setShowCredentialPills((v) => !v)}
-                  className="text-xs text-primary/80 underline underline-offset-2 cursor-pointer transition-colors hover:text-primary">
-                  {showCredentialPills ? "Hide details" : "View details"}
-                </span>
-              </div>
-              <Collapsible open={showCredentialPills}>
-                <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
-                  <div className="flex flex-wrap gap-1.5 pt-1.5">
-                    {provider.credentials.map((cred) =>
-                    <CredentialPill key={cred.id} credential={cred} onClick={setSelectedCredential} />
-                    )}
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
-            </>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="px-7 space-y-2 border-t border-dashed border-border/[0.72] relative pt-[16px] pb-[32px] mt-5">
+            <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
+              Credentials
+            </h4>
+            <StatusLegendBar credentials={provider.credentials} dimProgress={anyCardFocused && !isFocused} />
+            <div className="flex items-center gap-1 pt-1">
+              <span
+                onClick={() => setShowCredentialPills((v) => !v)}
+                className="text-xs text-primary/80 underline underline-offset-2 cursor-pointer transition-colors hover:text-primary">
+                {showCredentialPills ? "Hide details" : "View details"}
+              </span>
+            </div>
+            <Collapsible open={showCredentialPills}>
+              <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
+                <div className="flex flex-wrap gap-1.5 pt-1.5">
+                  {provider.credentials.map((cred) =>
+                  <CredentialPill key={cred.id} credential={cred} onClick={setSelectedCredential} />
+                  )}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          </div>
+        )}
         </div>
       </div>
 
