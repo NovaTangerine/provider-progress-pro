@@ -3,6 +3,7 @@ import { Provider, Credential, CredentialStatus } from "@/types/recruiting";
 import { ShiftPreferenceIcons } from "./ShiftPreferenceIcons";
 import { StatusBadge, STATUS_CONFIG } from "./StatusBadge";
 import { CredentialModal } from "./CredentialModal";
+import { CredentialingProgressBar } from "./CredentialingProgressBar";
 import {
   Calendar,
   Clock,
@@ -14,7 +15,10 @@ import {
   Award,
   Languages,
   FlaskConical,
-  Sparkles } from
+  Sparkles,
+  CheckCircle2,
+  AlertTriangle,
+  AlertCircle } from
 "lucide-react";
 import { DayOfWeekBar } from "./DayOfWeekBar";
 import { Badge } from "@/components/ui/badge";
@@ -145,7 +149,7 @@ function CredentialPill({ credential, onClick }: {credential: Credential;onClick
 
 }
 
-function StatusLegendBar({ credentials }: {credentials: Credential[];}) {
+function StatusLegendBar({ credentials, dimProgress }: {credentials: Credential[]; dimProgress?: boolean;}) {
   const total = credentials.length;
   const counts = credentials.reduce(
     (acc, c) => {
@@ -167,7 +171,7 @@ function StatusLegendBar({ credentials }: {credentials: Credential[];}) {
           return (
             <div
               key={status}
-              className={`${config.dotClassName} transition-all duration-300`}
+              className={`transition-all ${config.dotClassName} ${dimProgress ? 'opacity-30 saturate-50 duration-75' : 'opacity-100 saturate-100 duration-300'}`}
               style={{ width: `${count / total * 100}%` }}
               title={`${config.label}: ${count}/${total}`} />);
 
@@ -180,7 +184,7 @@ function StatusLegendBar({ credentials }: {credentials: Credential[];}) {
           const config = STATUS_CONFIG[status];
           return (
             <span key={status} className="flex items-center gap-1 text-[10px] text-muted-foreground">
-              <span className={`w-2 h-2 rounded-full ${config.dotClassName}`} />
+              <span className={`w-2 h-2 rounded-full transition-all ${config.dotClassName} ${dimProgress ? 'opacity-30 saturate-50 duration-75' : 'opacity-100 saturate-100 duration-300'}`} />
               {config.label} ({count})
             </span>);
 
@@ -220,6 +224,47 @@ function formatDateRange(startDate: string, endDate?: string) {
   const startFmt = start.toLocaleDateString("en-US", { month: "short", day: "numeric", ...(!sameYear && { year: "numeric" }) });
   const endFmt = end.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   return <><span className="inline-block">{startFmt} – {endFmt}<span className={yearClass}>, {end.getFullYear()}</span></span></>;
+}
+
+function getClearanceOutlook(provider: Provider) {
+  if (provider.overallStatus === "completed") {
+    return { status: "Cleared", window: "Ready", color: "text-emerald-600", bg: "bg-emerald-50", icon: CheckCircle2 };
+  }
+
+  // Parse dates
+  const submittedDateStr = provider.submittedDate || "2026-01-01"; // Fallback if missing
+  const submitted = new Date(submittedDateStr + "T00:00:00");
+  const target = new Date(provider.availability.startDate + "T00:00:00");
+  
+  // Diff in days
+  const diffTime = target.getTime() - submitted.getTime();
+  const daysAvailable = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+  // Baseline
+  let requiredMinimum = 60;
+  let maxDays = 90;
+  let windowText = "60–90 Days";
+  
+  if (provider.overallStatus === "red_flag") {
+    requiredMinimum = 120;
+    maxDays = 180;
+    windowText = "4–6 Months";
+  } else if (provider.overallStatus === "exception") {
+    requiredMinimum = 90;
+    maxDays = 120;
+    windowText = "90–120 Days";
+  }
+
+  const completionDate = new Date(submitted.getTime() + maxDays * 24 * 60 * 60 * 1000);
+  const estimatedDateFmt = completionDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+
+  if (daysAvailable >= requiredMinimum) {
+    return { status: "On Target", window: windowText, estimatedDate: estimatedDateFmt, color: "text-emerald-600", bg: "bg-emerald-50", icon: CheckCircle2 };
+  } else if (daysAvailable >= requiredMinimum - 30) {
+    return { status: "At Risk", window: windowText, estimatedDate: estimatedDateFmt, color: "text-amber-600", bg: "bg-amber-50", icon: AlertTriangle };
+  } else {
+    return { status: "Late", window: windowText, estimatedDate: estimatedDateFmt, color: "text-red-600", bg: "bg-red-50", icon: AlertCircle };
+  }
 }
 
 export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle, availabilityExpanded, onAvailabilityToggle, constrainHeight, focusModeActive, isFocused, anyCardFocused, onFocus, onExitFocus }: ProviderCardProps) {
@@ -269,7 +314,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
   return (
     <>
-      <div className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4 pb-6' : 'self-start'} gap-0`} onClick={focusModeActive && !isFocused ? handleCardClick : undefined}>
+      <div id={`provider-card-${provider.id}`} className={`${useSubgrid ? 'grid grid-rows-subgrid row-span-4 pb-6' : 'self-start'} gap-0`} onClick={focusModeActive && !isFocused ? handleCardClick : undefined}>
       <div
         onClick={focusModeActive && !isFocused ? undefined : handleCardClick}
       className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm ${anyCardFocused && !isFocused ? 'pointer-events-none' : 'hover:shadow-card-hover hover:border-foreground/30 outline outline-0 hover:outline-[1.5px] outline-foreground/10 -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
@@ -281,7 +326,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
           />
           <div className="flex items-center gap-3 relative">
             <div
-              className="w-11 h-11 rounded-full bg-primary/10 transition-[background-color,color] duration-200 flex items-center justify-center text-sm font-bold text-primary shrink-0"
+              className="w-11 h-11 rounded-full bg-primary/10 shadow-[0_0_0_0.5px_hsl(var(--primary)/0.4)] transition-[background-color,color] duration-200 flex items-center justify-center text-sm font-bold text-primary shrink-0"
               style={{ '--avatar-hover-bg': avatarBg, '--avatar-hover-text': avatarText } as React.CSSProperties}
             >
               {provider.firstName[0]}
@@ -300,14 +345,18 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         {/* Availability Section */}
         <div className="px-7 space-y-1 pt-[28px] pb-[20px]">
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
-            Availability
+            {provider.stage === "credentialing" ? "Target Start Date" : "Availability"}
           </h4>
           <div className="space-y-2">
             <div
               onClick={onAvailabilityToggle}
               className="group/avail flex items-center gap-3 text-sm cursor-pointer rounded-md pl-1 py-1.5 transition-colors duration-200 hover:bg-[hsl(0,0%,97%)]">
               <Calendar className="w-3.5 h-3.5 text-muted-foreground shrink-0 transition-colors duration-200 group-hover/card:text-[hsl(346,85%,55%)]" />
-              <span className="text-lg tracking-tight text-[#333333] transition-[color] duration-200 font-medium provider-dim-date">{formatDateRange(provider.availability.startDate, provider.availability.endDate)}</span>
+              <span className="text-lg tracking-tight text-[#333333] transition-[color] duration-200 font-medium provider-dim-date">
+                {provider.stage === "credentialing" 
+                  ? formatDateRange(provider.availability.startDate) 
+                  : formatDateRange(provider.availability.startDate, provider.availability.endDate)}
+              </span>
               <span className="text-muted-foreground/40">·</span>
               <span className="text-xs text-primary/80 underline underline-offset-2 transition-colors group-hover/avail:text-primary">
                 {availabilityExpanded ? "Hide details" : "View details"}
@@ -350,65 +399,101 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         </div>
 
         {/* Provider Highlights */}
-        <div className={`px-7 ${highlights.length > 0 ? 'border-t border-dashed border-border/[0.72] relative' : ''} pt-[24px] pb-[16px]`}>
-          {highlights.length > 0 ?
-          <>
+        {provider.stage !== "credentialing" && (
+          <div className={`px-7 ${highlights.length > 0 ? 'border-t border-dashed border-border/[0.72] relative' : ''} pt-[24px] pb-[16px]`}>
+            {highlights.length > 0 ?
+            <>
+                <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
+                  Provider Highlights
+                </h4>
+                <div
+                onClick={hasMore ? onHighlightsToggle : undefined}
+                className={`rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93.5%)] group-hover/card:bg-[hsl(230,12%,97.5%)] group-hover/card:border-[hsl(230,12%,93.5%)] p-3 py-5 space-y-2 transition-[background-color,border-color] duration-[480ms] shadow-[0_6px_12px_-6px_hsla(0,0%,0%,0.06)] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,12%,96%)] hover:!border-[hsl(230,12%,91%)]" : ""}`}>
+  
+                  {highlights.slice(0, 3).map((h, i) =>
+                <HighlightItem key={i} text={h.text} icon={h.icon} />
+                )}
+                  {hasMore &&
+                <Collapsible open={highlightsExpanded}>
+                      <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
+                        <div className="space-y-2 pt-1">
+                          {highlights.slice(3).map((h, i) =>
+                      <HighlightItem key={i + 3} text={h.text} icon={h.icon} />
+                      )}
+                        </div>
+                      </CollapsibleContent>
+                      <span className="flex items-center gap-1 text-xs text-primary/80 font-medium pt-1">
+                        {highlightsExpanded ?
+                    <>Show less <ChevronUp className="w-3 h-3" /></> :
+                    <>+{highlights.length - 3} more <ChevronDown className="w-3 h-3" /></>
+                    }
+                      </span>
+                    </Collapsible>
+                }
+                </div>
+              </> :
+  
+            <div className="h-0" />
+            }
+          </div>
+        )}
+
+        {/* Clearance Outlook (Credentialing Stage Only) */}
+        {provider.stage === "credentialing" && (() => {
+          const outlook = getClearanceOutlook(provider);
+          return (
+            <div className="px-7 space-y-3 border-t border-dashed border-border/[0.72] relative pt-[24px] pb-[16px]">
               <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
-                Provider Highlights
+                Clearance Outlook
               </h4>
-              <div
-              onClick={hasMore ? onHighlightsToggle : undefined}
-              className={`rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93.5%)] group-hover/card:bg-[hsl(230,12%,97.5%)] group-hover/card:border-[hsl(230,12%,93.5%)] p-3 py-5 space-y-2 transition-[background-color,border-color] duration-[480ms] shadow-[0_6px_12px_-6px_hsla(0,0%,0%,0.06)] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,12%,96%)] hover:!border-[hsl(230,12%,91%)]" : ""}`}>
-
-                {highlights.slice(0, 3).map((h, i) =>
-              <HighlightItem key={i} text={h.text} icon={h.icon} />
-              )}
-                {hasMore &&
-              <Collapsible open={highlightsExpanded}>
-                    <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
-                      <div className="space-y-2 pt-1">
-                        {highlights.slice(3).map((h, i) =>
-                    <HighlightItem key={i + 3} text={h.text} icon={h.icon} />
-                    )}
-                      </div>
-                    </CollapsibleContent>
-                    <span className="flex items-center gap-1 text-xs text-primary/80 font-medium pt-1">
-                      {highlightsExpanded ?
-                  <>Show less <ChevronUp className="w-3 h-3" /></> :
-                  <>+{highlights.length - 3} more <ChevronDown className="w-3 h-3" /></>
-                  }
-                    </span>
-                  </Collapsible>
-              }
+              <div className="flex items-center justify-between rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93.5%)] p-4 shadow-[0_6px_12px_-6px_hsla(0,0%,0%,0.06)]">
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Estimated Window</p>
+                  <p className="text-sm font-medium text-foreground mt-0.5">
+                    {outlook.window}
+                    {outlook.estimatedDate && <span className="text-[#999] font-normal ml-1.5">({outlook.estimatedDate})</span>}
+                  </p>
+                </div>
+                <div className="flex flex-col items-end">
+                  <p className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground mb-1">Status</p>
+                  <Badge variant="outline" className={`${outlook.bg} ${outlook.color} border-current/20 flex items-center gap-1.5 px-2 py-0.5 rounded-full`}>
+                    <outlook.icon className="w-3 h-3" />
+                    <span className="font-semibold text-xs tracking-tight">{outlook.status}</span>
+                  </Badge>
+                </div>
               </div>
-            </> :
-
-          <div className="h-0" />
-          }
-        </div>
+            </div>
+          );
+        })()}
 
         {/* Credentials */}
         <div className="px-7 space-y-2 border-t border-dashed border-border/[0.72] relative pt-[16px] pb-[32px] mt-5">
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
-            Credentials
+            {provider.stage === "credentialing" ? "Credentialing Progress" : "Credentials"}
           </h4>
-          <StatusLegendBar credentials={provider.credentials} />
-          <div className="flex items-center gap-1 pt-1">
-            <span
-              onClick={() => setShowCredentialPills((v) => !v)}
-              className="text-xs text-primary/80 underline underline-offset-2 cursor-pointer transition-colors hover:text-primary">
-              {showCredentialPills ? "Hide details" : "View details"}
-            </span>
-          </div>
-          <Collapsible open={showCredentialPills}>
-            <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
-              <div className="flex flex-wrap gap-1.5 pt-1.5">
-                {provider.credentials.map((cred) =>
-                <CredentialPill key={cred.id} credential={cred} onClick={setSelectedCredential} />
-                )}
+          {provider.stage === "credentialing" ? (
+            <CredentialingProgressBar provider={provider} dimProgress={anyCardFocused && !isFocused} />
+          ) : (
+            <>
+              <StatusLegendBar credentials={provider.credentials} dimProgress={anyCardFocused && !isFocused} />
+              <div className="flex items-center gap-1 pt-1">
+                <span
+                  onClick={() => setShowCredentialPills((v) => !v)}
+                  className="text-xs text-primary/80 underline underline-offset-2 cursor-pointer transition-colors hover:text-primary">
+                  {showCredentialPills ? "Hide details" : "View details"}
+                </span>
               </div>
-            </CollapsibleContent>
-          </Collapsible>
+              <Collapsible open={showCredentialPills}>
+                <CollapsibleContent className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up">
+                  <div className="flex flex-wrap gap-1.5 pt-1.5">
+                    {provider.credentials.map((cred) =>
+                    <CredentialPill key={cred.id} credential={cred} onClick={setSelectedCredential} />
+                    )}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            </>
+          )}
         </div>
         </div>
       </div>

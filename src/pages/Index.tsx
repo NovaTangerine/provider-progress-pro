@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, PointerEvent as ReactPointerEvent } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, PointerEvent as ReactPointerEvent } from "react";
 import { mockRole } from "@/data/mockData";
 import { RoleHeader } from "@/components/RoleHeader";
 import { ProviderRow } from "@/components/ProviderRow";
@@ -93,14 +93,72 @@ const Index = () => {
     setFocusMode(false);
   }, []);
 
+  const filteredProviders = useMemo(() => activeStage ?
+    mockRole.providers.filter((p) => p.stage === activeStage) :
+    mockRole.providers, [activeStage]);
+
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
     if (!focusedProviderId) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") unfocusCard();
+      if (e.key === "Escape") {
+        unfocusCard();
+        return;
+      }
+      
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+        const currentIndex = filteredProviders.findIndex((p) => p.id === focusedProviderId);
+        if (currentIndex !== -1) {
+          let nextIndex = e.key === "ArrowLeft" ? currentIndex - 1 : currentIndex + 1;
+          if (nextIndex < 0) nextIndex = filteredProviders.length - 1;
+          if (nextIndex >= filteredProviders.length) nextIndex = 0;
+          
+          const nextProviderId = filteredProviders[nextIndex].id;
+          setFocusedProviderId(nextProviderId);
+          
+          // Debounce the scroll to wait for the user to settle
+          if (scrollTimeoutRef.current) {
+            clearTimeout(scrollTimeoutRef.current);
+          }
+          
+          scrollTimeoutRef.current = setTimeout(() => {
+            const el = document.getElementById(`provider-card-${nextProviderId}`);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              const windowCenter = window.innerHeight / 2;
+              const elCenter = rect.top + rect.height / 2;
+              
+              if (Math.abs(elCenter - windowCenter) > window.innerHeight * 0.25) {
+                const startPos = window.scrollY;
+                const targetPos = startPos + rect.top - (window.innerHeight / 2) + (rect.height / 2);
+                const duration = 750; 
+                const startTime = performance.now();
+                
+                // easeInOutQuint for a much smoother, heavier premium feel
+                const easeInOutQuint = (t: number) => t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
+                
+                const scrollAnim = (currentTime: number) => {
+                  const elapsed = currentTime - startTime;
+                  const progress = Math.min(elapsed / duration, 1);
+                  
+                  window.scrollTo(0, startPos + (targetPos - startPos) * easeInOutQuint(progress));
+                  
+                  if (progress < 1) {
+                    requestAnimationFrame(scrollAnim);
+                  }
+                };
+                
+                requestAnimationFrame(scrollAnim);
+              }
+            }
+          }, 180);
+        }
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [focusedProviderId, unfocusCard]);
+  }, [focusedProviderId, unfocusCard, filteredProviders]);
 
   const toggleFocusMode = useCallback(() => {
     if (focusMode) {
@@ -137,9 +195,7 @@ const Index = () => {
     setExpandedId((prev) => prev === id ? null : id);
   };
 
-  const filteredProviders = activeStage ?
-  mockRole.providers.filter((p) => p.stage === activeStage) :
-  mockRole.providers;
+
 
   return (
     <div ref={containerRef} className="min-h-screen bg-background max-w-[1440px] mx-auto">
@@ -285,7 +341,7 @@ const Index = () => {
       <>
         {/* Focus mode overlay */}
         <div
-          className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex flex-col items-center transition-[opacity,backdrop-filter] duration-[480ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${focusedProviderId ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+          className={`fixed inset-0 bg-black/60 backdrop-blur-[3px] backdrop-saturate-150 z-50 flex flex-col items-center transition-[opacity,backdrop-filter] duration-[480ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${focusedProviderId ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
           onClick={unfocusCard}
         >
           <div className="pt-4 text-center pointer-events-none">
