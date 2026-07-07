@@ -274,7 +274,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         onClick={focusModeActive && !isFocused ? undefined : handleCardClick}
       className={`group/card ${isFocused ? 'group/card--focused' : ''} rounded-lg border border-border bg-card shadow-sm ${anyCardFocused && !isFocused ? 'pointer-events-none' : 'hover:shadow-card-hover hover:border-foreground/30 outline outline-0 hover:outline-[1.5px] outline-foreground/10 -outline-offset-1'} transition-[box-shadow,border-color,outline-width] duration-200 overflow-hidden ${isFocused ? 'relative z-[60] ring-2 ring-primary/30' : ''}`}>
         {/* Header */}
-        <div className={`relative pl-5 pr-7 py-4 border-b border-border ${anyCardFocused && !isFocused ? '' : 'group-hover/card:border-foreground/20'} flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:bg-muted/50'} ${isFocused ? 'bg-muted/50 border-foreground/20' : ''}`}>
+        <div className={`relative pl-5 pr-7 py-4 border-b border-border bg-muted/30 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:border-foreground/20'} flex items-center justify-between gap-4 transition-[background-color,border-color] duration-200 ${anyCardFocused && !isFocused ? '' : 'group-hover/card:bg-muted/50'} ${isFocused ? 'bg-muted/50 border-foreground/20' : ''}`}>
           <div
             className={`absolute inset-0 transition-opacity duration-300 pointer-events-none ${isFocused ? 'opacity-100' : anyCardFocused ? 'opacity-0' : 'opacity-0 group-hover/card:opacity-100'}`}
             style={{ backgroundImage: `linear-gradient(135deg, transparent 40%, ${gradientColor})` }}
@@ -288,7 +288,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
               {provider.lastName[0]}
             </div>
             <div>
-              <p className="text-base font-semibold text-foreground transition-colors duration-200 provider-dim-name tracking-[-0.01em]">
+              <p className="text-base font-medium text-foreground transition-colors duration-200 provider-dim-name tracking-[-0.01em]">
                 {provider.firstName} {provider.lastName}
               </p>
               <p className="text-xs text-muted-foreground">{provider.specialty}</p>
