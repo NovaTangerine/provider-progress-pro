@@ -23,14 +23,29 @@ const DAY_TOOLTIP: Record<DayAvailability, { label: string; sublabel: string }> 
 
 interface DayOfWeekBarProps {
   days: [DayAvailability, DayAvailability, DayAvailability, DayAvailability, DayAvailability, DayAvailability, DayAvailability];
+  shiftTime?: string;
+  startDate?: string;
 }
 
-export function DayOfWeekBar({ days }: DayOfWeekBarProps) {
+export function DayOfWeekBar({ days, shiftTime, startDate }: DayOfWeekBarProps) {
   return (
     <TooltipProvider delayDuration={200}>
       <div className="grid grid-cols-7 gap-2.5">
         {days.map((status, i) => {
           const tooltip = DAY_TOOLTIP[status];
+          const displayLabel = shiftTime 
+            ? (status === "on" ? shiftTime : status === "off" ? "Not scheduled" : tooltip.label)
+            : tooltip.label;
+            
+          let displayDay = DAY_FULL[i];
+          if (startDate) {
+            const d = new Date(startDate + "T00:00:00");
+            d.setDate(d.getDate() + i);
+            const dayName = d.toLocaleDateString("en-US", { weekday: "short" });
+            const monthDay = d.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+            displayDay = `${dayName}, ${monthDay}`;
+          }
+            
           return (
             <Tooltip key={i}>
               <TooltipTrigger asChild>
@@ -41,8 +56,8 @@ export function DayOfWeekBar({ days }: DayOfWeekBarProps) {
                 </div>
               </TooltipTrigger>
               <TooltipContent side="bottom" className="text-xs">
-                <span className="font-medium">{DAY_FULL[i]}</span>
-                <span className="text-muted-foreground"> · {tooltip.label}</span>
+                <span className="font-medium">{displayDay}</span>
+                <span className="text-muted-foreground"> · {displayLabel}</span>
               </TooltipContent>
             </Tooltip>
           );

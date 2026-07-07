@@ -16,8 +16,10 @@ interface StageToggleProps {
 
 const STAGES: { value: ProviderStage; label: string }[] = [
   { value: "presented", label: "Presented" },
+  { value: "awaiting_confirmation", label: "Awaiting Confirmation" },
   { value: "confirmed", label: "Confirmed" },
   { value: "credentialing", label: "Credentialing" },
+  { value: "credentialing_complete", label: "Credentialing Complete" },
   { value: "on_assignment", label: "On Assignment" },
 ];
 

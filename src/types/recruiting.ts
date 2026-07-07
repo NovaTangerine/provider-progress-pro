@@ -4,13 +4,18 @@ export type CredentialStatus =
   | "in_progress"
   | "completed"
   | "red_flag"
-  | "exception";
+  | "exception"
+  | "on_assignment"
+  | "assignment_completed"
+  | "awaiting_confirmation";
 
 // ── Provider journey stage ──
 export type ProviderStage =
   | "presented"
+  | "awaiting_confirmation"
   | "confirmed"
   | "credentialing"
+  | "credentialing_complete"
   | "on_assignment";
 
 // ── Credential category ──
@@ -116,6 +121,7 @@ export interface Availability {
   availableDays?: [DayAvailability, DayAvailability, DayAvailability, DayAvailability, DayAvailability, DayAvailability, DayAvailability];
   scheduleNotes?: ScheduleNote[];
   shiftPreferences?: ShiftPreference[];
+  assignedShifts?: number[];
 }
 
 // ── Provider Highlight ──
@@ -143,6 +149,8 @@ export interface Provider {
   overallStatus: CredentialStatus; // derived from worst credential
   submittedDate: string;
   notes?: string;
+  fitScore?: number;
+  fitEvaluation?: string;
 }
 
 // ── Open Role ──

@@ -2,9 +2,11 @@ import { CredentialStatus } from "@/types/recruiting";
 import {
   Circle,
   Loader2,
-  CheckCircle2,
+  Check,
   AlertTriangle,
   ShieldAlert,
+  RefreshCw,
+  Clock,
 } from "lucide-react";
 
 interface StatusConfig {
@@ -35,7 +37,7 @@ export const STATUS_CONFIG: Record<CredentialStatus, StatusConfig> = {
   },
   completed: {
     label: "Completed",
-    icon: CheckCircle2,
+    icon: Check,
     className: "text-status-completed",
     bgClassName: "bg-status-completed-bg",
     dotClassName: "bg-status-completed",
@@ -56,6 +58,30 @@ export const STATUS_CONFIG: Record<CredentialStatus, StatusConfig> = {
     bgClassName: "bg-status-exception-bg",
     dotClassName: "bg-status-exception",
     borderClassName: "border-status-exception-border",
+  },
+  on_assignment: {
+    label: "On Assignment",
+    icon: RefreshCw,
+    className: "text-status-completed",
+    bgClassName: "bg-status-completed-bg",
+    dotClassName: "bg-status-completed",
+    borderClassName: "border-status-completed-border",
+  },
+  assignment_completed: {
+    label: "Assignment Completed",
+    icon: Check,
+    className: "text-status-completed",
+    bgClassName: "bg-status-completed-bg",
+    dotClassName: "bg-status-completed",
+    borderClassName: "border-status-completed-border",
+  },
+  awaiting_confirmation: {
+    label: "Awaiting Confirmation",
+    icon: Clock,
+    className: "text-status-in-progress",
+    bgClassName: "bg-status-in-progress-bg",
+    dotClassName: "bg-status-in-progress",
+    borderClassName: "border-status-in-progress-border",
   },
 };
 
