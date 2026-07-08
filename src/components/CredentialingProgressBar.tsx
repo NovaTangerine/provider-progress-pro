@@ -49,7 +49,7 @@ export function CredentialingProgressBar({ provider, dimProgress }: Credentialin
       <Progress 
         value={progressPercent} 
         className="h-1.5" 
-        indicatorClassName={hasError ? "bg-destructive" : progressPercent === 100 ? "bg-[hsl(152,60%,40%)]" : "bg-primary"} 
+        indicatorClassName={hasError ? "bg-destructive" : progressPercent === 100 ? "bg-[hsl(152,60%,40%)]" : "bg-blue-500"} 
       />
 
       {/* Status Pills */}
@@ -61,7 +61,7 @@ export function CredentialingProgressBar({ provider, dimProgress }: Credentialin
           </div>
         )}
         {inProgressCount > 0 && (
-          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-[11px] font-medium">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-blue-500/10 text-blue-600 border border-blue-500/20 rounded-full text-[11px] font-medium">
             <Clock className="w-3.5 h-3.5" />
             {inProgressCount} In Progress
           </div>
