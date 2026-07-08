@@ -231,12 +231,12 @@ export default function KimberlyPresentation() {
               Design Engineering Concept
             </span>
             <h1 className="text-4xl sm:text-5xl font-normal text-white tracking-[-0.012em] leading-[1.08] sm:leading-[1.08] mb-2 md:mb-0">
-              Provider Staffing + Credentialing Lifecycle
+              Provider Staffing: Credentialing Lifecycle
             </h1>
           </div>
           <div className="max-w-xs text-left md:text-right">
             <p className="text-sm text-slate-400 leading-relaxed font-medium">
-              A dedicated presentation view showing how Kimberly Pine's provider card elegantly adapts to different lifecycle stages.
+              A step-by-step demo showing how a healthcare interface adapts to different lifecycle stages for a single provider.
             </p>
           </div>
         </div>
@@ -298,6 +298,18 @@ export default function KimberlyPresentation() {
         </div>
         </div>
       </div>
+      
+      <a 
+        href="https://kyledk.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-center px-8 pt-16 pb-4 bg-gradient-to-b from-black to-slate-800 rounded-b-[40px] border border-t-0 border-slate-800/80 relative z-10 flex flex-col items-center justify-center -mt-12 cursor-pointer group hover:bg-gradient-to-b hover:from-black hover:to-slate-700 transition-all duration-300"
+        style={{ fontFamily: "'Inter Tight', sans-serif" }}
+      >
+        <p className="text-[10px] sm:text-[12px] text-slate-400 font-medium tracking-wide group-hover:text-white transition-colors duration-300">
+          Built by Kyle D.K. — a Design Engineer based in 🍑 ATL
+        </p>
+      </a>
       </div>
 
     </div>
