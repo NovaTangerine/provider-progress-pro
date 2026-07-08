@@ -91,4 +91,12 @@ export const STATUS_CONFIG: Record<CredentialStatus, StatusConfig> = {
     dotClassName: "bg-status-completed",
     borderClassName: "border-status-completed-border",
   },
+  presented: {
+    label: "Presented",
+    icon: Circle,
+    className: "text-status-incomplete",
+    bgClassName: "bg-status-incomplete-bg",
+    dotClassName: "bg-status-incomplete",
+    borderClassName: "border-status-incomplete-border",
+  },
 };

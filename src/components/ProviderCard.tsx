@@ -359,6 +359,8 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     exception: "hsla(262,52%,50%,0.07)",
     on_assignment: "hsla(152,60%,40%,0.08)",
     assignment_completed: "hsla(152,60%,40%,0.08)",
+    awaiting_confirmation: "hsla(210,60%,50%,0.08)",
+    presented: "hsla(215,12%,65%,0.07)",
   };
   const STATUS_AVATAR_BG: Record<string, string> = {
     incomplete: "hsla(215,12%,65%,0.15)",
@@ -368,6 +370,8 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     exception: "hsla(262,52%,50%,0.12)",
     on_assignment: "hsla(152,60%,40%,0.14)",
     assignment_completed: "hsla(152,60%,40%,0.14)",
+    awaiting_confirmation: "hsla(210,60%,50%,0.14)",
+    presented: "hsla(215,12%,65%,0.15)",
   };
   const STATUS_AVATAR_TEXT: Record<string, string> = {
     incomplete: "hsl(215,12%,45%)",
@@ -377,6 +381,8 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     exception: "hsl(262,45%,42%)",
     on_assignment: "hsl(152,55%,32%)",
     assignment_completed: "hsl(152,55%,32%)",
+    awaiting_confirmation: "hsl(210,60%,40%)",
+    presented: "hsl(215,12%,45%)",
   };
   const STATUS_BORDER_HOVER: Record<string, string> = {
     incomplete: "hsla(215,12%,45%,0.35)",
@@ -386,6 +392,8 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     exception: "hsla(262,45%,42%,0.35)",
     on_assignment: "hsla(152,55%,32%,0.35)",
     assignment_completed: "hsla(152,55%,32%,0.35)",
+    awaiting_confirmation: "hsla(210,60%,40%,0.35)",
+    presented: "hsla(215,12%,45%,0.35)",
   };
   const STATUS_OUTLINE: Record<string, string> = {
     incomplete: "hsla(215,12%,45%,0.15)",
@@ -395,6 +403,8 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     exception: "hsla(262,45%,42%,0.15)",
     on_assignment: "hsla(152,55%,32%,0.15)",
     assignment_completed: "hsla(152,55%,32%,0.15)",
+    awaiting_confirmation: "hsla(210,60%,40%,0.15)",
+    presented: "hsla(215,12%,45%,0.15)",
   };
   const STATUS_SHADOW: Record<string, string> = {
     incomplete: "hsla(215,12%,45%,0.12)",
@@ -404,6 +414,8 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
     exception: "hsla(262,45%,42%,0.12)",
     on_assignment: "hsla(152,55%,32%,0.12)",
     assignment_completed: "hsla(152,55%,32%,0.12)",
+    awaiting_confirmation: "hsla(210,60%,40%,0.12)",
+    presented: "hsla(215,12%,45%,0.12)",
   };
   const gradientColor = provider.stage === "presented" ? "hsla(215,12%,50%,0.1)" : (STATUS_GRADIENT[provider.overallStatus] ?? STATUS_GRADIENT.incomplete);
   const avatarBg = STATUS_AVATAR_BG[provider.overallStatus] ?? STATUS_AVATAR_BG.incomplete;
@@ -497,6 +509,14 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
         {/* Availability Section */}
         <div className="px-7 space-y-1 pt-[28px] pb-[20px]">
+          {provider.stage === "awaiting_confirmation" && (
+            <div className="mb-4 flex items-start gap-2.5 p-3 rounded-md bg-slate-100 border border-slate-200 text-[12.5px] text-muted-foreground leading-snug">
+              <Clock className="w-4 h-4 shrink-0 mt-0.5 text-slate-500" />
+              <p>
+                Submitted for confirmation on <span className="font-medium text-foreground tracking-tight">{formatSingleDate(provider.submittedDate)}</span>
+              </p>
+            </div>
+          )}
           <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad]">
             {provider.stage === "credentialing" || provider.stage === "confirmed" ? "Target Start Date" : provider.stage === "credentialing_complete" ? "Start Date" : provider.stage === "on_assignment" ? "Next Shift" : "Availability"}
           </h4>
@@ -599,7 +619,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
         {/* Provider Highlights */}
         {provider.stage !== "credentialing" && provider.stage !== "credentialing_complete" && provider.stage !== "confirmed" && (
-          <div className={`px-7 ${highlights.length > 0 ? 'border-t border-dashed border-border/[0.72] relative' : ''} pt-[24px] pb-[16px]`}>
+          <div className={`px-7 ${highlights.length > 0 ? 'border-t border-dashed border-border/[0.72] relative' : ''} pt-[24px] pb-[24px]`}>
             {highlights.length > 0 ?
             <>
                 <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
@@ -607,7 +627,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
                 </h4>
                 <div
                 onClick={hasMore ? onHighlightsToggle : undefined}
-                className={`rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93.5%)] group-hover/card:bg-[hsl(230,12%,97.5%)] group-hover/card:border-[hsl(230,12%,93.5%)] px-3 pt-5 pb-3 space-y-2 transition-[background-color,border-color] duration-[480ms] shadow-[0_6px_12px_-6px_hsla(0,0%,0%,0.06)] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,12%,96%)] hover:!border-[hsl(230,12%,91%)]" : ""}`}>
+                className={`rounded-md bg-[hsl(0,0%,97.5%)] border-[1.5px] border-[hsl(0,0%,93.5%)] group-hover/card:bg-[hsl(230,12%,97.5%)] group-hover/card:border-[hsl(230,12%,93.5%)] px-3 pt-4 pb-4 space-y-2 transition-[background-color,border-color] duration-[480ms] shadow-[0_6px_12px_-6px_hsla(0,0%,0%,0.06)] ${hasMore ? "cursor-pointer hover:!bg-[hsl(230,12%,96%)] hover:!border-[hsl(230,12%,91%)]" : ""}`}>
   
                   {highlights.slice(0, 3).map((h, i) =>
                 <HighlightItem key={i} text={h.text} icon={h.icon} />
@@ -642,7 +662,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
         {(provider.stage === "credentialing" || provider.stage === "confirmed") && (() => {
           const outlook = getClearanceOutlook(provider);
           return (
-            <div className="px-7 space-y-3 border-t border-dashed border-border/[0.72] relative pt-[24px] pb-[16px]">
+            <div className="px-7 space-y-3 border-t border-dashed border-border/[0.72] relative pt-[24px] pb-[24px]">
               <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
                 Clearance Outlook
               </h4>
@@ -672,7 +692,7 @@ export function ProviderCard({ provider, highlightsExpanded, onHighlightsToggle,
 
         {/* Clearance Summary (Credentialing Complete Stage Only) */}
         {provider.stage === "credentialing_complete" && (
-          <div className="px-7 space-y-3 border-t border-dashed border-border/[0.72] relative pt-[24px] pb-[16px]">
+          <div className="px-7 space-y-3 border-t border-dashed border-border/[0.72] relative pt-[24px] pb-[24px]">
             <h4 className="text-[10px] uppercase tracking-widest font-medium text-[#909cad] bg-card px-3 absolute -top-[8px] left-4">
               Clearance Summary
             </h4>

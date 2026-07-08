@@ -142,6 +142,7 @@ const SingleJob = () => {
     };
 
     const kimPresented = cloneProvider("presented", {
+      overallStatus: "presented",
       fitScore: 82,
       fitEvaluation: "Good Fit"
     });
