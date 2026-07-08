@@ -216,23 +216,36 @@ export default function KimberlyPresentation() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center pt-16 pb-24 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100/70 to-blue-100/80 flex flex-col items-center pt-16 pb-24 px-4 sm:px-6 overflow-x-hidden">
       
-      {/* Presentation Header */}
-      <div className="text-center mb-10 max-w-2xl">
-        <h1 className="text-2xl font-semibold text-slate-900 tracking-tight mb-2">
-          Provider Card Evolution
-        </h1>
-        <p className="text-sm text-slate-500">
-          A dedicated presentation view showing how Kimberly Pine's provider card elegantly adapts to different lifecycle stages.
-        </p>
-      </div>
+      {/* Seamless Presentation Container */}
+      <div className="w-full max-w-[960px] mx-auto flex flex-col relative">
+        
+        {/* Presentation Header (Extends behind to fill corner gaps) */}
+        <div 
+          className="px-8 pt-12 pb-24 sm:px-12 bg-gradient-to-t from-black to-slate-800 rounded-t-[40px] border border-b-0 border-slate-800/80 relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 -mb-12"
+          style={{ fontFamily: "'Inter Tight', sans-serif" }}
+        >
+          <div className="max-w-xl text-left flex flex-col items-start">
+            <span className="text-xs uppercase tracking-[0.16em] font-medium bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 text-transparent bg-clip-text mb-3">
+              Design Engineering Concept
+            </span>
+            <h1 className="text-4xl sm:text-5xl font-normal text-white tracking-[-0.012em] leading-[1.08] sm:leading-[1.08] mb-2 md:mb-0">
+              Provider Staffing + Credentialing Lifecycle
+            </h1>
+          </div>
+          <div className="max-w-xs text-left md:text-right">
+            <p className="text-sm text-slate-400 leading-relaxed font-medium">
+              A dedicated presentation view showing how Kimberly Pine's provider card elegantly adapts to different lifecycle stages.
+            </p>
+          </div>
+        </div>
 
-      {/* Enclosed Gradient Presentation Container */}
-      <div 
-        className={`w-full max-w-[960px] mx-auto rounded-[32px] border border-slate-800/80 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] relative overflow-hidden ${isTransitioning ? 'transition-[height] duration-400 ease-in-out' : ''}`}
-        style={{ height: containerHeight !== "auto" ? containerHeight + 2 : undefined }}
-      >
+        {/* Enclosed Gradient Layer */}
+        <div 
+          className={`w-full rounded-[40px] border border-slate-800/80 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] relative overflow-hidden z-20 ${isTransitioning ? 'transition-[height] duration-400 ease-in-out' : ''}`}
+          style={{ height: containerHeight !== "auto" ? containerHeight + 2 : undefined }}
+        >
         <div ref={contentRef} className="w-full p-8 sm:p-12">
           {/* Animated Mesh Background */}
           <div className="absolute inset-0 z-0 bg-[#0a0f1c] pointer-events-none">
@@ -284,6 +297,7 @@ export default function KimberlyPresentation() {
           </div>
         </div>
         </div>
+      </div>
       </div>
 
     </div>
