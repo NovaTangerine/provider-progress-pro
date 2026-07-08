@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { ProviderStage } from "@/types/recruiting";
 import { ProviderCard } from "@/components/ProviderCard";
 
@@ -172,12 +172,48 @@ const STAGES: { id: ProviderStage; label: string }[] = [
 
 export default function KimberlyPresentation() {
   const [activeStage, setActiveStage] = useState<ProviderStage>("presented");
+  const [displayStage, setDisplayStage] = useState<ProviderStage>("presented");
+  const [isFading, setIsFading] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const [highlightsExpanded, setHighlightsExpanded] = useState(false);
   const [availabilityExpanded, setAvailabilityExpanded] = useState(false);
   
   const kimberlyStates = useMemo(() => generateKimberlyStates(), []);
-  
-  const activeProvider = kimberlyStates[activeStage];
+  const activeProvider = kimberlyStates[displayStage];
+
+  const handleStageChange = (newStage: ProviderStage) => {
+    if (newStage === activeStage) return;
+    setActiveStage(newStage);
+    setIsFading(true);
+    
+    setTimeout(() => {
+      setIsTransitioning(true);
+      setDisplayStage(newStage);
+      setIsFading(false);
+      
+      if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+      transitionTimeoutRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 400);
+    }, 150);
+  };
+
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [containerHeight, setContainerHeight] = useState<number | "auto">("auto");
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      setContainerHeight(entries[0].borderBoxSize[0].blockSize);
+    });
+    observer.observe(contentRef.current);
+    return () => {
+      observer.disconnect();
+      if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center pt-16 pb-24 px-4 sm:px-6">
@@ -193,18 +229,21 @@ export default function KimberlyPresentation() {
       </div>
 
       {/* Enclosed Gradient Presentation Container */}
-      <div className="w-full max-w-[960px] mx-auto rounded-[32px] p-8 sm:p-12 border border-slate-800/80 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] relative overflow-hidden">
-        
-        {/* Animated Mesh Background */}
-        <div className="absolute inset-0 z-0 bg-[#0a0f1c] pointer-events-none">
-          <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] rounded-full bg-[#2563eb] blur-[120px] opacity-60 animate-mesh-1 mix-blend-screen" />
-          <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] rounded-full bg-[#7c3aed] blur-[140px] opacity-50 animate-mesh-2 mix-blend-screen" />
-          <div className="absolute top-[10%] right-[10%] w-[60%] h-[60%] rounded-full bg-[#06b6d4] blur-[100px] opacity-40 animate-mesh-3 mix-blend-screen" />
-          <div className="absolute inset-0 bg-black/10 backdrop-blur-[30px]" />
-        </div>
+      <div 
+        className={`w-full max-w-[960px] mx-auto rounded-[32px] border border-slate-800/80 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] relative overflow-hidden ${isTransitioning ? 'transition-[height] duration-400 ease-in-out' : ''}`}
+        style={{ height: containerHeight !== "auto" ? containerHeight + 2 : undefined }}
+      >
+        <div ref={contentRef} className="w-full p-8 sm:p-12">
+          {/* Animated Mesh Background */}
+          <div className="absolute inset-0 z-0 bg-[#0a0f1c] pointer-events-none">
+            <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] rounded-full bg-[#2563eb] blur-[120px] opacity-60 animate-mesh-1 mix-blend-screen" />
+            <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] rounded-full bg-[#7c3aed] blur-[140px] opacity-50 animate-mesh-2 mix-blend-screen" />
+            <div className="absolute top-[10%] right-[10%] w-[60%] h-[60%] rounded-full bg-[#06b6d4] blur-[100px] opacity-40 animate-mesh-3 mix-blend-screen" />
+            <div className="absolute inset-0 bg-black/10 backdrop-blur-[30px]" />
+          </div>
 
-        {/* Content Layer */}
-        <div className="relative z-10">
+          {/* Content Layer */}
+          <div className="relative z-10">
           {/* State Selection Pills */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             {STAGES.map((stage) => {
@@ -212,7 +251,7 @@ export default function KimberlyPresentation() {
               return (
                 <button
                   key={stage.id}
-                  onClick={() => setActiveStage(stage.id)}
+                  onClick={() => handleStageChange(stage.id)}
                   className={`
                     px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-300
                     ${isActive 
@@ -228,7 +267,7 @@ export default function KimberlyPresentation() {
 
           {/* Centered Card View */}
           <div className="w-full max-w-[440px] mx-auto relative min-h-[500px] kimberly-shadow-override">
-            <div className="transition-all duration-500 ease-in-out w-full">
+            <div className={`transition-opacity duration-300 ease-in-out w-full ${isFading ? 'opacity-0' : 'opacity-100'}`}>
               <ProviderCard
                 provider={activeProvider}
                 isFocused={false}
@@ -243,6 +282,7 @@ export default function KimberlyPresentation() {
               />
             </div>
           </div>
+        </div>
         </div>
       </div>
 
