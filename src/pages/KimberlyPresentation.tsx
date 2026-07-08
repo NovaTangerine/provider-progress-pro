@@ -219,11 +219,11 @@ export default function KimberlyPresentation() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100/70 to-blue-100/80 flex flex-col items-center pt-16 pb-24 px-4 sm:px-6 overflow-x-hidden">
       
       {/* Seamless Presentation Container */}
-      <div className="w-full max-w-[960px] mx-auto flex flex-col relative">
+      <div className="w-full max-w-[960px] mx-auto bg-gradient-to-b from-slate-800 via-black to-slate-800 rounded-[40px] border border-slate-800/80 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] flex flex-col py-[4px] px-[8px] relative z-10">
         
-        {/* Presentation Header (Extends behind to fill corner gaps) */}
+        {/* Presentation Header */}
         <div 
-          className="px-8 pt-12 pb-24 sm:px-12 bg-gradient-to-t from-black to-slate-800 rounded-t-[40px] border border-b-0 border-slate-800/80 relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 -mb-12"
+          className="px-7 pt-11 pb-11 sm:px-11 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
           style={{ fontFamily: "'Inter Tight', sans-serif" }}
         >
           <div className="max-w-xl text-left flex flex-col items-start">
@@ -243,7 +243,7 @@ export default function KimberlyPresentation() {
 
         {/* Enclosed Gradient Layer */}
         <div 
-          className={`w-full rounded-[40px] border border-slate-800/80 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] relative overflow-hidden z-20 ${isTransitioning ? 'transition-[height] duration-400 ease-in-out' : ''}`}
+          className={`w-full rounded-[36px] border border-slate-700/50 bg-[#0a0f1c] relative overflow-hidden z-20 ${isTransitioning ? 'transition-[height] duration-400 ease-in-out' : ''}`}
           style={{ height: containerHeight !== "auto" ? containerHeight + 2 : undefined }}
         >
         <div ref={contentRef} className="w-full p-8 sm:p-12">
@@ -297,16 +297,17 @@ export default function KimberlyPresentation() {
           </div>
         </div>
         </div>
-      </div>
+        </div>
       
+      {/* Presentation Footer Lip */}
       <a 
         href="https://kyledk.dev"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-center px-8 pt-16 pb-4 bg-gradient-to-b from-black to-slate-800 rounded-b-[40px] border border-t-0 border-slate-800/80 relative z-10 flex flex-col items-center justify-center -mt-12 cursor-pointer group hover:bg-gradient-to-b hover:from-black hover:to-slate-700 transition-all duration-300"
+        className="text-center px-7 py-3 flex flex-col items-center justify-center cursor-pointer group"
         style={{ fontFamily: "'Inter Tight', sans-serif" }}
       >
-        <p className="text-[10px] sm:text-[12px] text-slate-400 font-medium tracking-wide group-hover:text-white transition-colors duration-300">
+        <p className="px-4 py-2 rounded-full text-[10px] sm:text-[12px] text-slate-400 font-medium tracking-wide group-hover:text-white group-hover:bg-white/5 transition-all duration-300">
           Built by Kyle D.K. — a Design Engineer based in 🍑 ATL
         </p>
       </a>
